@@ -5,7 +5,7 @@ import { SignInForm } from '@medplum/react';
 export function SignInPage(): JSX.Element {
   return (
     <Center h="100vh">
-      <SignInForm onSuccess={() => undefined}>
+      <SignInForm>
         <Stack gap={2} align="center" mb="sm">
           <Title order={3}>BioWellness</Title>
           <Text c="dimmed" size="sm">
