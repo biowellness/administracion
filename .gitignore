@@ -1,0 +1,19 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# Variables de entorno (usar .env.example como plantilla)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / SO
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
