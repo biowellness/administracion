@@ -1,4 +1,4 @@
-import { Badge, Card, Group, Loader, Progress, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { Alert, Badge, Card, Group, Loader, Progress, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { ETAPA_PIPELINE_LABEL, GRUPOS_CRM, measureCrm } from '../fhir/systems';
 import { groupValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { fmt } from '../lib/format';
@@ -20,12 +20,21 @@ export function ResumenPage(): JSX.Element {
 
   const loading =
     embudo.loading || clientes.loading || conversion.loading || churn.loading || ltv.loading;
+  const error = embudo.error ?? clientes.error ?? conversion.error ?? churn.error ?? ltv.error;
 
   if (loading) {
     return (
       <Group justify="center" p="xl">
         <Loader />
       </Group>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert color="red" title="Error" variant="light">
+        No se pudieron cargar los indicadores. Probá recargar la página.
+      </Alert>
     );
   }
 
@@ -65,14 +74,15 @@ export function ResumenPage(): JSX.Element {
         <Stack gap="xs">
           {GRUPOS_CRM.embudo.map((code) => {
             const v = valorEtapa(code);
-            const pct = Math.round((v / tope) * 100);
+            const ratio = (v / tope) * 100; // crudo, para el ancho de la barra (fiel al original)
+            const pct = Math.round(ratio); // redondeado, solo para el texto
             return (
               <Group key={code} gap="md" wrap="nowrap">
                 <Text size="sm" w={170}>
                   {ETAPA_PIPELINE_LABEL[code]}
                 </Text>
                 <Progress
-                  value={pct}
+                  value={ratio}
                   size="lg"
                   radius="sm"
                   style={{ flex: 1 }}

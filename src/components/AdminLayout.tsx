@@ -12,7 +12,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useMedplum, useMedplumProfile } from '@medplum/react';
-import type { Icon } from '@tabler/icons-react';
+import type { TablerIcon } from '@tabler/icons-react';
 import {
   IconCalendarStats,
   IconChartBar,
@@ -28,7 +28,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 interface NavItem {
   label: string;
   to: string;
-  icon: Icon;
+  icon: TablerIcon;
 }
 
 const NAV: NavItem[] = [
