@@ -6,7 +6,13 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   envPrefix: ['MEDPLUM_'],
+  preview: {
+    port: 3002,
+    allowedHosts: true,
+    host: 'admin.medplum.com.ar',
+  },
   server: {
-    port: 3001,
+    port: 3002,
+    host: 'localhost',
   },
 });
