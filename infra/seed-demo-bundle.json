@@ -93,7 +93,28 @@
           { "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-usadas", "valueInteger": 5 }
         ],
         "status": "active",
+        "type": { "text": "Plan Full" },
+        "class": [{ "type": { "coding": [{ "code": "plan" }] }, "value": "FULL", "name": "Plan Full" }],
+        "period": { "start": "2026-06-01", "end": "2026-07-15" },
         "beneficiary": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104" },
+        "payor": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000001" }]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000009",
+      "request": { "method": "POST", "url": "Coverage" },
+      "resource": {
+        "resourceType": "Coverage",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "extension": [
+          { "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-mes", "valueInteger": 4 },
+          { "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-usadas", "valueInteger": 4 }
+        ],
+        "status": "active",
+        "type": { "text": "Plan Recovery" },
+        "class": [{ "type": { "coding": [{ "code": "plan" }] }, "value": "RECOVERY", "name": "Plan Recovery" }],
+        "period": { "start": "2026-06-01", "end": "2026-07-05" },
+        "beneficiary": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105" },
         "payor": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000001" }]
       }
     },
@@ -755,6 +776,45 @@
         "period": { "start": "2026-06-24", "end": "2026-06-26" },
         "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "margen-2026-06" }],
         "group": [{ "code": { "coding": [{ "code": "estimado", "display": "Margen estimado" }] }, "measureScore": { "value": 5550000 } }]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000717",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/cobros",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "cobros-2026-06" }],
+        "group": [
+          { "code": { "coding": [{ "code": "cobrado", "display": "Cobrado" }] }, "measureScore": { "value": 15800000 } },
+          { "code": { "coding": [{ "code": "pendiente", "display": "Pendiente" }] }, "measureScore": { "value": 2100000 } },
+          { "code": { "coding": [{ "code": "fallido", "display": "Fallido" }] }, "measureScore": { "value": 600000 } }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000718",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/founding-members",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "founding-members-2026-06" }],
+        "group": [
+          { "code": { "coding": [{ "code": "cupos-usados", "display": "Cupos usados" }] }, "measureScore": { "value": 18 } },
+          { "code": { "coding": [{ "code": "cupos-totales", "display": "Cupos totales" }] }, "measureScore": { "value": 25 } },
+          { "code": { "coding": [{ "code": "descuento-promedio", "display": "Descuento promedio" }] }, "measureScore": { "value": 20 } },
+          { "code": { "coding": [{ "code": "ltv-promedio", "display": "LTV promedio" }] }, "measureScore": { "value": 320000 } }
+        ]
       }
     }
   ]

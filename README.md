@@ -58,7 +58,7 @@ src/
     FilaBarra.tsx           Fila etiqueta + barra + valor (Servicios, Financiero)
     BotonTema.tsx           Toggle de modo claro/oscuro
     LanzarCampanaModal.tsx  Compositor de campaña con confirmación
-  pages/                    Dashboard · Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Ingresos · Financiero · Reportes + login
+  pages/                    Dashboard · Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Membresías · Ingresos · Financiero · Reportes + login
 infra/
   access-policy-administracion.json  AccessPolicy del rol Administración
 ```
@@ -150,6 +150,12 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
   `MEASURE_SLUGS_FINANZAS` en `systems.ts`. La pantalla **Ingresos** muestra el comparativo
   mes vs. mes anterior.
 - **Tipo de cambio**: Measure **asumido** `tipo-cambio` (grupo `usd` = ARS por 1 USD).
+- **Membresías** (pantalla `/membresias`): el detalle por miembro (tier, sesiones, próximo
+  cobro) se lee de `Coverage` activos (tier en `class[].name`/`type.text`, sesiones en las
+  extensiones `sesiones-mes`/`sesiones-usadas`, próximo cobro en `period.end`); los agregados
+  vienen de Measures **asumidos** `cobros` (grupos `cobrado`/`pendiente`/`fallido`) y
+  `founding-members` (grupos `cupos-usados`/`cupos-totales`/`descuento-promedio`/`ltv-promedio`),
+  más `churn` y `membresias-utilizacion`.
 - Clínicos: solo señales **agregadas** (sin exponer valores de Observation) para respetar
   la AccessPolicy. Gestión (proyección v12 vs. real): se leerá de un Measure dedicado.
 
