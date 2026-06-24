@@ -76,6 +76,8 @@ export const MEASURE_SLUGS_FINANZAS = [
   'ingresos',
   'ingresos-servicio',
   'ingresos-medico',
+  'ingresos-cobro',
+  'ingresos-iv-tb',
   'margen',
   'tipo-cambio',
 ] as const;

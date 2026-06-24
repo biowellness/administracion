@@ -623,6 +623,139 @@
           { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 63 } }
         ]
       }
+    },
+
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000710",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/tipo-cambio",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "tipo-cambio-2026-06" }],
+        "group": [{ "code": { "coding": [{ "code": "usd", "display": "ARS por USD" }] }, "measureScore": { "value": 1000 } }]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000711",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-2026-06" }],
+        "group": [
+          { "code": { "coding": [{ "code": "dia", "display": "Hoy" }] }, "measureScore": { "value": 850000 } },
+          { "code": { "coding": [{ "code": "mes", "display": "Mes corriente" }] }, "measureScore": { "value": 18500000 } },
+          { "code": { "coding": [{ "code": "mes-anterior", "display": "Mes anterior" }] }, "measureScore": { "value": 16200000 } }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000712",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-cobro",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-cobro-2026-06" }],
+        "group": [
+          { "code": { "coding": [{ "code": "efectivo", "display": "Efectivo" }] }, "measureScore": { "value": 4200000 } },
+          { "code": { "coding": [{ "code": "tarjeta-debito", "display": "Tarjeta débito" }] }, "measureScore": { "value": 3100000 } },
+          { "code": { "coding": [{ "code": "tarjeta-credito", "display": "Tarjeta crédito" }] }, "measureScore": { "value": 6800000 } },
+          { "code": { "coding": [{ "code": "transferencia", "display": "Transferencia" }] }, "measureScore": { "value": 3000000 } },
+          { "code": { "coding": [{ "code": "mercadopago", "display": "Mercado Pago" }] }, "measureScore": { "value": 1400000 } },
+          { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 18500000 } }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000713",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-servicio",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-servicio-2026-06" }],
+        "group": [
+          { "code": { "coding": [{ "code": "HBOT", "display": "Cámara hiperbárica (HBOT)" }] }, "measureScore": { "value": 6100000 } },
+          { "code": { "coding": [{ "code": "RED_LIGHT", "display": "Luz Roja" }] }, "measureScore": { "value": 5200000 } },
+          { "code": { "coding": [{ "code": "IV_THERAPY", "display": "Terapia IV / Sueros" }] }, "measureScore": { "value": 3000000 } },
+          { "code": { "coding": [{ "code": "MASAJE_OSTEOPATIA", "display": "Osteopatía / Masaje" }] }, "measureScore": { "value": 2400000 } },
+          { "code": { "coding": [{ "code": "IHHT", "display": "IHHT" }] }, "measureScore": { "value": 1800000 } },
+          { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 18500000 } }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000714",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-medico",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-medico-2026-06" }],
+        "group": [
+          { "code": { "coding": [{ "code": "med-1", "display": "Dra. Lucía Fernández" }] }, "measureScore": { "value": 4800000 } },
+          { "code": { "coding": [{ "code": "med-2", "display": "Dr. Pablo Ruiz" }] }, "measureScore": { "value": 3600000 } },
+          { "code": { "coding": [{ "code": "med-3", "display": "Lic. Ana Méndez" }] }, "measureScore": { "value": 2100000 } }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000715",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-iv-tb",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-iv-tb-2026-06" }],
+        "group": [
+          { "code": { "coding": [{ "code": "bruto", "display": "Bruto" }] }, "measureScore": { "value": 3000000 } },
+          { "code": { "coding": [{ "code": "deducciones", "display": "Deducciones" }] }, "measureScore": { "value": 300000 } },
+          { "code": { "coding": [{ "code": "profesional", "display": "Profesional (85%)" }] }, "measureScore": { "value": 2295000 } },
+          { "code": { "coding": [{ "code": "centro", "display": "Centro (15%)" }] }, "measureScore": { "value": 405000 } }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000716",
+      "request": { "method": "POST", "url": "MeasureReport" },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/margen",
+        "date": "2026-06-24",
+        "period": { "start": "2026-06-24", "end": "2026-06-26" },
+        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "margen-2026-06" }],
+        "group": [{ "code": { "coding": [{ "code": "estimado", "display": "Margen estimado" }] }, "measureScore": { "value": 5550000 } }]
+      }
     }
   ]
 }
