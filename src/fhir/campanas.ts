@@ -1,6 +1,13 @@
 import type { MedplumClient } from '@medplum/core';
 import type { Group } from '@medplum/fhirtypes';
-import { BOTS, SID_BOT, SID_GRUPO_ADHOC } from './systems';
+import { SID_GRUPO_ADHOC } from './systems';
+
+/**
+ * Id (UUID) del Bot `enviar-campana`. Configurable por env var
+ * `MEDPLUM_BOT_ENVIAR_CAMPANA`; el default es el id real conocido.
+ */
+export const BOT_ENVIAR_CAMPANA_ID =
+  import.meta.env.MEDPLUM_BOT_ENVIAR_CAMPANA ?? 'd3f0e16b-79fd-4fc9-8346-157d6f48ea18';
 
 /** Canales soportados por `enviar-campana` (valor enviado al bot en `canal`). */
 export type Canal = 'email' | 'whatsapp';
@@ -28,21 +35,18 @@ export function nuevaCampaniaId(): string {
 }
 
 /**
- * Lanza una campaña invocando el bot `enviar-campana` por Identifier.
- * Contrato: `executeBot({ system: SID_BOT, value: 'enviar-campana' }, { groupId, canal, asunto, cuerpo, campaniaId })`.
+ * Lanza una campaña invocando el bot `enviar-campana` por id.
+ * Contrato: `executeBot(BOT_ENVIAR_CAMPANA_ID, { groupId, canal, asunto, cuerpo, campaniaId })`.
  */
 export async function lanzarCampana(medplum: MedplumClient, datos: DatosCampana): Promise<{ campaniaId: string }> {
   const campaniaId = datos.campaniaId ?? nuevaCampaniaId();
-  await medplum.executeBot(
-    { system: SID_BOT, value: BOTS.enviarCampana },
-    {
-      groupId: datos.groupId,
-      canal: datos.canal,
-      asunto: datos.asunto,
-      cuerpo: datos.cuerpo,
-      campaniaId,
-    }
-  );
+  await medplum.executeBot(BOT_ENVIAR_CAMPANA_ID, {
+    groupId: datos.groupId,
+    canal: datos.canal,
+    asunto: datos.asunto,
+    cuerpo: datos.cuerpo,
+    campaniaId,
+  });
   return { campaniaId };
 }
 
