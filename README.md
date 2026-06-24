@@ -147,10 +147,22 @@ curl -X POST https://api.medplum.com.ar/fhir/R4 \
 ```
 
 Todos los recursos quedan etiquetados con `meta.tag` `https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h`.
-Para **borrar la demo** después, buscá por ese tag y eliminá (por cada resourceType usado),
-p. ej. `MeasureReport?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h`.
+
+**Borrar la demo** (dos opciones):
+
+```bash
+# 1) Script (robusto): busca por tag y borra por id, en orden de dependencias. Requiere jq.
+MEDPLUM_TOKEN=xxxxx bash infra/cleanup-demo.sh
+
+# 2) Bundle one-shot (conditional-delete por tag, una sola transacción):
+curl -X POST https://api.medplum.com.ar/fhir/R4 \
+  -H "Authorization: Bearer $MEDPLUM_TOKEN" \
+  -H "Content-Type: application/fhir+json" \
+  --data-binary @infra/cleanup-demo-bundle.json
+```
 
 > No es un TTL real (FHIR no expira recursos solo): el tag es para limpiar a mano/script.
+> Si tu Medplum no borra múltiples por conditional-delete, usá el script (opción 1).
 
 ## ¿No ves datos? (diagnóstico)
 
