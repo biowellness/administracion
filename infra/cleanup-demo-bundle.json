@@ -1,0 +1,21 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    { "request": { "method": "DELETE", "url": "MeasureReport?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Communication?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Provenance?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Flag?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Task?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Group?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Appointment?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Slot?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Coverage?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Schedule?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "ActivityDefinition?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Patient?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Practitioner?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Location?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } },
+    { "request": { "method": "DELETE", "url": "Organization?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h" } }
+  ]
+}
