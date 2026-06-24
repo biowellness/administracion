@@ -16,7 +16,7 @@ import {
 import { notifications } from '@mantine/notifications';
 import { getDisplayString } from '@medplum/core';
 import { useMedplum } from '@medplum/react';
-import type { Patient, Practitioner, Provenance, Reference, Task } from '@medplum/fhirtypes';
+import type { Patient, Practitioner, Provenance, Task } from '@medplum/fhirtypes';
 import { IconRefresh, IconUser } from '@tabler/icons-react';
 import {
   CS_ETAPA_PIPELINE,
@@ -26,6 +26,7 @@ import {
   TASK_INPUT_PROXIMA_ACCION,
 } from '../fhir/systems';
 import type { EtapaPipeline } from '../fhir/systems';
+import { idDeRef } from '../fhir/refs';
 
 interface Tarjeta {
   task: Task;
@@ -34,11 +35,6 @@ interface Tarjeta {
   responsable?: Practitioner;
   fuente?: string;
   proximaAccion?: string;
-}
-
-function idDeRef(ref?: Reference): string | undefined {
-  const r = ref?.reference;
-  return r && r.includes('/') ? r.split('/')[1] : undefined;
 }
 
 function etapaDeTask(t: Task): EtapaPipeline | undefined {
