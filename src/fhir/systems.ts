@@ -204,13 +204,13 @@ export const SD_SESIONES_USADAS = `${NS.bw}/StructureDefinition/sesiones-usadas`
 // ---------------------------------------------------------------------------
 
 /**
- * `identifier.system` de los Bots de Medplum (se invocan por Identifier:
- * `executeBot({ system: SID_BOT, value: <slug> }, ...)`).
- * Suposición a confirmar; centralizada para cambiarla en un solo lugar.
+ * `identifier.system` de los Bots de Medplum, para invocarlos por Identifier.
+ * Nota: `enviar-campana` se invoca por id (ver `BOT_ENVIAR_CAMPANA_ID` en
+ * campanas.ts); SID_BOT queda como referencia / futuros bots por identifier.
  */
 export const SID_BOT = `${NS.bio}/sid/bot`;
 
-/** Identificadores (slug = identifier.value) de los Bots que esta app puede invocar. */
+/** Slugs (identifier.value) de los Bots, como referencia. */
 export const BOTS = {
   enviarCampana: 'enviar-campana',
   promoverLead: 'promover-lead',

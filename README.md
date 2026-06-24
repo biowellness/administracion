@@ -123,11 +123,11 @@ requisitos**:
 
 Centralizadas para cambiarlas en un solo lugar:
 
-- **Bot `enviar-campana`** (`src/fhir/systems.ts` → `SID_BOT`, `BOTS`): se invoca por
-  Identifier `{ system: SID_BOT, value: 'enviar-campana' }`. Confirmar el `system`
-  real del identifier de Bots.
+- **Bot `enviar-campana`**: se invoca por id (`executeBot(BOT_ENVIAR_CAMPANA_ID, ...)`
+  en `src/fhir/campanas.ts`), configurable con la env var `MEDPLUM_BOT_ENVIAR_CAMPANA`
+  (default = id real conocido). ✅ confirmado.
 - **Canales** (`src/fhir/campanas.ts` → `Canal`): valores `email` / `whatsapp`
-  (minúscula). Ajustar si el bot espera otro formato.
+  (minúscula). Pendiente de confirmar contra el código del bot (¿espera otro formato?).
 
 ## ¿No ves datos? (diagnóstico)
 
