@@ -43,12 +43,20 @@ src/
   main.tsx                  Providers (Mantine + Medplum + Router) y MedplumClient
   App.tsx                   Gate de auth (login vs. shell) y rutas
   theme.ts                  Theme Mantine (teal)
-  fhir/systems.ts           Fuente única de URLs/systems de FHIR (sección 4 del brief)
-  hooks/useMeasureReport.ts Hook + helpers groupValue / groups
+  fhir/
+    systems.ts              Fuente única de URLs/systems de FHIR (sección 4 del brief)
+    refs.ts                 Helper idDeRef (id de una Reference)
+    campanas.ts             Contrato de campañas: lanzarCampana (bot) + crearGrupoAdHoc
+  hooks/useMeasureReport.ts Hook + helpers groupValue / groups / groupLabel
+  lib/format.ts             fmt (números es-AR)
   components/
-    AdminLayout.tsx         Shell con navegación de las 6 secciones
-    SeccionEnConstruccion.tsx
+    AdminLayout.tsx         Shell con navegación de las 6 secciones + menú de cuenta
+    KpiTile.tsx             Tile de KPI (Resumen, Servicios, Retención)
+    FilaBarra.tsx           Fila etiqueta + barra + valor (Servicios)
+    LanzarCampanaModal.tsx  Compositor de campaña con confirmación
   pages/                    Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios + login
+infra/
+  access-policy-administracion.json  AccessPolicy del rol Administración
 ```
 
 ## Convención de namespaces
@@ -67,3 +75,72 @@ El rol Administración ve lo operativo + CRM + métricas + resumen clínico-come
 (`DetectedIssue`, `MeasureReport`, `Flag`), pero **no** el detalle clínico sensible
 (valores de `Observation`/`Condition`, historia clínica). Mostrar señales agregadas,
 no valores de laboratorio (Ley 26.529 / 25.326).
+
+## AccessPolicy del rol Administración
+
+`infra/access-policy-administracion.json` define la `AccessPolicy` del rol. Es una
+**allowlist**: solo los `resourceType` listados son accesibles; todo lo demás queda
+denegado. Por eso **no** incluye `Observation`, `Condition` ni `DiagnosticReport`
+(detalle clínico sensible, reservado al equipo médico).
+
+- **Lectura** (`readonly`): `MeasureReport`, `Patient`, `Practitioner`, `Provenance`,
+  `Communication`, `Flag`, `DetectedIssue`, `Coverage`, `Appointment`, `Schedule`,
+  `Slot`, `ActivityDefinition`, `Invoice`, `ChargeItem`, `Bot`, etc.
+- **Lectura + escritura**: `Task` (avanzar etapa del pipeline) y `Group` (crear
+  Group ad-hoc para campañas de recuperación). Las campañas (`Communication`) las
+  escribe el bot `enviar-campana`, no la app.
+
+Aplicarla (una vez por proyecto):
+
+1. En `app.medplum.com.ar` → **Admin → Access Policies → New**, pegar el JSON
+   (o `POST /fhir/R4/AccessPolicy` con el archivo).
+2. Asignarla a cada usuario del rol en su **ProjectMembership** (campo *Access Policy*).
+
+> Si la AccessPolicy no concede `MeasureReport`, los dashboards se ven vacíos
+> (la búsqueda vuelve sin resultados, sin error). Ver «¿No ves datos?».
+
+## Deploy
+
+La app es una SPA estática. Build:
+
+```bash
+npm install
+MEDPLUM_BASE_URL=https://api.medplum.com.ar/ npm run build   # genera dist/
+```
+
+Servir `dist/` en cualquier hosting estático bajo `admin.medplum.com.ar`, con **dos
+requisitos**:
+
+1. **Fallback SPA**: todas las rutas deben servir `index.html` (usamos
+   `BrowserRouter`). Ejemplos:
+   - nginx: `location / { try_files $uri /index.html; }`
+   - Netlify: `/*  /index.html  200`
+   - Caddy: `try_files {path} /index.html`
+2. **Variable de entorno en build**: `MEDPLUM_BASE_URL` se inyecta en tiempo de
+   build (Vite, prefijo `MEDPLUM_`). Definirla en el pipeline de CI/hosting.
+
+## Integraciones a confirmar
+
+Centralizadas para cambiarlas en un solo lugar:
+
+- **Bot `enviar-campana`** (`src/fhir/systems.ts` → `SID_BOT`, `BOTS`): se invoca por
+  Identifier `{ system: SID_BOT, value: 'enviar-campana' }`. Confirmar el `system`
+  real del identifier de Bots.
+- **Canales** (`src/fhir/campanas.ts` → `Canal`): valores `email` / `whatsapp`
+  (minúscula). Ajustar si el bot espera otro formato.
+
+## ¿No ves datos? (diagnóstico)
+
+Los dashboards (Resumen, Servicios) leen `MeasureReport`. Si aparecen en cero / «Sin
+datos del período», es **dato/acceso**, no un bug de la app. Verificá en orden:
+
+1. **¿Existen los MeasureReport?** En `app.medplum.com.ar`, buscar p. ej.
+   `MeasureReport?measure=https://biowellness.ar/fhir/Measure/agenda-ocupacion`.
+   Si no hay resultados, falta que corra el bot `kpis-servicios` (o no hubo
+   actividad en el período).
+2. **¿La AccessPolicy concede `MeasureReport`?** Si tu usuario no tiene la policy de
+   arriba, las búsquedas vuelven vacías. Aplicala y reasignala.
+3. **¿Namespace/slug correctos?** Servicios usa `https://biowellness.ar/fhir/Measure/...`
+   (`servicios-turnos`, `agenda-ocupacion`, `membresias-utilizacion`) y CRM usa
+   `https://bio.medplum.com.ar/fhir/Measure/...`. Si el bot escribe en otro
+   namespace, ajustar `src/fhir/systems.ts`.
