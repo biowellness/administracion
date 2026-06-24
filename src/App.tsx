@@ -6,6 +6,7 @@ import { CampanasPage } from './pages/CampanasPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { FinancieroPage } from './pages/FinancieroPage';
 import { IngresosPage } from './pages/IngresosPage';
+import { MembresiasPage } from './pages/MembresiasPage';
 import { PipelinePage } from './pages/PipelinePage';
 import { ReportesPage } from './pages/ReportesPage';
 import { ResumenPage } from './pages/ResumenPage';
@@ -41,6 +42,7 @@ export function App(): JSX.Element {
         <Route path="segmentos" element={<SegmentosPage />} />
         <Route path="campanas" element={<CampanasPage />} />
         <Route path="servicios" element={<ServiciosPage />} />
+        <Route path="membresias" element={<MembresiasPage />} />
         <Route path="ingresos" element={<IngresosPage />} />
         <Route path="financiero" element={<FinancieroPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
