@@ -9,6 +9,7 @@ import { exportarExcel } from '../lib/excel';
 import type { HojaReporte } from '../lib/excel';
 import { filasDeMedida, hojasIngresos, useTipoCambio } from '../fhir/reportes';
 import { measureCrm, measureFinanzas, measureServicios } from '../fhir/systems';
+import { fmt2 } from '../lib/format';
 
 async function ultimo(medplum: MedplumClient, canonical: string): Promise<MeasureReport | undefined> {
   const r = await medplum.searchResources('MeasureReport', { measure: canonical, _sort: '-date', _count: '1' });
@@ -168,7 +169,7 @@ export function ReportesPage(): JSX.Element {
       <Group justify="space-between" align="center">
         <Title order={3}>Reportes</Title>
         <Badge variant="light" color={tcUsd > 0 ? 'teal' : 'gray'}>
-          {tcUsd > 0 ? `TC USD $${tcUsd}` : 'TC USD sin dato'}
+          {tcUsd > 0 ? `TC USD $${fmt2(tcUsd)}` : 'TC USD sin dato'}
         </Badge>
       </Group>
 

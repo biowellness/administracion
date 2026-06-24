@@ -3,7 +3,7 @@ import { KpiTile } from '../components/KpiTile';
 import { ETAPA_PIPELINE_LABEL, GRUPOS_CRM, measureCrm, measureFinanzas, measureServicios } from '../fhir/systems';
 import { groupValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { useTipoCambio } from '../fhir/reportes';
-import { fmt } from '../lib/format';
+import { fmt, fmt2 } from '../lib/format';
 
 /**
  * Dashboard ejecutivo (para Andrés) — vista consolidada en tiempo real: ingresos del
@@ -51,7 +51,7 @@ export function DashboardPage(): JSX.Element {
         <Title order={3}>Dashboard</Title>
         <Group gap="xs">
           <Badge variant="light" color={tcUsd > 0 ? 'teal' : 'gray'}>
-            {tcUsd > 0 ? `TC USD $${tcUsd}` : 'TC USD sin dato'}
+            {tcUsd > 0 ? `TC USD $${fmt2(tcUsd)}` : 'TC USD sin dato'}
           </Badge>
           {periodo && (
             <Badge variant="light" color="gray">

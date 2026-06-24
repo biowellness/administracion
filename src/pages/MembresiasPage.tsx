@@ -28,7 +28,7 @@ import { SD_SESIONES_MES, SD_SESIONES_USADAS, measureCrm, measureFinanzas, measu
 import { groupValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { exportarExcel } from '../lib/excel';
 import type { HojaReporte } from '../lib/excel';
-import { fmt } from '../lib/format';
+import { fmt, fmt2 } from '../lib/format';
 
 interface Membresia {
   paciente: string;
@@ -198,7 +198,7 @@ export function MembresiasPage(): JSX.Element {
         <Title order={3}>Membresías</Title>
         <Group gap="xs">
           <Badge variant="light" color={mostrarUsd ? 'teal' : 'gray'}>
-            {mostrarUsd ? `TC USD $${tcUsd}` : 'TC USD sin dato'}
+            {mostrarUsd ? `TC USD $${fmt2(tcUsd)}` : 'TC USD sin dato'}
           </Badge>
           <Button
             variant="light"
