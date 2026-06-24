@@ -25,6 +25,7 @@ import {
   IconUsersGroup,
 } from '@tabler/icons-react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { BotonTema } from './BotonTema';
 
 interface NavItem {
   label: string;
@@ -79,24 +80,27 @@ export function AdminLayout(): JSX.Element {
             </Text>
           </Group>
 
-          <Menu shadow="md" width={220} position="bottom-end">
-            <Menu.Target>
-              <Tooltip label="Cuenta">
-                <ActionIcon variant="subtle" color="gray" size="lg" aria-label="Cuenta">
-                  <IconUserCircle size={22} />
-                </ActionIcon>
-              </Tooltip>
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Label>{nombrePerfil(profile)}</Menu.Label>
-              <Menu.Item
-                leftSection={<IconLogout size={16} />}
-                onClick={() => medplum.signOut().catch(() => undefined)}
-              >
-                Cerrar sesión
-              </Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
+          <Group gap="xs" wrap="nowrap">
+            <BotonTema />
+            <Menu shadow="md" width={220} position="bottom-end">
+              <Menu.Target>
+                <Tooltip label="Cuenta">
+                  <ActionIcon variant="subtle" color="gray" size="lg" aria-label="Cuenta">
+                    <IconUserCircle size={22} />
+                  </ActionIcon>
+                </Tooltip>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Label>{nombrePerfil(profile)}</Menu.Label>
+                <Menu.Item
+                  leftSection={<IconLogout size={16} />}
+                  onClick={() => medplum.signOut().catch(() => undefined)}
+                >
+                  Cerrar sesión
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </Group>
         </Group>
       </AppShell.Header>
 

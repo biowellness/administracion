@@ -25,7 +25,7 @@ createRoot(container).render(
   <StrictMode>
     <BrowserRouter>
       <MedplumProvider medplum={medplum}>
-        <MantineProvider theme={theme}>
+        <MantineProvider theme={theme} defaultColorScheme="auto">
           <Notifications />
           <App />
         </MantineProvider>

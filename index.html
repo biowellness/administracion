@@ -4,6 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BioWellness · Administración</title>
+    <script>
+      // Anti-flash: aplica el color scheme guardado (o el del SO) antes de cargar la app.
+      (function () {
+        try {
+          var stored = localStorage.getItem('mantine-color-scheme-value') || 'auto';
+          var scheme =
+            stored === 'auto'
+              ? window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+              : stored;
+          document.documentElement.setAttribute('data-mantine-color-scheme', scheme);
+        } catch (e) {
+          /* noop */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
