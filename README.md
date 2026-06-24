@@ -54,7 +54,7 @@ src/
     KpiTile.tsx             Tile de KPI (Resumen, Servicios, Retención)
     FilaBarra.tsx           Fila etiqueta + barra + valor (Servicios)
     LanzarCampanaModal.tsx  Compositor de campaña con confirmación
-  pages/                    Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios + login
+  pages/                    Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Financiero + login
 infra/
   access-policy-administracion.json  AccessPolicy del rol Administración
 ```

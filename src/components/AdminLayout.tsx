@@ -19,6 +19,7 @@ import {
   IconHeartHandshake,
   IconLayoutKanban,
   IconLogout,
+  IconReportMoney,
   IconSpeakerphone,
   IconUserCircle,
   IconUsersGroup,
@@ -38,6 +39,7 @@ const NAV: NavItem[] = [
   { label: 'Segmentos', to: '/segmentos', icon: IconUsersGroup },
   { label: 'Campañas', to: '/campanas', icon: IconSpeakerphone },
   { label: 'Servicios', to: '/servicios', icon: IconCalendarStats },
+  { label: 'Financiero', to: '/financiero', icon: IconReportMoney },
 ];
 
 function esActiva(pathname: string, to: string): boolean {

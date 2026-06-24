@@ -25,8 +25,12 @@ export const NS = {
 /** Base canónica de los Measure del CRM: `${MEASURE_CRM}/<slug>`. */
 export const MEASURE_CRM = `${NS.bio}/Measure`;
 
-/** Slugs de Measure que produce `kpis-crm`. */
-export const MEASURE_SLUGS_CRM = ['embudo', 'clientes', 'conversion', 'churn', 'ltv-promedio'] as const;
+/**
+ * Slugs de Measure que produce `kpis-crm`.
+ * `ltv-segmento` es un slug ASUMIDO para LTV por segmento (tarea futura): la app lo lee
+ * con grupos por segmento; confirmar con el bot cuando exista.
+ */
+export const MEASURE_SLUGS_CRM = ['embudo', 'clientes', 'conversion', 'churn', 'ltv-promedio', 'ltv-segmento'] as const;
 export type MeasureSlugCrm = (typeof MEASURE_SLUGS_CRM)[number];
 
 /** Canónico de un Measure del CRM para usar en `MeasureReport?measure=...`. */
