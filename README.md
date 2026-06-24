@@ -129,6 +129,29 @@ Centralizadas para cambiarlas en un solo lugar:
 - **Canales** (`src/fhir/campanas.ts` → `Canal`): valores `email` / `whatsapp`
   (minúscula). Pendiente de confirmar contra el código del bot (¿espera otro formato?).
 
+## Datos de demo (seed)
+
+`infra/seed-demo-bundle.json` es un **Bundle de transacción** que siembra un escenario
+coherente para las 7 pantallas (MeasureReports de Resumen/Servicios/Financiero, Tasks
+de Pipeline, Flags de Retención, un Group de Segmentos, Communications de Campañas, y el
+turno operativo Red Light en la tumbona R-07). Incluye los `MeasureReport` ya calculados,
+así los dashboards se ven sin esperar a `kpis-*`. La ventana de período es 2026-06-24→26.
+
+Aplicar:
+
+```bash
+curl -X POST https://api.medplum.com.ar/fhir/R4 \
+  -H "Authorization: Bearer $MEDPLUM_TOKEN" \
+  -H "Content-Type: application/fhir+json" \
+  --data-binary @infra/seed-demo-bundle.json
+```
+
+Todos los recursos quedan etiquetados con `meta.tag` `https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h`.
+Para **borrar la demo** después, buscá por ese tag y eliminá (por cada resourceType usado),
+p. ej. `MeasureReport?_tag=https://bio.medplum.com.ar/fhir/CodeSystem/demo|seed-48h`.
+
+> No es un TTL real (FHIR no expira recursos solo): el tag es para limpiar a mano/script.
+
 ## ¿No ves datos? (diagnóstico)
 
 Los dashboards (Resumen, Servicios) leen `MeasureReport`. Si aparecen en cero / «Sin
