@@ -1,0 +1,14 @@
+{
+  "resourceType": "MeasureReport",
+  "status": "complete",
+  "type": "summary",
+  "measure": "https://bio.medplum.com.ar/fhir/Measure/tipo-cambio",
+  "date": "2026-06-24",
+  "period": { "start": "2026-06-01", "end": "2026-06-30" },
+  "identifier": [
+    { "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "tipo-cambio-2026-06" }
+  ],
+  "group": [
+    { "code": { "coding": [{ "code": "usd", "display": "ARS por USD" }] }, "measureScore": { "value": 1490.5 } }
+  ]
+}

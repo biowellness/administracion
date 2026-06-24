@@ -58,7 +58,7 @@ src/
     FilaBarra.tsx           Fila etiqueta + barra + valor (Servicios, Financiero)
     BotonTema.tsx           Toggle de modo claro/oscuro
     LanzarCampanaModal.tsx  Compositor de campaña con confirmación
-  pages/                    Dashboard · Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Membresías · Ingresos · Financiero · Reportes + login
+  pages/                    Dashboard · Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Membresías · Ingresos · Financiero · Clínicos · Gestión · Reportes + login
 infra/
   access-policy-administracion.json  AccessPolicy del rol Administración
 ```
@@ -156,10 +156,24 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
   vienen de Measures **asumidos** `cobros` (grupos `cobrado`/`pendiente`/`fallido`) y
   `founding-members` (grupos `cupos-usados`/`cupos-totales`/`descuento-promedio`/`ltv-promedio`),
   más `churn` y `membresias-utilizacion`.
-- Clínicos: solo señales **agregadas** (sin exponer valores de Observation) para respetar
-  la AccessPolicy. Gestión (proyección v12 vs. real): se leerá de un Measure dedicado.
+- **Clínicos** (pantalla `/clinicos`, solo agregados): Measures **asumidos** `clinico-sin-visita`
+  (grupos `30`/`60`/`90`), `clinico-baja-utilizacion` (grupo `miembros`), `clinico-consentimientos`
+  (grupos `30`/`60`/`90`). Sin valores de Observation (Ley 26.529/25.326).
+- **Gestión** (pantalla `/gestion`): Measure **asumido** `proyeccion-v12` con grupos
+  `<metrica>-proyectado` y `<metrica>-real` (`ingresos`, `ocupacion`, `margen`); la app muestra
+  proyectado vs. real y % de cumplimiento.
 
-> Fases siguientes: Membresías/Cobros detallados, Clínicos agregados y Gestión (proyección).
+### Cargar el tipo de cambio
+
+`infra/measure-tipo-cambio.json` crea/actualiza el `MeasureReport` de TC (USD = $1490,50).
+Upsert idempotente por identifier:
+
+```bash
+curl -X PUT "https://api.medplum.com.ar/fhir/R4/MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|tipo-cambio-2026-06" \
+  -H "Authorization: Bearer $MEDPLUM_TOKEN" \
+  -H "Content-Type: application/fhir+json" \
+  --data-binary @infra/measure-tipo-cambio.json
+```
 
 ## Datos de demo (seed)
 

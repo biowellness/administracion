@@ -91,6 +91,22 @@ export function measureFinanzas(slug: MeasureSlugFinanzas): string {
 }
 
 // ---------------------------------------------------------------------------
+// Clínicos agregados (kpis-clinico) — SOLO señales agregadas, sin valores clínicos
+// (respeta la AccessPolicy). SLUGS ASUMIDOS (sección 6.8 · Fase 4).
+// ---------------------------------------------------------------------------
+
+export const MEASURE_SLUGS_CLINICO = ['sin-visita', 'baja-utilizacion', 'consentimientos'] as const;
+export type MeasureSlugClinico = (typeof MEASURE_SLUGS_CLINICO)[number];
+
+/** Canónico de un Measure clínico agregado (prefijo `clinico-`, namespace bio). */
+export function measureClinico(slug: MeasureSlugClinico): string {
+  return `${MEASURE_CRM}/clinico-${slug}`;
+}
+
+/** Measure de gestión: proyección del modelo v12 vs. real. ASUMIDO. */
+export const MEASURE_PROYECCION = `${MEASURE_CRM}/proyeccion-v12`;
+
+// ---------------------------------------------------------------------------
 // Pipeline (kanban) — Task  (namespace bio)
 // ---------------------------------------------------------------------------
 
