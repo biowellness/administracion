@@ -104,10 +104,19 @@ export const SD_LEAD_ORIGEN = `${NS.bio}/StructureDefinition/lead-origen`;
 
 /** `identifier.system` de los Group de segmentación. */
 export const SID_SEGMENTO = `${NS.bio}/sid/segmento`;
+/** `identifier.system` de Group ad-hoc creados por la app (p. ej. recuperación). */
+export const SID_GRUPO_ADHOC = `${NS.bio}/sid/grupo-adhoc`;
 /** Discriminador de criterio en `Group.characteristic[]`. */
 export const CS_RASGO_SEGMENTO = `${NS.bio}/CodeSystem/rasgo-segmento`;
 export const RASGOS_SEGMENTO = ['perfil-interes', 'ciclo-vida', 'biomarcador', 'gate-terapia'] as const;
 export type RasgoSegmento = (typeof RASGOS_SEGMENTO)[number];
+
+export const RASGO_SEGMENTO_LABEL: Record<RasgoSegmento, string> = {
+  'perfil-interes': 'Perfil de interés',
+  'ciclo-vida': 'Ciclo de vida',
+  biomarcador: 'Biomarcador',
+  'gate-terapia': 'Gate de terapia',
+};
 
 // ---------------------------------------------------------------------------
 // Campañas — Communication  (namespace bio)
@@ -190,7 +199,14 @@ export const SD_SESIONES_USADAS = `${NS.bw}/StructureDefinition/sesiones-usadas`
 // Bots invocables (executeBot)
 // ---------------------------------------------------------------------------
 
-/** Identificadores (slug) de los Bots de Medplum que esta app puede invocar. */
+/**
+ * `identifier.system` de los Bots de Medplum (se invocan por Identifier:
+ * `executeBot({ system: SID_BOT, value: <slug> }, ...)`).
+ * Suposición a confirmar; centralizada para cambiarla en un solo lugar.
+ */
+export const SID_BOT = `${NS.bio}/sid/bot`;
+
+/** Identificadores (slug = identifier.value) de los Bots que esta app puede invocar. */
 export const BOTS = {
   enviarCampana: 'enviar-campana',
   promoverLead: 'promover-lead',

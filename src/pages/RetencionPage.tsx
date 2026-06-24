@@ -3,7 +3,9 @@ import {
   ActionIcon,
   Alert,
   Badge,
+  Button,
   Card,
+  Checkbox,
   Group,
   Loader,
   SimpleGrid,
@@ -15,8 +17,10 @@ import {
 import { getDisplayString } from '@medplum/core';
 import { useMedplum } from '@medplum/react';
 import type { Flag, Patient, Task } from '@medplum/fhirtypes';
-import { IconRefresh } from '@tabler/icons-react';
+import { IconRefresh, IconSend } from '@tabler/icons-react';
 import { KpiTile } from '../components/KpiTile';
+import { LanzarCampanaModal } from '../components/LanzarCampanaModal';
+import { crearGrupoAdHoc } from '../fhir/campanas';
 import { idDeRef } from '../fhir/refs';
 import {
   CS_CATEGORIA_FLAG,
@@ -42,6 +46,10 @@ const ORDEN_NIVEL: RiesgoChurn[] = ['alto', 'medio', 'bajo'];
 // Estados de Task que NO cuentan como "recuperación en curso".
 const TASK_CERRADA = new Set(['draft', 'rejected', 'cancelled', 'failed', 'completed', 'entered-in-error']);
 
+const ASUNTO_RECUPERACION = 'Te extrañamos en BioWellness';
+const CUERPO_RECUPERACION =
+  'Hola, queremos acompañarte en tu proceso de salud. Escribinos para retomar tus terapias y ver cómo seguimos.';
+
 function esChurnRisk(f: Flag): boolean {
   return !!f.category?.some((cc) =>
     cc.coding?.some((c) => c.system === CS_CATEGORIA_FLAG && c.code === FLAG_CHURN_RISK)
@@ -59,18 +67,20 @@ function tareaAbierta(t: Task): boolean {
 
 /**
  * Retención — pacientes con riesgo de churn (`Flag` category churn-risk), agrupados por
- * nivel (alto/medio/bajo), con indicador de si tienen una recuperación en curso
- * (`Task` code riesgo-churn|recuperacion abierto).
+ * nivel (alto/medio/bajo), con indicador de recuperación en curso (`Task` code
+ * riesgo-churn|recuperacion abierto). Permite seleccionar pacientes e «iniciar
+ * recuperación»: crea un Group ad-hoc con ellos y lanza la campaña de recuperación.
  *
- * Dashboard de lectura: la acción «iniciar recuperación» (enviar-campana) se integra
- * con Campañas (Tarea 7). `Flag` no tiene search param estándar R4 para category/status,
- * así que se traen los Flag y se filtran del lado del cliente.
+ * `Flag` no tiene search param estándar R4 para category/status, así que se traen los
+ * Flag y se filtran del lado del cliente.
  */
 export function RetencionPage(): JSX.Element {
   const medplum = useMedplum();
   const [items, setItems] = useState<ItemRetencion[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error>();
+  const [seleccion, setSeleccion] = useState<Set<string>>(new Set());
+  const [modalAbierto, setModalAbierto] = useState(false);
 
   const cargar = useCallback(async () => {
     setLoading(true);
@@ -112,6 +122,7 @@ export function RetencionPage(): JSX.Element {
         };
       });
       setItems(nuevos);
+      setSeleccion(new Set());
     } catch (e) {
       setError(e instanceof Error ? e : new Error(String(e)));
     } finally {
@@ -122,6 +133,18 @@ export function RetencionPage(): JSX.Element {
   useEffect(() => {
     cargar();
   }, [cargar]);
+
+  const toggle = (pacienteId: string): void => {
+    setSeleccion((prev) => {
+      const next = new Set(prev);
+      if (next.has(pacienteId)) {
+        next.delete(pacienteId);
+      } else {
+        next.add(pacienteId);
+      }
+      return next;
+    });
+  };
 
   if (loading) {
     return (
@@ -142,16 +165,28 @@ export function RetencionPage(): JSX.Element {
   const total = items.length;
   const enRecuperacion = items.filter((i) => i.enRecuperacion).length;
   const porNivel = (n: RiesgoChurn): ItemRetencion[] => items.filter((i) => i.nivel === n);
+  const seleccionados = [...seleccion];
 
   return (
     <Stack gap="md">
       <Group justify="space-between" align="center">
         <Title order={3}>Retención</Title>
-        <Tooltip label="Actualizar">
-          <ActionIcon variant="subtle" color="gray" onClick={() => cargar()} aria-label="Actualizar">
-            <IconRefresh size={18} />
-          </ActionIcon>
-        </Tooltip>
+        <Group gap="xs">
+          <Button
+            size="xs"
+            variant="light"
+            leftSection={<IconSend size={14} />}
+            disabled={seleccionados.length === 0}
+            onClick={() => setModalAbierto(true)}
+          >
+            Iniciar recuperación{seleccionados.length > 0 ? ` (${seleccionados.length})` : ''}
+          </Button>
+          <Tooltip label="Actualizar">
+            <ActionIcon variant="subtle" color="gray" onClick={() => cargar()} aria-label="Actualizar">
+              <IconRefresh size={18} />
+            </ActionIcon>
+          </Tooltip>
+        </Group>
       </Group>
 
       <SimpleGrid cols={{ base: 2, sm: 4 }} spacing="sm">
@@ -186,9 +221,18 @@ export function RetencionPage(): JSX.Element {
                 )}
                 {filas.map((it) => (
                   <Group key={it.flag.id} justify="space-between" wrap="nowrap">
-                    <Text size="sm" lineClamp={1}>
-                      {it.paciente ? getDisplayString(it.paciente) : 'Paciente'}
-                    </Text>
+                    <Group gap="sm" wrap="nowrap" style={{ minWidth: 0 }}>
+                      <Checkbox
+                        size="sm"
+                        checked={!!it.pacienteId && seleccion.has(it.pacienteId)}
+                        disabled={!it.pacienteId}
+                        onChange={() => it.pacienteId && toggle(it.pacienteId)}
+                        aria-label="Seleccionar paciente"
+                      />
+                      <Text size="sm" lineClamp={1}>
+                        {it.paciente ? getDisplayString(it.paciente) : 'Paciente'}
+                      </Text>
+                    </Group>
                     {it.enRecuperacion ? (
                       <Badge size="sm" variant="light" color="teal">
                         Recuperación en curso
@@ -204,6 +248,32 @@ export function RetencionPage(): JSX.Element {
             </Card>
           );
         })
+      )}
+
+      {modalAbierto && (
+        <LanzarCampanaModal
+          opened={modalAbierto}
+          onClose={() => setModalAbierto(false)}
+          titulo="Iniciar recuperación"
+          resumenDestino={`${seleccionados.length} paciente(s) en riesgo`}
+          asuntoInicial={ASUNTO_RECUPERACION}
+          cuerpoInicial={CUERPO_RECUPERACION}
+          resolverGroupId={async () => {
+            const grupo = await crearGrupoAdHoc(
+              medplum,
+              `Recuperación churn ${new Date().toISOString().slice(0, 10)}`,
+              seleccionados
+            );
+            if (!grupo.id) {
+              throw new Error('No se pudo crear el grupo de recuperación');
+            }
+            return grupo.id;
+          }}
+          onEnviada={() => {
+            setModalAbierto(false);
+            void cargar();
+          }}
+        />
       )}
     </Stack>
   );
