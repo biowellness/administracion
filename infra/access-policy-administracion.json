@@ -1,0 +1,26 @@
+{
+  "resourceType": "AccessPolicy",
+  "name": "Administración — BioWellness",
+  "resource": [
+    { "resourceType": "MeasureReport", "readonly": true },
+    { "resourceType": "Patient", "readonly": true },
+    { "resourceType": "Practitioner", "readonly": true },
+    { "resourceType": "PractitionerRole", "readonly": true },
+    { "resourceType": "Organization", "readonly": true },
+    { "resourceType": "Location", "readonly": true },
+    { "resourceType": "Provenance", "readonly": true },
+    { "resourceType": "Communication", "readonly": true },
+    { "resourceType": "Flag", "readonly": true },
+    { "resourceType": "DetectedIssue", "readonly": true },
+    { "resourceType": "Coverage", "readonly": true },
+    { "resourceType": "Appointment", "readonly": true },
+    { "resourceType": "Schedule", "readonly": true },
+    { "resourceType": "Slot", "readonly": true },
+    { "resourceType": "ActivityDefinition", "readonly": true },
+    { "resourceType": "Invoice", "readonly": true },
+    { "resourceType": "ChargeItem", "readonly": true },
+    { "resourceType": "Bot", "readonly": true },
+    { "resourceType": "Task" },
+    { "resourceType": "Group" }
+  ]
+}
