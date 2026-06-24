@@ -16,7 +16,9 @@ import type { TablerIcon } from '@tabler/icons-react';
 import {
   IconCalendarStats,
   IconChartBar,
+  IconFileSpreadsheet,
   IconHeartHandshake,
+  IconLayoutDashboard,
   IconLayoutKanban,
   IconLogout,
   IconReportMoney,
@@ -34,6 +36,7 @@ interface NavItem {
 }
 
 const NAV: NavItem[] = [
+  { label: 'Dashboard', to: '/dashboard', icon: IconLayoutDashboard },
   { label: 'Resumen', to: '/', icon: IconChartBar },
   { label: 'Pipeline', to: '/pipeline', icon: IconLayoutKanban },
   { label: 'Retención', to: '/retencion', icon: IconHeartHandshake },
@@ -41,6 +44,7 @@ const NAV: NavItem[] = [
   { label: 'Campañas', to: '/campanas', icon: IconSpeakerphone },
   { label: 'Servicios', to: '/servicios', icon: IconCalendarStats },
   { label: 'Financiero', to: '/financiero', icon: IconReportMoney },
+  { label: 'Reportes', to: '/reportes', icon: IconFileSpreadsheet },
 ];
 
 function esActiva(pathname: string, to: string): boolean {

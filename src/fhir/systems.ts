@@ -67,6 +67,26 @@ export function measureServicios(slug: MeasureSlugServicios): string {
 }
 
 // ---------------------------------------------------------------------------
+// Reportes financieros y de gestión — MeasureReport (kpis-finanzas / kpis-gestion)
+// SLUGS ASUMIDOS (sección 6.8): confirmar con los bots cuando existan.
+// ---------------------------------------------------------------------------
+
+/** Slugs (asumidos) de Measure de finanzas/gestión, en el namespace CRM (bio). */
+export const MEASURE_SLUGS_FINANZAS = [
+  'ingresos',
+  'ingresos-servicio',
+  'ingresos-medico',
+  'margen',
+  'tipo-cambio',
+] as const;
+export type MeasureSlugFinanzas = (typeof MEASURE_SLUGS_FINANZAS)[number];
+
+/** Canónico de un Measure de finanzas/gestión (namespace bio). */
+export function measureFinanzas(slug: MeasureSlugFinanzas): string {
+  return `${MEASURE_CRM}/${slug}`;
+}
+
+// ---------------------------------------------------------------------------
 // Pipeline (kanban) — Task  (namespace bio)
 // ---------------------------------------------------------------------------
 

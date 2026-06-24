@@ -3,8 +3,10 @@ import { useMedplum, useMedplumProfile } from '@medplum/react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AdminLayout } from './components/AdminLayout';
 import { CampanasPage } from './pages/CampanasPage';
+import { DashboardPage } from './pages/DashboardPage';
 import { FinancieroPage } from './pages/FinancieroPage';
 import { PipelinePage } from './pages/PipelinePage';
+import { ReportesPage } from './pages/ReportesPage';
 import { ResumenPage } from './pages/ResumenPage';
 import { RetencionPage } from './pages/RetencionPage';
 import { SegmentosPage } from './pages/SegmentosPage';
@@ -31,6 +33,8 @@ export function App(): JSX.Element {
     <Routes>
       <Route path="/" element={<AdminLayout />}>
         <Route index element={<ResumenPage />} />
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="reportes" element={<ReportesPage />} />
         <Route path="pipeline" element={<PipelinePage />} />
         <Route path="retencion" element={<RetencionPage />} />
         <Route path="segmentos" element={<SegmentosPage />} />

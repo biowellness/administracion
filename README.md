@@ -47,14 +47,18 @@ src/
     systems.ts              Fuente única de URLs/systems de FHIR (sección 4 del brief)
     refs.ts                 Helper idDeRef (id de una Reference)
     campanas.ts             Contrato de campañas: lanzarCampana (bot) + crearGrupoAdHoc
+    reportes.ts             TC del período (useTipoCambio) + filasDeMedida (grupos→filas)
   hooks/useMeasureReport.ts Hook + helpers groupValue / groups / groupLabel
-  lib/format.ts             fmt (números es-AR)
+  lib/
+    format.ts               fmt (números es-AR)
+    excel.ts                Motor de exportación .xlsx (dynamic import de xlsx)
   components/
-    AdminLayout.tsx         Shell con navegación de las 6 secciones + menú de cuenta
-    KpiTile.tsx             Tile de KPI (Resumen, Servicios, Retención)
-    FilaBarra.tsx           Fila etiqueta + barra + valor (Servicios)
+    AdminLayout.tsx         Shell con navegación + tema + menú de cuenta
+    KpiTile.tsx             Tile de KPI (Resumen, Servicios, Retención, Dashboard)
+    FilaBarra.tsx           Fila etiqueta + barra + valor (Servicios, Financiero)
+    BotonTema.tsx           Toggle de modo claro/oscuro
     LanzarCampanaModal.tsx  Compositor de campaña con confirmación
-  pages/                    Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Financiero + login
+  pages/                    Dashboard · Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Financiero · Reportes + login
 infra/
   access-policy-administracion.json  AccessPolicy del rol Administración
 ```
@@ -128,6 +132,25 @@ Centralizadas para cambiarlas en un solo lugar:
   (default = id real conocido). ✅ confirmado.
 - **Canales** (`src/fhir/campanas.ts` → `Canal`): valores `email` / `whatsapp`
   (minúscula). Pendiente de confirmar contra el código del bot (¿espera otro formato?).
+
+## Reportes y Dashboard (6.8)
+
+- **Dashboard** (`/dashboard`): vista ejecutiva en tiempo real (ingresos del día, margen,
+  membresías activas, ocupación de salas, conversión, embudo de CRM).
+- **Reportes** (`/reportes`): exportación `.xlsx` de un clic por familia (CRM, Ingresos,
+  Financiero/LTV, Servicios/Utilización), multi-hoja, con montos en **ARS y USD** al TC
+  del período. `xlsx` se carga por dynamic import (no infla el bundle inicial).
+
+Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
+
+- **Ingresos / margen** (`kpis-finanzas`): slugs **asumidos** `ingresos`, `ingresos-servicio`,
+  `ingresos-medico`, `margen` (namespace bio). El split 85/15 y deducciones de IV+TB viven
+  en el bot. Ver `MEASURE_SLUGS_FINANZAS` en `systems.ts`.
+- **Tipo de cambio**: Measure **asumido** `tipo-cambio` (grupo `usd` = ARS por 1 USD).
+- Clínicos: solo señales **agregadas** (sin exponer valores de Observation) para respetar
+  la AccessPolicy. Gestión (proyección v12 vs. real): se leerá de un Measure dedicado.
+
+> Fases siguientes: Membresías/Cobros detallados, Clínicos agregados y Gestión (proyección).
 
 ## Datos de demo (seed)
 
