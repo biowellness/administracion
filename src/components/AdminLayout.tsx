@@ -15,6 +15,7 @@ import { useMedplum, useMedplumProfile } from '@medplum/react';
 import type { TablerIcon } from '@tabler/icons-react';
 import {
   IconCalendarStats,
+  IconCash,
   IconChartBar,
   IconFileSpreadsheet,
   IconHeartHandshake,
@@ -43,6 +44,7 @@ const NAV: NavItem[] = [
   { label: 'Segmentos', to: '/segmentos', icon: IconUsersGroup },
   { label: 'Campañas', to: '/campanas', icon: IconSpeakerphone },
   { label: 'Servicios', to: '/servicios', icon: IconCalendarStats },
+  { label: 'Ingresos', to: '/ingresos', icon: IconCash },
   { label: 'Financiero', to: '/financiero', icon: IconReportMoney },
   { label: 'Reportes', to: '/reportes', icon: IconFileSpreadsheet },
 ];

@@ -7,7 +7,7 @@ import type { MeasureReport } from '@medplum/fhirtypes';
 import { IconFileSpreadsheet } from '@tabler/icons-react';
 import { exportarExcel } from '../lib/excel';
 import type { HojaReporte } from '../lib/excel';
-import { filasDeMedida, useTipoCambio } from '../fhir/reportes';
+import { filasDeMedida, hojasIngresos, useTipoCambio } from '../fhir/reportes';
 import { measureCrm, measureFinanzas, measureServicios } from '../fhir/systems';
 
 async function ultimo(medplum: MedplumClient, canonical: string): Promise<MeasureReport | undefined> {
@@ -68,23 +68,16 @@ const REPORTES: DefReporte[] = [
   {
     key: 'ingresos',
     titulo: 'Ingresos',
-    descripcion: 'Ingresos del período por servicio y por médico (ARS y USD).',
+    descripcion: 'Ingresos por tipo de cobro, servicio, médico e IV+TB (85/15), en ARS y USD.',
     construir: async (medplum, tc) => {
-      const [ingresos, porServicio, porMedico] = await Promise.all([
+      const [ingresos, cobro, servicio, medico, ivtb] = await Promise.all([
         ultimo(medplum, measureFinanzas('ingresos')),
+        ultimo(medplum, measureFinanzas('ingresos-cobro')),
         ultimo(medplum, measureFinanzas('ingresos-servicio')),
         ultimo(medplum, measureFinanzas('ingresos-medico')),
+        ultimo(medplum, measureFinanzas('ingresos-iv-tb')),
       ]);
-      const colsMonto = [
-        { key: 'concepto', titulo: 'Concepto', ancho: 28 },
-        { key: 'valor', titulo: 'ARS', formato: 'ars' as const },
-        { key: 'usd', titulo: 'USD', formato: 'usd' as const },
-      ];
-      return [
-        { nombre: 'Resumen', columnas: colsMonto, filas: filasDeMedida(ingresos, { tcUsd: tc, incluirGlobal: true }) },
-        { nombre: 'Por servicio', columnas: colsMonto, filas: filasDeMedida(porServicio, { tcUsd: tc }) },
-        { nombre: 'Por médico', columnas: colsMonto, filas: filasDeMedida(porMedico, { tcUsd: tc }) },
-      ];
+      return hojasIngresos({ ingresos, cobro, servicio, medico, ivtb }, tc);
     },
   },
   {

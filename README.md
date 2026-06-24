@@ -58,7 +58,7 @@ src/
     FilaBarra.tsx           Fila etiqueta + barra + valor (Servicios, Financiero)
     BotonTema.tsx           Toggle de modo claro/oscuro
     LanzarCampanaModal.tsx  Compositor de campaña con confirmación
-  pages/                    Dashboard · Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Financiero · Reportes + login
+  pages/                    Dashboard · Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Ingresos · Financiero · Reportes + login
 infra/
   access-policy-administracion.json  AccessPolicy del rol Administración
 ```
@@ -143,9 +143,12 @@ Centralizadas para cambiarlas en un solo lugar:
 
 Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
 
-- **Ingresos / margen** (`kpis-finanzas`): slugs **asumidos** `ingresos`, `ingresos-servicio`,
-  `ingresos-medico`, `margen` (namespace bio). El split 85/15 y deducciones de IV+TB viven
-  en el bot. Ver `MEASURE_SLUGS_FINANZAS` en `systems.ts`.
+- **Ingresos / margen** (`kpis-finanzas`): slugs **asumidos** `ingresos` (grupos `dia`/`mes`/
+  `mes-anterior`), `ingresos-cobro` (por tipo de cobro), `ingresos-servicio`, `ingresos-medico`
+  (liquidación de splits), `ingresos-iv-tb` (grupos `bruto`/`deducciones`/`profesional`/`centro`,
+  el 85/15 lo calcula el bot) y `margen` (grupo `estimado`) — namespace bio. Ver
+  `MEASURE_SLUGS_FINANZAS` en `systems.ts`. La pantalla **Ingresos** muestra el comparativo
+  mes vs. mes anterior.
 - **Tipo de cambio**: Measure **asumido** `tipo-cambio` (grupo `usd` = ARS por 1 USD).
 - Clínicos: solo señales **agregadas** (sin exponer valores de Observation) para respetar
   la AccessPolicy. Gestión (proyección v12 vs. real): se leerá de un Measure dedicado.
