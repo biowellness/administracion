@@ -29,7 +29,7 @@ export function useMeasureReport(measureCanonical: string | undefined): UseMeasu
     setLoading(true);
     setError(undefined);
     medplum
-      .searchResources('MeasureReport', { measure: measureCanonical, _sort: '-date', _count: '1' })
+      .searchResources('MeasureReport', { measure: measureCanonical, _sort: '-date,-_lastUpdated', _count: '1' })
       .then((r) => {
         if (activo) {
           setReport(r[0]);

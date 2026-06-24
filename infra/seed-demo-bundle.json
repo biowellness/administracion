@@ -4,62 +4,149 @@
   "entry": [
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000001",
-      "request": { "method": "POST", "url": "Organization" },
+      "request": {
+        "method": "POST",
+        "url": "Organization"
+      },
       "resource": {
         "resourceType": "Organization",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "name": "BioWellness San Isidro"
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002",
-      "request": { "method": "POST", "url": "Practitioner" },
+      "request": {
+        "method": "POST",
+        "url": "Practitioner"
+      },
       "resource": {
         "resourceType": "Practitioner",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
-        "name": [{ "given": ["Lucía"], "family": "Fernández" }]
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "name": [
+          {
+            "given": [
+              "Lucía"
+            ],
+            "family": "Fernández"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000003",
-      "request": { "method": "POST", "url": "Location" },
+      "request": {
+        "method": "POST",
+        "url": "Location"
+      },
       "resource": {
         "resourceType": "Location",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "active",
         "name": "Tumbona Red Light R-07"
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000004",
-      "request": { "method": "POST", "url": "ActivityDefinition" },
+      "request": {
+        "method": "POST",
+        "url": "ActivityDefinition"
+      },
       "resource": {
         "resourceType": "ActivityDefinition",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "active",
         "name": "RedLightRecoveryPro",
         "title": "Luz Roja / Recovery Pro",
-        "identifier": [{ "system": "https://biowellness.ar/fhir/CodeSystem/servicio", "value": "RED_LIGHT" }],
-        "topic": [{ "text": "RED_LIGHT" }]
+        "identifier": [
+          {
+            "system": "https://biowellness.ar/fhir/CodeSystem/servicio",
+            "value": "RED_LIGHT"
+          }
+        ],
+        "topic": [
+          {
+            "text": "RED_LIGHT"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000005",
-      "request": { "method": "POST", "url": "Schedule" },
+      "request": {
+        "method": "POST",
+        "url": "Schedule"
+      },
       "resource": {
         "resourceType": "Schedule",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
-        "extension": [{ "url": "https://biowellness.ar/fhir/StructureDefinition/comparte-tumbona", "valueString": "R-07" }],
-        "actor": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000003" }]
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://biowellness.ar/fhir/StructureDefinition/comparte-tumbona",
+            "valueString": "R-07"
+          }
+        ],
+        "actor": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000003"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000006",
-      "request": { "method": "POST", "url": "Slot" },
+      "request": {
+        "method": "POST",
+        "url": "Slot"
+      },
       "resource": {
         "resourceType": "Slot",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
-        "schedule": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000005" },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "schedule": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000005"
+        },
         "status": "busy",
         "start": "2026-06-25T15:00:00-03:00",
         "end": "2026-06-25T15:30:00-03:00"
@@ -67,828 +154,2676 @@
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000007",
-      "request": { "method": "POST", "url": "Appointment" },
+      "request": {
+        "method": "POST",
+        "url": "Appointment"
+      },
       "resource": {
         "resourceType": "Appointment",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
-        "extension": [{ "url": "https://biowellness.ar/fhir/StructureDefinition/item-codigo", "valueString": "RED_LIGHT" }],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://biowellness.ar/fhir/StructureDefinition/item-codigo",
+            "valueString": "RED_LIGHT"
+          }
+        ],
         "status": "booked",
         "start": "2026-06-25T15:00:00-03:00",
         "end": "2026-06-25T15:30:00-03:00",
-        "slot": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000006" }],
+        "slot": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000006"
+          }
+        ],
         "participant": [
-          { "actor": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104" }, "status": "accepted" },
-          { "actor": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000003" }, "status": "accepted" }
+          {
+            "actor": {
+              "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000003"
+            },
+            "status": "accepted"
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000008",
-      "request": { "method": "POST", "url": "Coverage" },
+      "request": {
+        "method": "POST",
+        "url": "Coverage"
+      },
       "resource": {
         "resourceType": "Coverage",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "extension": [
-          { "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-mes", "valueInteger": 8 },
-          { "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-usadas", "valueInteger": 5 }
+          {
+            "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-mes",
+            "valueInteger": 8
+          },
+          {
+            "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-usadas",
+            "valueInteger": 5
+          }
         ],
         "status": "active",
-        "type": { "text": "Plan Full" },
-        "class": [{ "type": { "coding": [{ "code": "plan" }] }, "value": "FULL", "name": "Plan Full" }],
-        "period": { "start": "2026-06-01", "end": "2026-07-15" },
-        "beneficiary": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104" },
-        "payor": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000001" }]
+        "type": {
+          "text": "Plan Full"
+        },
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "value": "FULL",
+            "name": "Plan Full"
+          }
+        ],
+        "period": {
+          "start": "2026-06-01",
+          "end": "2026-07-15"
+        },
+        "beneficiary": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104"
+        },
+        "payor": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000001"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000009",
-      "request": { "method": "POST", "url": "Coverage" },
+      "request": {
+        "method": "POST",
+        "url": "Coverage"
+      },
       "resource": {
         "resourceType": "Coverage",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "extension": [
-          { "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-mes", "valueInteger": 4 },
-          { "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-usadas", "valueInteger": 4 }
+          {
+            "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-mes",
+            "valueInteger": 4
+          },
+          {
+            "url": "https://biowellness.ar/fhir/StructureDefinition/sesiones-usadas",
+            "valueInteger": 4
+          }
         ],
         "status": "active",
-        "type": { "text": "Plan Recovery" },
-        "class": [{ "type": { "coding": [{ "code": "plan" }] }, "value": "RECOVERY", "name": "Plan Recovery" }],
-        "period": { "start": "2026-06-01", "end": "2026-07-05" },
-        "beneficiary": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105" },
-        "payor": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000001" }]
+        "type": {
+          "text": "Plan Recovery"
+        },
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "value": "RECOVERY",
+            "name": "Plan Recovery"
+          }
+        ],
+        "period": {
+          "start": "2026-06-01",
+          "end": "2026-07-05"
+        },
+        "beneficiary": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105"
+        },
+        "payor": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000001"
+          }
+        ]
       }
     },
-
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000101",
-      "request": { "method": "POST", "url": "Patient" },
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      },
       "resource": {
         "resourceType": "Patient",
         "meta": {
           "tag": [
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" },
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente", "code": "lead" }
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
+              "code": "lead"
+            }
           ]
         },
-        "extension": [{ "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente", "valueCode": "lead" }],
-        "name": [{ "given": ["Martín"], "family": "Gómez" }]
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente",
+            "valueCode": "lead"
+          }
+        ],
+        "name": [
+          {
+            "given": [
+              "Martín"
+            ],
+            "family": "Gómez"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000102",
-      "request": { "method": "POST", "url": "Patient" },
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      },
       "resource": {
         "resourceType": "Patient",
         "meta": {
           "tag": [
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" },
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente", "code": "lead" }
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
+              "code": "lead"
+            }
           ]
         },
-        "extension": [{ "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente", "valueCode": "lead" }],
-        "name": [{ "given": ["Sofía"], "family": "Ramírez" }]
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente",
+            "valueCode": "lead"
+          }
+        ],
+        "name": [
+          {
+            "given": [
+              "Sofía"
+            ],
+            "family": "Ramírez"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000103",
-      "request": { "method": "POST", "url": "Patient" },
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      },
       "resource": {
         "resourceType": "Patient",
         "meta": {
           "tag": [
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" },
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente", "code": "lead" }
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
+              "code": "lead"
+            }
           ]
         },
-        "extension": [{ "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente", "valueCode": "lead" }],
-        "name": [{ "given": ["Diego"], "family": "Torres" }]
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente",
+            "valueCode": "lead"
+          }
+        ],
+        "name": [
+          {
+            "given": [
+              "Diego"
+            ],
+            "family": "Torres"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104",
-      "request": { "method": "POST", "url": "Patient" },
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      },
       "resource": {
         "resourceType": "Patient",
         "meta": {
           "tag": [
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" },
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente", "code": "activo" }
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
+              "code": "activo"
+            }
           ]
         },
-        "extension": [{ "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente", "valueCode": "activo" }],
-        "name": [{ "given": ["Valentina"], "family": "López" }]
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente",
+            "valueCode": "activo"
+          }
+        ],
+        "name": [
+          {
+            "given": [
+              "Valentina"
+            ],
+            "family": "López"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105",
-      "request": { "method": "POST", "url": "Patient" },
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      },
       "resource": {
         "resourceType": "Patient",
         "meta": {
           "tag": [
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" },
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente", "code": "activo" }
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
+              "code": "activo"
+            }
           ]
         },
-        "extension": [{ "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente", "valueCode": "activo" }],
-        "name": [{ "given": ["Joaquín"], "family": "Díaz" }]
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente",
+            "valueCode": "activo"
+          }
+        ],
+        "name": [
+          {
+            "given": [
+              "Joaquín"
+            ],
+            "family": "Díaz"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000106",
-      "request": { "method": "POST", "url": "Patient" },
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      },
       "resource": {
         "resourceType": "Patient",
         "meta": {
           "tag": [
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" },
-            { "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente", "code": "activo" }
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
+              "code": "activo"
+            }
           ]
         },
-        "extension": [{ "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente", "valueCode": "activo" }],
-        "name": [{ "given": ["Camila"], "family": "Suárez" }]
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/ciclo-vida-cliente",
+            "valueCode": "activo"
+          }
+        ],
+        "name": [
+          {
+            "given": [
+              "Camila"
+            ],
+            "family": "Suárez"
+          }
+        ]
       }
     },
-
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000201",
-      "request": { "method": "POST", "url": "Task" },
+      "request": {
+        "method": "POST",
+        "url": "Task"
+      },
       "resource": {
         "resourceType": "Task",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "in-progress",
         "intent": "order",
         "businessStatus": {
           "text": "Nuevo",
-          "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/etapa-pipeline", "code": "nuevo", "display": "Nuevo" }]
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/etapa-pipeline",
+              "code": "nuevo",
+              "display": "Nuevo"
+            }
+          ]
         },
-        "for": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000101" },
-        "owner": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" },
-        "input": [{ "type": { "text": "próxima-acción" }, "valueString": "Llamar para presentar HBOT y Red Light" }]
+        "for": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000101"
+        },
+        "owner": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+        },
+        "input": [
+          {
+            "type": {
+              "text": "próxima-acción"
+            },
+            "valueString": "Llamar para presentar HBOT y Red Light"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000202",
-      "request": { "method": "POST", "url": "Task" },
+      "request": {
+        "method": "POST",
+        "url": "Task"
+      },
       "resource": {
         "resourceType": "Task",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "in-progress",
         "intent": "order",
         "businessStatus": {
           "text": "Contactado",
-          "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/etapa-pipeline", "code": "contactado", "display": "Contactado" }]
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/etapa-pipeline",
+              "code": "contactado",
+              "display": "Contactado"
+            }
+          ]
         },
-        "for": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000102" },
-        "owner": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" },
-        "input": [{ "type": { "text": "próxima-acción" }, "valueString": "Enviar info de membresía Recovery" }]
+        "for": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000102"
+        },
+        "owner": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+        },
+        "input": [
+          {
+            "type": {
+              "text": "próxima-acción"
+            },
+            "valueString": "Enviar info de membresía Recovery"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000203",
-      "request": { "method": "POST", "url": "Task" },
+      "request": {
+        "method": "POST",
+        "url": "Task"
+      },
       "resource": {
         "resourceType": "Task",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "in-progress",
         "intent": "order",
         "businessStatus": {
           "text": "Evaluación agendada",
-          "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/etapa-pipeline", "code": "evaluacion-agendada", "display": "Evaluación agendada" }]
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/etapa-pipeline",
+              "code": "evaluacion-agendada",
+              "display": "Evaluación agendada"
+            }
+          ]
         },
-        "for": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000103" },
-        "owner": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" },
-        "input": [{ "type": { "text": "próxima-acción" }, "valueString": "Confirmar evaluación funcional del jueves" }]
+        "for": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000103"
+        },
+        "owner": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+        },
+        "input": [
+          {
+            "type": {
+              "text": "próxima-acción"
+            },
+            "valueString": "Confirmar evaluación funcional del jueves"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000204",
-      "request": { "method": "POST", "url": "Task" },
+      "request": {
+        "method": "POST",
+        "url": "Task"
+      },
       "resource": {
         "resourceType": "Task",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "completed",
         "intent": "order",
         "businessStatus": {
           "text": "Convertido",
-          "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/etapa-pipeline", "code": "convertido", "display": "Convertido" }]
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/etapa-pipeline",
+              "code": "convertido",
+              "display": "Convertido"
+            }
+          ]
         },
-        "for": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104" },
-        "owner": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" },
-        "input": [{ "type": { "text": "próxima-acción" }, "valueString": "Onboarding y primer turno Red Light" }]
+        "for": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104"
+        },
+        "owner": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+        },
+        "input": [
+          {
+            "type": {
+              "text": "próxima-acción"
+            },
+            "valueString": "Onboarding y primer turno Red Light"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000205",
-      "request": { "method": "POST", "url": "Task" },
+      "request": {
+        "method": "POST",
+        "url": "Task"
+      },
       "resource": {
         "resourceType": "Task",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "requested",
         "intent": "order",
         "code": {
           "text": "Recuperación",
-          "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/riesgo-churn", "code": "recuperacion" }]
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/riesgo-churn",
+              "code": "recuperacion"
+            }
+          ]
         },
-        "for": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105" },
-        "owner": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" }
+        "for": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105"
+        },
+        "owner": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+        }
       }
     },
-
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000301",
-      "request": { "method": "POST", "url": "Flag" },
+      "request": {
+        "method": "POST",
+        "url": "Flag"
+      },
       "resource": {
         "resourceType": "Flag",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "active",
-        "category": [{ "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/categoria-flag", "code": "churn-risk" }] }],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://bio.medplum.com.ar/fhir/CodeSystem/categoria-flag",
+                "code": "churn-risk"
+              }
+            ]
+          }
+        ],
         "code": {
           "text": "Riesgo de churn alto",
-          "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/riesgo-churn", "code": "alto", "display": "Riesgo alto" }]
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/riesgo-churn",
+              "code": "alto",
+              "display": "Riesgo alto"
+            }
+          ]
         },
-        "subject": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105" }
+        "subject": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105"
+        }
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000302",
-      "request": { "method": "POST", "url": "Flag" },
+      "request": {
+        "method": "POST",
+        "url": "Flag"
+      },
       "resource": {
         "resourceType": "Flag",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "active",
-        "category": [{ "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/categoria-flag", "code": "churn-risk" }] }],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://bio.medplum.com.ar/fhir/CodeSystem/categoria-flag",
+                "code": "churn-risk"
+              }
+            ]
+          }
+        ],
         "code": {
           "text": "Riesgo de churn medio",
-          "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/riesgo-churn", "code": "medio", "display": "Riesgo medio" }]
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/riesgo-churn",
+              "code": "medio",
+              "display": "Riesgo medio"
+            }
+          ]
         },
-        "subject": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000106" }
+        "subject": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000106"
+        }
       }
     },
-
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000401",
-      "request": { "method": "POST", "url": "Provenance" },
+      "request": {
+        "method": "POST",
+        "url": "Provenance"
+      },
       "resource": {
         "resourceType": "Provenance",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
-        "target": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000101" }],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "target": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000101"
+          }
+        ],
         "recorded": "2026-06-24T12:00:00-03:00",
         "extension": [
           {
             "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/lead-origen",
             "extension": [
-              { "url": "fuente", "valueString": "Instagram" },
-              { "url": "utm_source", "valueString": "ig_ads" },
-              { "url": "campania", "valueString": "junio-longevidad" }
+              {
+                "url": "fuente",
+                "valueString": "Instagram"
+              },
+              {
+                "url": "utm_source",
+                "valueString": "ig_ads"
+              },
+              {
+                "url": "campania",
+                "valueString": "junio-longevidad"
+              }
             ]
           }
         ],
-        "agent": [{ "who": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" } }]
+        "agent": [
+          {
+            "who": {
+              "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000402",
-      "request": { "method": "POST", "url": "Provenance" },
+      "request": {
+        "method": "POST",
+        "url": "Provenance"
+      },
       "resource": {
         "resourceType": "Provenance",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
-        "target": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000102" }],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "target": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000102"
+          }
+        ],
         "recorded": "2026-06-24T12:05:00-03:00",
         "extension": [
           {
             "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/lead-origen",
             "extension": [
-              { "url": "fuente", "valueString": "Referido" },
-              { "url": "referido-por", "valueString": "Valentina López" }
+              {
+                "url": "fuente",
+                "valueString": "Referido"
+              },
+              {
+                "url": "referido-por",
+                "valueString": "Valentina López"
+              }
             ]
           }
         ],
-        "agent": [{ "who": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" } }]
+        "agent": [
+          {
+            "who": {
+              "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000403",
-      "request": { "method": "POST", "url": "Provenance" },
+      "request": {
+        "method": "POST",
+        "url": "Provenance"
+      },
       "resource": {
         "resourceType": "Provenance",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
-        "target": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000103" }],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "target": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000103"
+          }
+        ],
         "recorded": "2026-06-24T12:10:00-03:00",
         "extension": [
           {
             "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/lead-origen",
             "extension": [
-              { "url": "fuente", "valueString": "Google Ads" },
-              { "url": "utm_source", "valueString": "google" }
+              {
+                "url": "fuente",
+                "valueString": "Google Ads"
+              },
+              {
+                "url": "utm_source",
+                "valueString": "google"
+              }
             ]
           }
         ],
-        "agent": [{ "who": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" } }]
+        "agent": [
+          {
+            "who": {
+              "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000404",
-      "request": { "method": "POST", "url": "Provenance" },
+      "request": {
+        "method": "POST",
+        "url": "Provenance"
+      },
       "resource": {
         "resourceType": "Provenance",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
-        "target": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104" }],
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "target": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104"
+          }
+        ],
         "recorded": "2026-06-24T12:15:00-03:00",
         "extension": [
           {
             "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/lead-origen",
             "extension": [
-              { "url": "fuente", "valueString": "Web" },
-              { "url": "campania", "valueString": "junio-longevidad" }
+              {
+                "url": "fuente",
+                "valueString": "Web"
+              },
+              {
+                "url": "campania",
+                "valueString": "junio-longevidad"
+              }
             ]
           }
         ],
-        "agent": [{ "who": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002" } }]
+        "agent": [
+          {
+            "who": {
+              "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002"
+            }
+          }
+        ]
       }
     },
-
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000501",
-      "request": { "method": "POST", "url": "Group" },
+      "request": {
+        "method": "POST",
+        "url": "Group"
+      },
       "resource": {
         "resourceType": "Group",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "type": "person",
         "actual": true,
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/segmento", "value": "interes-longevidad" }],
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/segmento",
+            "value": "interes-longevidad"
+          }
+        ],
         "name": "Interés longevidad",
         "quantity": 2,
         "member": [
-          { "entity": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104" } },
-          { "entity": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105" } }
+          {
+            "entity": {
+              "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104"
+            }
+          },
+          {
+            "entity": {
+              "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105"
+            }
+          }
         ],
         "characteristic": [
           {
-            "code": { "text": "Perfil de interés", "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/rasgo-segmento", "code": "perfil-interes" }] },
-            "valueCodeableConcept": { "text": "Longevidad" },
+            "code": {
+              "text": "Perfil de interés",
+              "coding": [
+                {
+                  "system": "https://bio.medplum.com.ar/fhir/CodeSystem/rasgo-segmento",
+                  "code": "perfil-interes"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Longevidad"
+            },
             "exclude": false
           },
           {
-            "code": { "text": "Ciclo de vida", "coding": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/rasgo-segmento", "code": "ciclo-vida" }] },
-            "valueCodeableConcept": { "text": "Activo" },
+            "code": {
+              "text": "Ciclo de vida",
+              "coding": [
+                {
+                  "system": "https://bio.medplum.com.ar/fhir/CodeSystem/rasgo-segmento",
+                  "code": "ciclo-vida"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Activo"
+            },
             "exclude": false
           }
         ]
       }
     },
-
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000601",
-      "request": { "method": "POST", "url": "Communication" },
+      "request": {
+        "method": "POST",
+        "url": "Communication"
+      },
       "resource": {
         "resourceType": "Communication",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "completed",
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/campania", "value": "camp-demo-junio" }],
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/campania",
+            "value": "camp-demo-junio"
+          }
+        ],
         "sent": "2026-06-24T10:00:00-03:00",
-        "subject": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104" },
-        "recipient": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104" }],
-        "payload": [{ "contentString": "Beneficios de longevidad — agendá tu evaluación" }]
+        "subject": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104"
+        },
+        "recipient": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104"
+          }
+        ],
+        "payload": [
+          {
+            "contentString": "Beneficios de longevidad — agendá tu evaluación"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000602",
-      "request": { "method": "POST", "url": "Communication" },
+      "request": {
+        "method": "POST",
+        "url": "Communication"
+      },
       "resource": {
         "resourceType": "Communication",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "completed",
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/campania", "value": "camp-demo-junio" }],
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/campania",
+            "value": "camp-demo-junio"
+          }
+        ],
         "sent": "2026-06-24T10:00:00-03:00",
         "received": "2026-06-24T11:30:00-03:00",
-        "subject": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105" },
-        "recipient": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105" }],
-        "payload": [{ "contentString": "Beneficios de longevidad — agendá tu evaluación" }]
+        "subject": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105"
+        },
+        "recipient": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105"
+          }
+        ],
+        "payload": [
+          {
+            "contentString": "Beneficios de longevidad — agendá tu evaluación"
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000603",
-      "request": { "method": "POST", "url": "Communication" },
+      "request": {
+        "method": "POST",
+        "url": "Communication"
+      },
       "resource": {
         "resourceType": "Communication",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "completed",
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/campania", "value": "camp-demo-junio" }],
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/campania",
+            "value": "camp-demo-junio"
+          }
+        ],
         "sent": "2026-06-24T10:00:00-03:00",
-        "subject": { "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000106" },
-        "recipient": [{ "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000106" }],
-        "payload": [{ "contentString": "Beneficios de longevidad — agendá tu evaluación" }]
+        "subject": {
+          "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000106"
+        },
+        "recipient": [
+          {
+            "reference": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000106"
+          }
+        ],
+        "payload": [
+          {
+            "contentString": "Beneficios de longevidad — agendá tu evaluación"
+          }
+        ]
       }
     },
-
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000701",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|embudo-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/embudo",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "embudo-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "embudo-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "nuevo" }] }, "measureScore": { "value": 40 } },
-          { "code": { "coding": [{ "code": "contactado" }] }, "measureScore": { "value": 25 } },
-          { "code": { "coding": [{ "code": "evaluacion-agendada" }] }, "measureScore": { "value": 12 } },
-          { "code": { "coding": [{ "code": "convertido" }] }, "measureScore": { "value": 7 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "nuevo"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 40
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "contactado"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 25
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "evaluacion-agendada"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 12
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "convertido"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 7
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000702",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|clientes-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/clientes",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "clientes-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "clientes-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "lead" }] }, "measureScore": { "value": 65 } },
-          { "code": { "coding": [{ "code": "activo" }] }, "measureScore": { "value": 120 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "lead"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 65
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "activo"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 120
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000703",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|conversion-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/conversion",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "conversion-2026-06" }],
-        "group": [{ "code": { "coding": [{ "code": "tasa" }] }, "measureScore": { "value": 28 } }]
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "conversion-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "tasa"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 28
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000704",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|churn-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/churn",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "churn-2026-06" }],
-        "group": [{ "code": { "coding": [{ "code": "alto" }] }, "measureScore": { "value": 2 } }]
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "churn-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "alto"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000705",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ltv-promedio-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/ltv-promedio",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ltv-promedio-2026-06" }],
-        "group": [{ "code": { "coding": [{ "code": "promedio" }] }, "measureScore": { "value": 185000 } }]
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ltv-promedio-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "promedio"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 185000
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000706",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ltv-segmento-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/ltv-segmento",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ltv-segmento-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ltv-segmento-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "longevidad", "display": "Interés longevidad" }] }, "measureScore": { "value": 240000 } },
-          { "code": { "coding": [{ "code": "recovery", "display": "Recovery deportivo" }] }, "measureScore": { "value": 175000 } },
-          { "code": { "coding": [{ "code": "bienestar", "display": "Bienestar general" }] }, "measureScore": { "value": 120000 } },
-          { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 185000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "longevidad",
+                  "display": "Interés longevidad"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 240000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "recovery",
+                  "display": "Recovery deportivo"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 175000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "bienestar",
+                  "display": "Bienestar general"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 120000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 185000
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000707",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|servicios-turnos-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://biowellness.ar/fhir/Measure/servicios-turnos",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "servicios-turnos-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "servicios-turnos-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "RED_LIGHT" }] }, "measureScore": { "value": 34 } },
-          { "code": { "coding": [{ "code": "HBOT" }] }, "measureScore": { "value": 22 } },
-          { "code": { "coding": [{ "code": "MASAJE_OSTEOPATIA" }] }, "measureScore": { "value": 14 } },
-          { "code": { "coding": [{ "code": "IHHT" }] }, "measureScore": { "value": 9 } },
-          { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 79 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "RED_LIGHT"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 34
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "HBOT"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 22
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "MASAJE_OSTEOPATIA"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 14
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "IHHT"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 9
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 79
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000708",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|agenda-ocupacion-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://biowellness.ar/fhir/Measure/agenda-ocupacion",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "agenda-ocupacion-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "agenda-ocupacion-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "R-07", "display": "Red Light · Tumbona R-07" }] }, "measureScore": { "value": 92 } },
-          { "code": { "coding": [{ "code": "HBOT-01", "display": "Cámara HBOT" }] }, "measureScore": { "value": 58 } },
-          { "code": { "coding": [{ "code": "IHHT-01", "display": "Sala IHHT" }] }, "measureScore": { "value": 41 } },
-          { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 64 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "R-07",
+                  "display": "Red Light · Tumbona R-07"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 92
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "HBOT-01",
+                  "display": "Cámara HBOT"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 58
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "IHHT-01",
+                  "display": "Sala IHHT"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 41
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 64
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000709",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|membresias-utilizacion-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://biowellness.ar/fhir/Measure/membresias-utilizacion",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "membresias-utilizacion-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "membresias-utilizacion-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "plan-full", "display": "Plan Full" }] }, "measureScore": { "value": 78 } },
-          { "code": { "coding": [{ "code": "plan-recovery", "display": "Plan Recovery" }] }, "measureScore": { "value": 55 } },
-          { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 63 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "plan-full",
+                  "display": "Plan Full"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 78
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "plan-recovery",
+                  "display": "Plan Recovery"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 55
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 63
+            }
+          }
         ]
       }
     },
-
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000710",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|tipo-cambio-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/tipo-cambio",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "tipo-cambio-2026-06" }],
-        "group": [{ "code": { "coding": [{ "code": "usd", "display": "ARS por USD" }] }, "measureScore": { "value": 1490.5 } }]
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "tipo-cambio-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "usd",
+                  "display": "ARS por USD"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 1490.5
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000711",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ingresos-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ingresos-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "dia", "display": "Hoy" }] }, "measureScore": { "value": 850000 } },
-          { "code": { "coding": [{ "code": "mes", "display": "Mes corriente" }] }, "measureScore": { "value": 18500000 } },
-          { "code": { "coding": [{ "code": "mes-anterior", "display": "Mes anterior" }] }, "measureScore": { "value": 16200000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "dia",
+                  "display": "Hoy"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 850000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "mes",
+                  "display": "Mes corriente"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 18500000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "mes-anterior",
+                  "display": "Mes anterior"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 16200000
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000712",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ingresos-cobro-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-cobro",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-cobro-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ingresos-cobro-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "efectivo", "display": "Efectivo" }] }, "measureScore": { "value": 4200000 } },
-          { "code": { "coding": [{ "code": "tarjeta-debito", "display": "Tarjeta débito" }] }, "measureScore": { "value": 3100000 } },
-          { "code": { "coding": [{ "code": "tarjeta-credito", "display": "Tarjeta crédito" }] }, "measureScore": { "value": 6800000 } },
-          { "code": { "coding": [{ "code": "transferencia", "display": "Transferencia" }] }, "measureScore": { "value": 3000000 } },
-          { "code": { "coding": [{ "code": "mercadopago", "display": "Mercado Pago" }] }, "measureScore": { "value": 1400000 } },
-          { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 18500000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "efectivo",
+                  "display": "Efectivo"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 4200000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "tarjeta-debito",
+                  "display": "Tarjeta débito"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3100000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "tarjeta-credito",
+                  "display": "Tarjeta crédito"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 6800000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "transferencia",
+                  "display": "Transferencia"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "mercadopago",
+                  "display": "Mercado Pago"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 1400000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 18500000
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000713",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ingresos-servicio-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-servicio",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-servicio-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ingresos-servicio-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "HBOT", "display": "Cámara hiperbárica (HBOT)" }] }, "measureScore": { "value": 6100000 } },
-          { "code": { "coding": [{ "code": "RED_LIGHT", "display": "Luz Roja" }] }, "measureScore": { "value": 5200000 } },
-          { "code": { "coding": [{ "code": "IV_THERAPY", "display": "Terapia IV / Sueros" }] }, "measureScore": { "value": 3000000 } },
-          { "code": { "coding": [{ "code": "MASAJE_OSTEOPATIA", "display": "Osteopatía / Masaje" }] }, "measureScore": { "value": 2400000 } },
-          { "code": { "coding": [{ "code": "IHHT", "display": "IHHT" }] }, "measureScore": { "value": 1800000 } },
-          { "code": { "coding": [{ "code": "global" }] }, "measureScore": { "value": 18500000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "HBOT",
+                  "display": "Cámara hiperbárica (HBOT)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 6100000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "RED_LIGHT",
+                  "display": "Luz Roja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5200000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "IV_THERAPY",
+                  "display": "Terapia IV / Sueros"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "MASAJE_OSTEOPATIA",
+                  "display": "Osteopatía / Masaje"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2400000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "IHHT",
+                  "display": "IHHT"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 1800000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 18500000
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000714",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ingresos-medico-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-medico",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-medico-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ingresos-medico-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "med-1", "display": "Dra. Lucía Fernández" }] }, "measureScore": { "value": 4800000 } },
-          { "code": { "coding": [{ "code": "med-2", "display": "Dr. Pablo Ruiz" }] }, "measureScore": { "value": 3600000 } },
-          { "code": { "coding": [{ "code": "med-3", "display": "Lic. Ana Méndez" }] }, "measureScore": { "value": 2100000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "med-1",
+                  "display": "Dra. Lucía Fernández"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 4800000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "med-2",
+                  "display": "Dr. Pablo Ruiz"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3600000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "med-3",
+                  "display": "Lic. Ana Méndez"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2100000
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000715",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ingresos-iv-tb-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-iv-tb",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "ingresos-iv-tb-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ingresos-iv-tb-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "bruto", "display": "Bruto" }] }, "measureScore": { "value": 3000000 } },
-          { "code": { "coding": [{ "code": "deducciones", "display": "Deducciones" }] }, "measureScore": { "value": 300000 } },
-          { "code": { "coding": [{ "code": "profesional", "display": "Profesional (85%)" }] }, "measureScore": { "value": 2295000 } },
-          { "code": { "coding": [{ "code": "centro", "display": "Centro (15%)" }] }, "measureScore": { "value": 405000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "bruto",
+                  "display": "Bruto"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "deducciones",
+                  "display": "Deducciones"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 300000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "profesional",
+                  "display": "Profesional (85%)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2295000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "centro",
+                  "display": "Centro (15%)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 405000
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000716",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|margen-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/margen",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "margen-2026-06" }],
-        "group": [{ "code": { "coding": [{ "code": "estimado", "display": "Margen estimado" }] }, "measureScore": { "value": 5550000 } }]
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "margen-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "estimado",
+                  "display": "Margen estimado"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5550000
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000717",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|cobros-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/cobros",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "cobros-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "cobros-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "cobrado", "display": "Cobrado" }] }, "measureScore": { "value": 15800000 } },
-          { "code": { "coding": [{ "code": "pendiente", "display": "Pendiente" }] }, "measureScore": { "value": 2100000 } },
-          { "code": { "coding": [{ "code": "fallido", "display": "Fallido" }] }, "measureScore": { "value": 600000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "cobrado",
+                  "display": "Cobrado"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 15800000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "pendiente",
+                  "display": "Pendiente"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2100000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "fallido",
+                  "display": "Fallido"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 600000
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000718",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|founding-members-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/founding-members",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "founding-members-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "founding-members-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "cupos-usados", "display": "Cupos usados" }] }, "measureScore": { "value": 18 } },
-          { "code": { "coding": [{ "code": "cupos-totales", "display": "Cupos totales" }] }, "measureScore": { "value": 25 } },
-          { "code": { "coding": [{ "code": "descuento-promedio", "display": "Descuento promedio" }] }, "measureScore": { "value": 20 } },
-          { "code": { "coding": [{ "code": "ltv-promedio", "display": "LTV promedio" }] }, "measureScore": { "value": 320000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "cupos-usados",
+                  "display": "Cupos usados"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 18
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "cupos-totales",
+                  "display": "Cupos totales"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 25
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "descuento-promedio",
+                  "display": "Descuento promedio"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 20
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ltv-promedio",
+                  "display": "LTV promedio"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 320000
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000719",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|clinico-sin-visita-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/clinico-sin-visita",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "clinico-sin-visita-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "clinico-sin-visita-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "30", "display": "≥ 30 días" }] }, "measureScore": { "value": 14 } },
-          { "code": { "coding": [{ "code": "60", "display": "≥ 60 días" }] }, "measureScore": { "value": 8 } },
-          { "code": { "coding": [{ "code": "90", "display": "≥ 90 días" }] }, "measureScore": { "value": 5 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "30",
+                  "display": "≥ 30 días"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 14
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "60",
+                  "display": "≥ 60 días"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 8
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "90",
+                  "display": "≥ 90 días"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000720",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|clinico-baja-utilizacion-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/clinico-baja-utilizacion",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "clinico-baja-utilizacion-2026-06" }],
-        "group": [{ "code": { "coding": [{ "code": "miembros", "display": "Miembros con baja utilización" }] }, "measureScore": { "value": 11 } }]
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "clinico-baja-utilizacion-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "miembros",
+                  "display": "Miembros con baja utilización"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 11
+            }
+          }
+        ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000721",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|clinico-consentimientos-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/clinico-consentimientos",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "clinico-consentimientos-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "clinico-consentimientos-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "30", "display": "≤ 30 días" }] }, "measureScore": { "value": 3 } },
-          { "code": { "coding": [{ "code": "60", "display": "≤ 60 días" }] }, "measureScore": { "value": 6 } },
-          { "code": { "coding": [{ "code": "90", "display": "≤ 90 días" }] }, "measureScore": { "value": 9 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "30",
+                  "display": "≤ 30 días"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "60",
+                  "display": "≤ 60 días"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 6
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "90",
+                  "display": "≤ 90 días"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 9
+            }
+          }
         ]
       }
     },
     {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000722",
-      "request": { "method": "POST", "url": "MeasureReport" },
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|proyeccion-v12-2026-06"
+      },
       "resource": {
         "resourceType": "MeasureReport",
-        "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
         "status": "complete",
         "type": "summary",
         "measure": "https://bio.medplum.com.ar/fhir/Measure/proyeccion-v12",
         "date": "2026-06-24",
-        "period": { "start": "2026-06-24", "end": "2026-06-26" },
-        "identifier": [{ "system": "https://bio.medplum.com.ar/fhir/sid/measurereport", "value": "proyeccion-v12-2026-06" }],
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "proyeccion-v12-2026-06"
+          }
+        ],
         "group": [
-          { "code": { "coding": [{ "code": "ingresos-proyectado", "display": "Ingresos proyectado" }] }, "measureScore": { "value": 20000000 } },
-          { "code": { "coding": [{ "code": "ingresos-real", "display": "Ingresos real" }] }, "measureScore": { "value": 18500000 } },
-          { "code": { "coding": [{ "code": "ocupacion-proyectado", "display": "Ocupación proyectada" }] }, "measureScore": { "value": 70 } },
-          { "code": { "coding": [{ "code": "ocupacion-real", "display": "Ocupación real" }] }, "measureScore": { "value": 64 } },
-          { "code": { "coding": [{ "code": "margen-proyectado", "display": "Margen proyectado" }] }, "measureScore": { "value": 6000000 } },
-          { "code": { "coding": [{ "code": "margen-real", "display": "Margen real" }] }, "measureScore": { "value": 5550000 } }
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ingresos-proyectado",
+                  "display": "Ingresos proyectado"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 20000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ingresos-real",
+                  "display": "Ingresos real"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 18500000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ocupacion-proyectado",
+                  "display": "Ocupación proyectada"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 70
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ocupacion-real",
+                  "display": "Ocupación real"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 64
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "margen-proyectado",
+                  "display": "Margen proyectado"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 6000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "margen-real",
+                  "display": "Margen real"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5550000
+            }
+          }
         ]
       }
     }

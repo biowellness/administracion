@@ -192,6 +192,10 @@ de Pipeline, Flags de Retención, un Group de Segmentos, Communications de Campa
 turno operativo Red Light en la tumbona R-07). Incluye los `MeasureReport` ya calculados,
 así los dashboards se ven sin esperar a `kpis-*`. La ventana de período es 2026-06-24→26.
 
+> Los `MeasureReport` se cargan con **conditional update por identifier** (idempotente):
+> re-aplicar el seed **actualiza** cada métrica en vez de duplicarla (evita que la app
+> muestre un valor viejo por tener dos reportes del mismo período).
+
 Aplicar:
 
 ```bash
