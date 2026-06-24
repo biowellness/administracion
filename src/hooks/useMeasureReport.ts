@@ -64,3 +64,13 @@ export function groupValue(mr: MeasureReport | undefined, code: string): number 
 export function groups(mr: MeasureReport | undefined): MeasureReportGroup[] {
   return mr?.group ?? [];
 }
+
+/** Código del grupo (`code.coding[0].code`). */
+export function groupCode(g: MeasureReportGroup): string | undefined {
+  return g.code?.coding?.[0]?.code;
+}
+
+/** Etiqueta legible del grupo: display → text → code → '—'. */
+export function groupLabel(g: MeasureReportGroup): string {
+  return g.code?.coding?.[0]?.display ?? g.code?.text ?? g.code?.coding?.[0]?.code ?? '—';
+}

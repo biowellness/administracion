@@ -163,6 +163,20 @@ export const CATEGORIAS_SERVICIO = [
 ] as const;
 export type CategoriaServicio = (typeof CATEGORIAS_SERVICIO)[number];
 
+/** Etiquetas es-AR para las categorías de servicio. */
+export const CATEGORIA_SERVICIO_LABEL: Record<CategoriaServicio, string> = {
+  HBOT: 'Cámara hiperbárica (HBOT)',
+  IHHT: 'IHHT (hiperoxia–hipoxia)',
+  RED_LIGHT: 'Luz Roja',
+  MASAJE_OSTEOPATIA: 'Osteopatía / Masaje',
+  CRIO: 'Crioterapia',
+  COMPRESION: 'Compresión',
+  RECOVERY_PRO: 'Recovery Pro',
+  IV_THERAPY: 'Terapia IV / Sueros',
+  CONSULTA: 'Consulta',
+  TERAPIA_BIOLOGICA: 'Terapia biológica',
+};
+
 /** Extensión en Appointment con el código de servicio (valueString). */
 export const SD_ITEM_CODIGO = `${NS.bw}/StructureDefinition/item-codigo`;
 /** Extensión en Slot/Schedule que marca el cuello de botella de las tumbonas Red Light (R-07). */
