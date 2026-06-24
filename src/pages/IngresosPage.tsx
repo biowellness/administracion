@@ -8,7 +8,7 @@ import { filasDeMedida, hojasIngresos, useTipoCambio } from '../fhir/reportes';
 import { measureFinanzas } from '../fhir/systems';
 import { groupValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { exportarExcel } from '../lib/excel';
-import { fmt } from '../lib/format';
+import { fmt, fmt2 } from '../lib/format';
 
 /**
  * Ingresos (6.8 · Fase 2) — ingresos del día y del mes, comparativo vs. mes anterior,
@@ -75,7 +75,7 @@ export function IngresosPage(): JSX.Element {
         <Title order={3}>Ingresos</Title>
         <Group gap="xs">
           <Badge variant="light" color={mostrarUsd ? 'teal' : 'gray'}>
-            {mostrarUsd ? `TC USD $${tcUsd}` : 'TC USD sin dato'}
+            {mostrarUsd ? `TC USD $${fmt2(tcUsd)}` : 'TC USD sin dato'}
           </Badge>
           {periodo && (
             <Badge variant="light" color="gray">
