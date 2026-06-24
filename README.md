@@ -61,6 +61,11 @@ src/
   pages/                    Dashboard · Resumen · Pipeline · Retención · Segmentos · Campañas · Servicios · Membresías · Ingresos · Financiero · Clínicos · Gestión · Reportes + login
 infra/
   access-policy-administracion.json  AccessPolicy del rol Administración
+  seed-demo-bundle.json              Datos de demo (todas las pantallas)
+  measure-tipo-cambio.json           MeasureReport del TC (USD)
+bots/
+  tipo-cambio.ts                     Bot: publica Measure/tipo-cambio
+  kpis-finanzas.ts                   Bot: ingresos/cobros/margen del mes
 ```
 
 ## Convención de namespaces
@@ -162,6 +167,10 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
 - **Gestión** (pantalla `/gestion`): Measure **asumido** `proyeccion-v12` con grupos
   `<metrica>-proyectado` y `<metrica>-real` (`ingresos`, `ocupacion`, `margen`); la app muestra
   proyectado vs. real y % de cumplimiento.
+
+Los Bots que **producen** los Measures financieros y el TC están en `bots/`
+(`kpis-finanzas.ts`, `tipo-cambio.ts`) — ver `bots/README.md` para contrato y deploy.
+Typecheck local: `npm run typecheck:bots`.
 
 ### Cargar el tipo de cambio
 

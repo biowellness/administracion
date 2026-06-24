@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "typecheck": "tsc --noEmit",
+    "typecheck:bots": "tsc --noEmit -p bots/tsconfig.json",
     "preview": "vite preview"
   },
   "dependencies": {
