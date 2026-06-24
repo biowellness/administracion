@@ -25,6 +25,8 @@ import {
   IconLogout,
   IconReportMoney,
   IconSpeakerphone,
+  IconStethoscope,
+  IconTargetArrow,
   IconUserCircle,
   IconUsersGroup,
 } from '@tabler/icons-react';
@@ -48,6 +50,8 @@ const NAV: NavItem[] = [
   { label: 'Membresías', to: '/membresias', icon: IconId },
   { label: 'Ingresos', to: '/ingresos', icon: IconCash },
   { label: 'Financiero', to: '/financiero', icon: IconReportMoney },
+  { label: 'Clínicos', to: '/clinicos', icon: IconStethoscope },
+  { label: 'Gestión', to: '/gestion', icon: IconTargetArrow },
   { label: 'Reportes', to: '/reportes', icon: IconFileSpreadsheet },
 ];
 
