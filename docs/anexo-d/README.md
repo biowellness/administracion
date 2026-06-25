@@ -180,6 +180,37 @@ De producto/modelado:
   o Measure `tipo-cambio`? (elegir uno) · ¿`Coverage.class` distingue Standard/Intensivo e
   Individual/Pareja? · Bar y participaciones: ¿Excel esta etapa o adelantar a config FHIR?
 
+### Dashboard Mensual — layout y gráficos
+
+La hoja maestra (destino final). Tiene **3 gráficos embebidos** (chart1/2/3) + un **narrador
+automático** (§6). Layout:
+
+- **6 tarjetas KPI** (r4-6): Ingresos Wellness (ARS 5.836.500 / USD 3.891) · Resultado Total
+  (−6.187.250) · Margen operativo (−113,7%) · MRR (13.214 USD) · Ocupación promedio (0,15%).
+- **Estado de resultados** (B9:D21, ARS+USD).
+- **Mix de ingresos por línea** (H10:J14, ARS + % del total) → **torta**.
+- **Utilización por recurso** (B28:D40, 13 recursos: sesiones + %) → **barras**.
+- **Distribución por socio** (B44:D51): % × Resultado Total, Σ = 100%.
+- **Comparativo vs mes anterior** (r53-55): variación de ingresos.
+- **Análisis automático** (C57:C61): texto en lenguaje natural (§6).
+- **Formas de pago** (B67:D72, ARS + %) → **torta** + línea "forma de pago principal".
+
+**Win del template vivo:** los 3 gráficos referencian rangos de celdas; al rellenar los datos
+(mix r10-14, utilización r28-40, pagos r67-71) **las tortas/barras se re-renderizan solas**.
+No reprogramamos gráficos — solo escribimos celdas (ExcelJS preserva los charts).
+
+**Mapeo a measures:** 6 KPIs ← `estado-resultados` + `membresias-mrr` + utilización; mix ←
+`ingresos-linea`; utilización ← `utilizacion-diaria` (13 recursos); distribución ←
+`estado-resultados` × participaciones (config 7 socios); formas de pago ← `ingresos-cobro`
+(ya existe); comparativo ← `ingresos-linea` mes vs mes-anterior.
+
+**Narrador (§6) — adelanto:** el modelo ya trae las líneas exactas: signo del resultado + monto,
+tendencia vs mes anterior, MRR + socios activos, recurso más/menos usado, alerta de margen < 20%,
+forma de pago principal. Es la base directa del Punto 6.
+
+**Aclaración de socios:** hay DOS "Diego" — **"Diego"** (0,24, sin apellido) y **"Diego Sívori"**
+(0,01). Son socios distintos; el del 24% sigue sin apellido → confirmar con Andrés.
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
