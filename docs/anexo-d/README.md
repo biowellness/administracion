@@ -1,0 +1,61 @@
+# Anexo D — Reportería Excel (Tablero de Gestión)
+
+Fuentes (versionadas acá): `anexo-d-requerimientos.docx`, `tablero-mensual-modelo.xlsx`,
+`tablero-anual-modelo.xlsx`. **La planilla modelo manda sobre cualquier ambigüedad del texto.**
+
+Documento de trabajo del análisis punto por punto y de las decisiones de la etapa.
+
+## Decisiones de la etapa (Punto 1)
+
+- **Export = Template vivo.** El `.xlsx` modelo es la plantilla: el sistema rellena celdas
+  con datos en vivo y preserva el look (colores, torta/barras, estado de resultados).
+  Motor con estilos (ExcelJS / relleno de template), no SheetJS.
+- **Carga = Híbrido pragmático.** El sistema vuelca lo que sabe; los números que no sabe
+  (Bar, gastos, parámetros) se cargan en el Excel por ahora; migran a FHIR al validarse.
+
+Capas pendientes: **narrador automático** (§6) y **modo "informe a socios"** (§5.2).
+
+## Mapa de carga híbrida (Punto 2)
+
+| Dato | Origen | Dónde vive | Nivel |
+|---|---|---|---|
+| Ingresos cobrados por línea | Auto (Medplum) | `kpis-finanzas` | diario→mensual |
+| Sesiones / uso de recursos | Auto (Appointment/Slot) | `kpis-servicios` | diario→mensual |
+| Utilización por recurso | Auto-calc (sesiones ÷ capacidad) | sesiones auto · capacidad de Parámetros | diario→mensual |
+| Formas de pago | Auto (Medplum) | `kpis-finanzas` (`ingresos-cobro`) | diario/mensual/anual |
+| Socios activos, MRR, combos | Auto (Coverage/Group) | Membresías | mensual |
+| Honorarios 15% IV+TB · Regenerar 30% · Comisiones MP · IIBB 3% | Auto-calc (% bases) | `kpis-finanzas` (% editables, **VALIDAR base**) | mensual |
+| Caja chica del día | Manual | Excel (→ FHIR futuro) | diario |
+| Gastos operativos del mes | Manual | Excel (Gastos del Mes) | mensual |
+| Sueldos por empleado + cargas 27% | Manual | Excel (Empleados) | mensual |
+| Gastos varios | Manual | Excel (Gastos Varios) | mensual |
+| Bar — resultado neto | Manual (un número) | Excel (Dashboard) | mensual/anual |
+| Parámetros (TC, días/horas, capacidades, %s, participaciones, umbrales) | Manual | Excel (Parámetros) | mensual |
+| Consultas split (cantidad y precio) | Manual hoy (→ Medplum) | Excel (Consultas) | mensual |
+
+### Cascada
+- Modelo: diario→mensual por fórmulas; mensual→anual por *cierre de mes*.
+- Definitivo: bots producen `MeasureReport` por nivel (día/mes/año); encadenan solos.
+- Acción **"Cerrar mes"**: congela el mes y completa la columna del anual (§7).
+
+## Hojas del modelo
+
+- **MENSUAL** (11): Dashboard Mensual · Parámetros · Caja Diaria · Sesiones · Resumen Diario ·
+  Membresías & Combos · Gastos del Mes · Formas de Pago · Empleados · Gastos Varios · Consultas (Split).
+- **ANUAL** (2): Dashboard Anual · Resumen Anual.
+
+Convención de celdas (§10): **azul / amarillo = inputs**, **verdes = cálculos**.
+
+## Recursos medidos (§4)
+
+HBOT Monoplaza/Biplaza/Multiplaza · IHHT 1/2 · Recovery Pro Gab 1/2 · Red Light ·
+Compresión (IPC06) · Crio (COT03) · Camilla masajes · Consultorio médico · Sala TB / IV.
+Slots/día = (horas × 60) ÷ duración; capacidad mensual = slots/día × días operativos.
+**Regla R-07:** Recovery Pro Gab 1 y 2 comparten 2 tumbonas Red Light (capacidad acoplada).
+
+## Pendientes a validar con Andrés / contador
+
+- Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
+- Línea del estado de resultados donde impacta el "Neto BW de consultas" (§5.10).
+- Cascada de pricing TB+IV y alícuotas fiscales (§8).
+- Inicio de operación: Agosto 2026 (meses previos en cero).
