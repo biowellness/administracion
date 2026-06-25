@@ -211,6 +211,31 @@ forma de pago principal. Es la base directa del Punto 6.
 **Aclaración de socios:** hay DOS "Diego" — **"Diego"** (0,24, sin apellido) y **"Diego Sívori"**
 (0,01). Son socios distintos; el del 24% sigue sin apellido → confirmar con Andrés.
 
+## Análisis automático (Punto 6)
+
+El dashboard escribe solo una lectura del mes en lenguaje natural. Es una **capa de
+presentación** sobre los measures del Punto 5 — no hay datos nuevos. Frases (spec literal del
+modelo, C57-C61 + r73):
+
+| Línea | Disparador | Measure | Plantilla |
+|---|---|---|---|
+| Resultado | siempre | `estado-resultados` | `✖/✓ El mes cerró NEGATIVO/POSITIVO: {monto} ARS` |
+| Tendencia | si hay mes anterior | `ingresos-linea` (var %) | `↑/↓ Ingresos {±X%} vs mes anterior` |
+| MRR + socios | siempre | `membresias-mrr`/`socios-plan` | `MRR: {X} USD/mes con {N} socios activos` |
+| Recurso más/menos | siempre | `utilizacion-diaria` | `Recurso MÁS usado: {R} ({%}). Menos usado: {R2} ({%})` |
+| Alerta margen | margen < objetivo | `estado-resultados` (margen, margen-objetivo) | `⚠ Margen por debajo del {20%} objetivo` |
+| Pago principal | siempre | `ingresos-cobro` | `Forma de pago principal: {método} ({%})` |
+
+**Dónde vive:** función pura determinista `analisisMensual(measures) → string[]` (no LLM); el bot
+la persiste como measure `analisis-mensual` (una sola fuente) y la app live + el template la leen.
+Reglas, no prosa: el §6 pide hechos concretos y redacción consistente.
+
+**Creativo:** semáforo `✖/⚠/✓/•` → colores en la app; umbrales (margen-objetivo, sub/sobre-utilización
+§8) desde config; cada línea linkea a su detalle (drill-down). LLM = "modo narrativa extendida"
+opcional a futuro.
+
+**Estado:** 100% nuevo, pero trivial una vez que existan los measures del Punto 5 (~función de 40 líneas).
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
