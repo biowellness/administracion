@@ -93,6 +93,93 @@ número de cuello de botella); (b) **factor de acople editable** (3 filas del mo
 **template** con los Parámetros manuales del Excel (fiel a híbrido pragmático, pero la app
 live no muestra ocupación exacta). → DECISIÓN PENDIENTE.
 
+## Nivel mensual (Punto 5)
+
+Estado de resultados por **criterio caja** (sin depreciación ni impuesto a ganancias; IIBB e
+ingresos brutos sí). 11 pestañas en cascada; el **Dashboard Mensual** es el destino final.
+
+### Brecha bloqueante: ingresos por LÍNEA COMERCIAL
+
+El P&L corta por **línea comercial** (Membresías / Sueltas&Combos / Paquetes / IV+TB / Otros);
+el bot hoy corta por **servicio físico**. **No existe `ingresos-linea`.** La línea no es 1:1 con
+el servicio (una HBOT puede venderse como membresía/suelta/combo/paquete) → hace falta marca
+explícita en `ChargeItem` (`SD_LINEA_COMERCIAL`) o derivarla del `Coverage`.
+Clasificador por capas: marca explícita → Coverage membresía → IV/TB → paquete → combo → otros.
+Reconciliación: `Flag` si Σ(líneas) ≠ cobrado.
+
+### Estado de Resultados (ARS + USD)
+
+```
+  Membresías + Sueltas&Combos + Paquetes + IV+TB + Otros
+= INGRESOS WELLNESS (cobrado)
+  (–) Gastos operativos del mes        ← Gastos del Mes (17 líneas)
+  (–) Egresos de caja chica            ← Σ Egreso de Caja Diaria
+= RESULTADO WELLNESS (EBITDA)  · Margen = EBITDA/Ingresos (semáforo vs 20%)
+  (+) Bar — resultado neto (manual)
+= RESULTADO TOTAL  → Distribución por socio (Σ% = 100%, Σpartes = Resultado Total)
+```
+
+Gastos = **4 AUTO** (honorarios médicos 15% IV+TB, insumos Regenerar 30% IV+TB, comisiones MP
+1,5%, IIBB 3%) **+ 13 manuales** (Sueldos←Empleados, Honorario Conrado, Alquiler, Estacionamiento,
+Electricidad/Gas, Internet/Software, Seguros, Mantenimiento, Marketing, Insumos médicos,
+Contaduría/Legal, Lavandería, Gastos Varios←hoja).
+
+### Measures nuevos a crear
+
+`kpis-finanzas` (extender):
+
+| Slug | Grupos | Origen |
+|---|---|---|
+| `ingresos-linea` ⭐ | membresias, sueltas-combos, paquetes, iv-tb, otros, total | AUTO (clasificador) |
+| `gastos-operativos` | 17 líneas + total | 4 AUTO + 13 manual |
+| `estado-resultados` | ingresos-wellness, gastos-operativos, caja-chica-egresos, ebitda, margen-operativo, bar-neto, resultado-total, margen-objetivo | CALC |
+| `caja-chica` | saldo-inicial, egresos, saldo-final | manual+CALC |
+| `resumen-diario` ⭐ | un grupo por día (d01…d31): ingresos/egresos/saldo/saldo-acum/saldo-efectivo/usd | AUTO+manual+CALC |
+| `ingresos-cobro-diario` | día × método de pago | AUTO |
+| `membresias-socios-plan` | 11 planes + total | AUTO (count Coverage por class) |
+| `membresias-mrr` | 11 planes + global | CALC (socios × precio) |
+| `combos-vendidos` | 5 combos + total (unidades + ingreso) | AUTO (requiere etiquetar combo) |
+| `consultas-split` | médicas/nutrición + payouts + neto-bw | manual→AUTO (**desconectada del P&L**) |
+
+`kpis-servicios`: `utilizacion-diaria` (día × 13 recursos = sesiones÷capacidad). Hoy
+`agenda-ocupacion` solo da `global`.
+
+Inputs manuales / config (no son measures): **config FHIR versionada por período** (%s editables
+27/15/30/1,5/3, base IV+TB a VALIDAR, gastos fijos, saldo inicial efectivo, capacidades, TC);
+**`SD_LINEA_COMERCIAL`** en ChargeItem; **recurso de inputs del mes** (Basic/QuestionnaireResponse:
+gastos manuales, caja chica, Bar neto); **catálogo canónico** de 11 planes + 5 combos + 7 socios.
+
+### Ya existe vs nuevo
+
+- **Reusar:** `ingresos-cobro` (formas de pago mensual), `ingresos-iv-tb` (pero con 85/15+10%
+  hardcodeado, NO el 15/30 del Anexo), `tipo-cambio`, `MembresiasPage` (lee Coverage, falta agrupar
+  por plan + MRR), `hojasIngresos`/`filasDeMedida` (patrón de export).
+- **Nuevo:** todo el P&L (measure + página; `FinancieroPage` hoy es LTV), gastos, caja chica, Bar,
+  distribución por socio, catálogo de planes/combos, params en config, clasificador de línea.
+
+### Opciones creativas (top)
+
+1. `ingresos-linea` con clasificador por capas — desbloquea todo el P&L.
+2. Catálogo canónico de planes/combos en `systems.ts` (evita el match por nombre frágil).
+3. Etiquetar `ChargeItem` con combo + línea de una vez (mata 2 brechas con un measure).
+4. Params en config versionados por período (externalizar los % hardcodeados).
+5. Pantalla "Día" (cierre de caja in-app) + arqueo de efectivo, reusando el patrón de Ingresos.
+6. Reconciliación automática (Σlíneas ≠ cobrado → Flag).
+
+### Decisiones abiertas (Punto 5)
+
+A validar con Andrés / contador:
+- **Base del 15%/30% sobre IV+TB** (bruto/cobrado/neto) y cómo convive con el 85/15+10% del bot.
+- **Neto BW de Consultas:** ¿en qué línea del P&L impacta? (hoy desconectada). No inventar la conexión.
+- **Participaciones societarias** (7 socios; resolver "Diego" vs Diego Sívori): Andrés 0,53 · Diego
+  0,24 · Tognetti 0,09 · Varela 0,06 · Massetti 0,05 · Aldazábal 0,02 · Sívori 0,01.
+
+De producto/modelado:
+- ¿Precio de plan en FHIR (MRR 100% auto) o tarifario manual? · ¿Cómo se identifica un combo en el
+  ChargeItem? · Regla anti-doble-conteo (sesión dentro de membresía ≠ venta suelta) · TC: ¿Parámetros
+  o Measure `tipo-cambio`? (elegir uno) · ¿`Coverage.class` distingue Standard/Intensivo e
+  Individual/Pareja? · Bar y participaciones: ¿Excel esta etapa o adelantar a config FHIR?
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
