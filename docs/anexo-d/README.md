@@ -72,6 +72,27 @@ Compresión (IPC06) · Crio (COT03) · Camilla masajes · Consultorio médico ·
 Slots/día = (horas × 60) ÷ duración; capacidad mensual = slots/día × días operativos.
 **Regla R-07:** Recovery Pro Gab 1 y 2 comparten 2 tumbonas Red Light (capacidad acoplada).
 
+### Cálculo (Punto 4)
+
+- Duración 60 min → 12 slots/día → 300/mes; 30 min → 24 slots/día → 600/mes (con 12 h × 25 días).
+- **Utilización = sesiones ÷ capacidad** (día o mes). 1 sesión = 1 slot (ocupantes no cuentan
+  para slots, sí para ingresos).
+- Inputs (duración, horas, días) = manuales (Parámetros); sesiones = auto.
+- Repo: `kpis-servicios`/`agenda-ocupacion` debe pasar a la lista cerrada de 13 recursos
+  (= 13 `Schedule`/`Location`), tomar la capacidad de Parámetros y aplicar R-07 (extensión
+  `comparte-tumbona`).
+
+**R-07 — el problema:** 2 tumbonas físicas sirven a 3 recursos lógicos (Red Light + Recovery
+Pro Gab 1/2). Sumar capacidades por separado (24+12+12) sobre-cuenta: el pool real es
+2 × 12 h = 1.440 tumbona-min/día. Opciones: (a) **pool de capacidad** en minutos (correcto, 1
+número de cuello de botella); (b) **factor de acople editable** (3 filas del modelo + ajuste);
+(c) **manual** como el modelo crudo. → DECISIÓN PENDIENTE.
+
+**Dónde se calcula la utilización:** (a) **bot** con params en un recurso de config FHIR
+(espejo de Parámetros) → app live + template leen el % resuelto, una sola fuente; (b)
+**template** con los Parámetros manuales del Excel (fiel a híbrido pragmático, pero la app
+live no muestra ocupación exacta). → DECISIÓN PENDIENTE.
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
