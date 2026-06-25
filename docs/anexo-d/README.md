@@ -46,6 +46,25 @@ Capas pendientes: **narrador automático** (§6) y **modo "informe a socios"** (
 
 Convención de celdas (§10): **azul / amarillo = inputs**, **verdes = cálculos**.
 
+## Nivel diario (Punto 3)
+
+Dos registros separados (plata ≠ ocupación): **1 cobro → N sesiones**, y hay sesiones sin
+cobro (socio que consume membresía).
+
+**Caja Diaria (§3.1)** — Fecha · Tipo (Ingreso/Egreso) · Línea/Categoría · Detalle ·
+Método de pago · Monto ARS · Monto USD (=ARS÷TC). Ingresos = auto (Invoice/ChargeItem);
+egresos de caja chica = manual. El Bar NO va acá.
+
+**Sesiones (§3.2)** — Fecha · Recurso (lista §4) · Servicio/Combo · Ocupantes · ¿Socio? ·
+Paciente. 100% auto (Appointment/Slot). `¿Socio?` derivable de `Coverage` activa.
+
+Brechas detectadas:
+
+- **Línea de ingreso comercial (5) ≠ servicio físico (13).** El estado de resultados va por
+  línea (Membresías/Sueltas&Combos/Paquetes/IV+TB/Otros); la utilización por recurso físico.
+  Falta el corte de `ingresos` por línea comercial en `kpis-finanzas`.
+- **Caja chica** = flujo manual nuevo (Excel hoy; `ChargeItem`/`Basic` de egreso a futuro).
+
 ## Recursos medidos (§4)
 
 HBOT Monoplaza/Biplaza/Multiplaza · IHHT 1/2 · Recovery Pro Gab 1/2 · Red Light ·
