@@ -348,9 +348,49 @@ inputs en FHIR (camino a "una sola fuente", Punto 2); **pre-llenado** con los in
 **Decisiones:** ¿registros crudos (recomendado) o agregados? · ¿named-ranges? (sí) · ¿re-import en
 esta etapa o después?
 
+## Decisiones de Andrés (confirmadas · jun 2026)
+
+**D1 · Cascada IV + Terapias Biológicas** (reemplaza el "15%/30% sobre bruto" del modelo):
+
+```
+Cobrado IV+TB
+ (–) Insumo "Regenerar"
+ (–) 25% del total   (impuestos + procesador de pago + etc.)
+ = NETO IV+TB
+ → 15% Médicos (Dra Dos Santos · Dr D'Alessandro)   ← payout (columna por médico)
+ → 85% BioWellness                                   ← contribución BW
+```
+
+**D2 · Consultas — el neto BW impacta como línea de ingreso propia "Consultas":**
+
+```
+Cobrado Consultas
+ (–) 25% del total   (impuestos + procesador de pago + etc.)
+ = NETO Consultas
+ → 70% Médicos (Dra Dos Santos · Dr D'Alessandro)   ← payout
+ → 30% BioWellness                                   ← línea "Consultas" en el P&L
+```
+
+**D3 · Participaciones (7 socios = 100%):** Andrés Aizenberg 53 · **Diego Aizenberg 24** ·
+Daniel Tognetti 9 · Evangelina Varela 6 · Julián Massetti 5 · Fernando Aldazábal 2 · Diego Sívori 1.
+(El "Diego" del 24% = **Diego Aizenberg**, distinto de Diego Sívori.)
+
+**D4 · Tarifario (precios planes/combos para MRR):** lo define Andrés al final, según mercado →
+**input manual diferido**; el MRR usa precios configurables hasta entonces (re-consultar más adelante).
+
+**Implicancias para el modelo:**
+- Nueva **liquidación médica** (Dra Dos Santos, Dr D'Alessandro): agrega payouts de IV+TB (15%) +
+  Consultas (70%) por médico, atribuidos por `performer`.
+- Nueva **línea de ingreso "Consultas"** (neto BW 30%) en el estado de resultados.
+- El honorario médico se calcula sobre el **NETO** (no el bruto) → ajustar `kpis-finanzas`
+  (hoy 85/15 + 10% hardcodeado, criterio distinto).
+- El **25%** (impuestos + procesador) entra como deducción en IV+TB y Consultas.
+
 ## Pendientes a validar con Andrés / contador
 
-- Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
-- Línea del estado de resultados donde impacta el "Neto BW de consultas" (§5.10).
-- Cascada de pricing TB+IV y alícuotas fiscales (§8).
+- **Insumo "Regenerar":** ¿% editable (¿30%?) o costo real variable por sesión?
+- **El 25%** (impuestos + procesador): ¿composición exacta y aplica solo a IV+TB/Consultas o a más líneas?
+- **Reparto entre los dos médicos** (Dos Santos / D'Alessandro): ¿por quién atendió (`performer`) o partes iguales?
+- **Consultas de nutrición** (modelo: 50/20/30): ¿siguen o Consultas son solo médicas ahora?
+- **Tarifario** de planes/combos: lo define Andrés al final (diferido).
 - Inicio de operación: Agosto 2026 (meses previos en cero).
