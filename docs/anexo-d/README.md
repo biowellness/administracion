@@ -236,6 +236,33 @@ opcional a futuro.
 
 **Estado:** 100% nuevo, pero trivial una vez que existan los measures del Punto 5 (~función de 40 líneas).
 
+## Nivel anual (Punto 7)
+
+Dos hojas (`tablero-anual-modelo.xlsx`):
+
+- **Resumen Anual**: grilla **métrica × 12 meses + Total/Prom.** (ingresos por línea → Wellness →
+  (–)gastos → (–)caja chica → Resultado Wellness → (+)Bar → Resultado Total → Margen) +
+  **distribución por socio** (7 socios, mensual+total, % editable col Q) + **formas de pago**
+  (método × mes + total + %).
+- **Dashboard Anual**: 4 KPIs (Ingresos año · Resultado año · Margen · **Mejor mes**) +
+  **evolución mensual** (líneas) + **mix del año** (torta). 2 charts embebidos.
+
+**Insight: el anual es un ROLL-UP, no hay datos nuevos.** Cada columna-mes son los totales del
+mensual. En el modelo se pegan a mano al cerrar el mes; en el sistema se arma **leyendo los 12
+measures mensuales** (`estado-resultados`, `ingresos-linea`, `ingresos-cobro`). **Cero measures
+nuevos** para el roll-up. mensual→anual = acción **"Cerrar mes"** (snapshot que completa la
+columna). Operación arranca **Agosto 2026** (Ene–Jul en cero).
+
+**Mapeo a repo:** sin measures nuevos (pivot de los 12 mensuales; opcional materializar
+`anual-<métrica>` con grupos=meses para snapshot inmutable). Acción "Cerrar mes" nueva. Mismo
+template vivo (2 charts auto). Distribución por socio reusa la config de 7 socios.
+
+**Opciones:** live pivot (siempre actual) + snapshot al cerrar (informe oficial, auditable);
+"Mejor mes" = max/12 → base de un narrador anual.
+
+**Decisiones:** ¿materializado o pivot on-the-fly? · ¿"Cerrar mes" inmutable o recalculable? ·
+participaciones: misma config (pendiente apellido de "Diego" 0,24).
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
