@@ -107,6 +107,18 @@ export function measureClinico(slug: MeasureSlugClinico): string {
 export const MEASURE_PROYECCION = `${MEASURE_CRM}/proyeccion-v12`;
 
 // ---------------------------------------------------------------------------
+// Config del Tablero de Gestión (Anexo D) — recurso Basic por período (Fase 0)
+// ---------------------------------------------------------------------------
+
+/** `identifier.system` del Basic de config (value = período `YYYY-MM`). */
+export const SID_CONFIG_TABLERO = `${NS.bio}/sid/config-tablero`;
+/** `code.system` del Basic de config. */
+export const CS_CONFIG_TABLERO = `${NS.bio}/CodeSystem/config-tablero`;
+export const CONFIG_TABLERO_CODE = 'tablero-config';
+/** Extensión que guarda los parámetros como JSON. */
+export const SD_CONFIG_TABLERO_JSON = `${NS.bio}/StructureDefinition/config-tablero-json`;
+
+// ---------------------------------------------------------------------------
 // Pipeline (kanban) — Task  (namespace bio)
 // ---------------------------------------------------------------------------
 

@@ -14,6 +14,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useMedplum, useMedplumProfile } from '@medplum/react';
 import type { TablerIcon } from '@tabler/icons-react';
 import {
+  IconAdjustments,
   IconCalendarStats,
   IconCash,
   IconChartBar,
@@ -53,6 +54,7 @@ const NAV: NavItem[] = [
   { label: 'Clínicos', to: '/clinicos', icon: IconStethoscope },
   { label: 'Gestión', to: '/gestion', icon: IconTargetArrow },
   { label: 'Reportes', to: '/reportes', icon: IconFileSpreadsheet },
+  { label: 'Parámetros', to: '/parametros', icon: IconAdjustments },
 ];
 
 function esActiva(pathname: string, to: string): boolean {

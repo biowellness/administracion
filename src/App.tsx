@@ -9,6 +9,7 @@ import { FinancieroPage } from './pages/FinancieroPage';
 import { GestionPage } from './pages/GestionPage';
 import { IngresosPage } from './pages/IngresosPage';
 import { MembresiasPage } from './pages/MembresiasPage';
+import { ParametrosPage } from './pages/ParametrosPage';
 import { PipelinePage } from './pages/PipelinePage';
 import { ReportesPage } from './pages/ReportesPage';
 import { ResumenPage } from './pages/ResumenPage';
@@ -49,6 +50,7 @@ export function App(): JSX.Element {
         <Route path="financiero" element={<FinancieroPage />} />
         <Route path="clinicos" element={<ClinicosPage />} />
         <Route path="gestion" element={<GestionPage />} />
+        <Route path="parametros" element={<ParametrosPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
