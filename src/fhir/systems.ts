@@ -74,6 +74,7 @@ export function measureServicios(slug: MeasureSlugServicios): string {
 /** Slugs (asumidos) de Measure de finanzas/gestión, en el namespace CRM (bio). */
 export const MEASURE_SLUGS_FINANZAS = [
   'ingresos',
+  'ingresos-linea',
   'ingresos-servicio',
   'ingresos-medico',
   'ingresos-cobro',
@@ -117,6 +118,27 @@ export const CS_CONFIG_TABLERO = `${NS.bio}/CodeSystem/config-tablero`;
 export const CONFIG_TABLERO_CODE = 'tablero-config';
 /** Extensión que guarda los parámetros como JSON. */
 export const SD_CONFIG_TABLERO_JSON = `${NS.bio}/StructureDefinition/config-tablero-json`;
+
+// ---------------------------------------------------------------------------
+// Línea comercial (Anexo D · Fase 0) — corte de ingresos por línea de negocio.
+// Es la marca que desbloquea el estado de resultados (≠ servicio físico).
+// ---------------------------------------------------------------------------
+
+/** Extensión `valueCode` en ChargeItem con la línea comercial del cobro. */
+export const SD_LINEA_COMERCIAL = `${NS.bio}/StructureDefinition/linea-comercial`;
+
+/** Líneas comerciales del estado de resultados (códigos de grupo de `ingresos-linea`). */
+export const LINEAS_COMERCIALES = ['membresias', 'sueltas-combos', 'paquetes', 'iv-tb', 'consultas', 'otros'] as const;
+export type LineaComercial = (typeof LINEAS_COMERCIALES)[number];
+
+export const LINEA_COMERCIAL_LABEL: Record<LineaComercial, string> = {
+  membresias: 'Membresías',
+  'sueltas-combos': 'Sueltas y combos',
+  paquetes: 'Paquetes',
+  'iv-tb': 'IV + Terapias Biológicas',
+  consultas: 'Consultas',
+  otros: 'Otros',
+};
 
 // ---------------------------------------------------------------------------
 // Pipeline (kanban) — Task  (namespace bio)

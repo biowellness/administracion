@@ -2047,6 +2047,131 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-00000000071a",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ingresos-linea-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-linea",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ingresos-linea-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "membresias",
+                  "display": "Membresías"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 7000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "sueltas-combos",
+                  "display": "Sueltas y combos"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 4500000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "iv-tb",
+                  "display": "IV + Terapias Biológicas"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "paquetes",
+                  "display": "Paquetes"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2500000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "consultas",
+                  "display": "Consultas"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 1000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "otros",
+                  "display": "Otros"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 500000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global",
+                  "display": "Total"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 18500000
+            }
+          }
+        ]
+      }
+    },
+    {
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000713",
       "request": {
         "method": "PUT",
@@ -2823,6 +2948,44 @@
             "measureScore": {
               "value": 5550000
             }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-0000000008c0",
+      "request": {
+        "method": "PUT",
+        "url": "Basic?identifier=https://bio.medplum.com.ar/fhir/sid/config-tablero|2026-06"
+      },
+      "resource": {
+        "resourceType": "Basic",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/config-tablero",
+            "value": "2026-06"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/config-tablero",
+              "code": "tablero-config"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/config-tablero-json",
+            "valueString": "{\"periodo\":\"2026-06\",\"diasOperativos\":25,\"horasOperativas\":12,\"saldoInicialCajaChica\":0,\"saldoInicialEfectivo\":0,\"regenerarPct\":30,\"honorariosIvtbPct\":15,\"consultasMedicosPct\":70,\"deduccion25Pct\":25,\"cargasSocialesPct\":27,\"honorarioConrado\":0,\"margenObjetivoPct\":20,\"ocupacionAltaPct\":85,\"recursos\":[{\"codigo\":\"hbot-monoplaza\",\"nombre\":\"HBOT Monoplaza\",\"duracionMin\":60,\"comparteTumbona\":false},{\"codigo\":\"hbot-biplaza\",\"nombre\":\"HBOT Biplaza\",\"duracionMin\":60,\"comparteTumbona\":false},{\"codigo\":\"hbot-multiplaza\",\"nombre\":\"HBOT Multiplaza\",\"duracionMin\":60,\"comparteTumbona\":false},{\"codigo\":\"ihht-1\",\"nombre\":\"IHHT 1\",\"duracionMin\":45,\"comparteTumbona\":false},{\"codigo\":\"ihht-2\",\"nombre\":\"IHHT 2\",\"duracionMin\":45,\"comparteTumbona\":false},{\"codigo\":\"recovery-pro-1\",\"nombre\":\"Recovery Pro Gab 1\",\"duracionMin\":30,\"comparteTumbona\":true},{\"codigo\":\"recovery-pro-2\",\"nombre\":\"Recovery Pro Gab 2\",\"duracionMin\":30,\"comparteTumbona\":true},{\"codigo\":\"red-light\",\"nombre\":\"Red Light\",\"duracionMin\":20,\"comparteTumbona\":true},{\"codigo\":\"compresion\",\"nombre\":\"Compresión (IPC06)\",\"duracionMin\":30,\"comparteTumbona\":false},{\"codigo\":\"crio\",\"nombre\":\"Crioterapia (COT03)\",\"duracionMin\":15,\"comparteTumbona\":false},{\"codigo\":\"camilla-masajes\",\"nombre\":\"Camilla masajes\",\"duracionMin\":60,\"comparteTumbona\":false},{\"codigo\":\"consultorio-medico\",\"nombre\":\"Consultorio médico\",\"duracionMin\":30,\"comparteTumbona\":false},{\"codigo\":\"sala-tb-iv\",\"nombre\":\"Sala TB / IV\",\"duracionMin\":60,\"comparteTumbona\":false}],\"participaciones\":[{\"nombre\":\"Andrés Aizenberg\",\"pct\":53},{\"nombre\":\"Diego Aizenberg\",\"pct\":24},{\"nombre\":\"Daniel Tognetti\",\"pct\":9},{\"nombre\":\"Evangelina Varela\",\"pct\":6},{\"nombre\":\"Julián Massetti\",\"pct\":5},{\"nombre\":\"Fernando Aldazábal\",\"pct\":2},{\"nombre\":\"Diego Sívori\",\"pct\":1}]}"
           }
         ]
       }

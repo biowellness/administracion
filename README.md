@@ -149,11 +149,13 @@ Centralizadas para cambiarlas en un solo lugar:
 Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
 
 - **Ingresos / margen** (`kpis-finanzas`): slugs **asumidos** `ingresos` (grupos `dia`/`mes`/
-  `mes-anterior`), `ingresos-cobro` (por tipo de cobro), `ingresos-servicio`, `ingresos-medico`
-  (liquidación de splits), `ingresos-iv-tb` (grupos `bruto`/`deducciones`/`profesional`/`centro`,
-  el 85/15 lo calcula el bot) y `margen` (grupo `estimado`) — namespace bio. Ver
-  `MEASURE_SLUGS_FINANZAS` en `systems.ts`. La pantalla **Ingresos** muestra el comparativo
-  mes vs. mes anterior.
+  `mes-anterior`), `ingresos-linea` (corte por línea comercial — Membresías / Sueltas y combos /
+  Paquetes / IV+TB / Consultas / Otros, Anexo D · Fase 0), `ingresos-cobro` (por tipo de cobro),
+  `ingresos-servicio`, `ingresos-medico` (liquidación de splits), `ingresos-iv-tb` (grupos
+  `bruto`/`deducciones`/`profesional`/`centro`, el 85/15 lo calcula el bot) y `margen`
+  (grupo `estimado`) — namespace bio. Ver `MEASURE_SLUGS_FINANZAS` en `systems.ts`. La pantalla
+  **Ingresos** muestra el comparativo mes vs. mes anterior y el corte por línea comercial. La
+  línea se marca en el `ChargeItem` (extensión `linea-comercial`) o se deriva del servicio.
 - **Tipo de cambio**: Measure **asumido** `tipo-cambio` (grupo `usd` = ARS por 1 USD).
 - **Membresías** (pantalla `/membresias`): el detalle por miembro (tier, sesiones, próximo
   cobro) se lee de `Coverage` activos (tier en `class[].name`/`type.text`, sesiones en las
@@ -167,6 +169,11 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
 - **Gestión** (pantalla `/gestion`): Measure **asumido** `proyeccion-v12` con grupos
   `<metrica>-proyectado` y `<metrica>-real` (`ingresos`, `ocupacion`, `margen`); la app muestra
   proyectado vs. real y % de cumplimiento.
+- **Parámetros** (pantalla `/parametros`, Anexo D · Fase 0): superficie única de configuración del
+  tablero **por período** (TC de referencia, días/horas operativas, %s de la cascada de honorarios
+  y deducciones, gastos, umbrales, capacidad de los 13 recursos con R-07, y participaciones de los
+  7 socios). Vive en un `Basic` (`identifier = config-tablero|YYYY-MM`, JSON en extensión);
+  guardrail Σ participaciones = 100%. La app, los bots y el template Excel leen de acá.
 
 Los Bots que **producen** los Measures financieros y el TC están en `bots/`
 (`kpis-finanzas.ts`, `tipo-cambio.ts`) — ver `bots/README.md` para contrato y deploy.

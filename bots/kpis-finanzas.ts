@@ -3,8 +3,10 @@ import { ChargeItem, Invoice, MeasureReport } from '@medplum/fhirtypes';
 
 /**
  * Bot `kpis-finanzas` — calcula y publica los MeasureReport financieros del mes que la
- * app de administración lee (sección 6.8): `ingresos`, `ingresos-servicio`,
- * `ingresos-medico`, `ingresos-iv-tb`, `ingresos-cobro`, `cobros`, `margen`.
+ * app de administración lee (sección 6.8): `ingresos`, `ingresos-linea`,
+ * `ingresos-servicio`, `ingresos-medico`, `ingresos-iv-tb`, `ingresos-cobro`, `cobros`,
+ * `margen`. `ingresos-linea` es el corte por línea comercial (Anexo D · Fase 0) que
+ * desbloquea el estado de resultados.
  *
  * Fuentes: `ChargeItem` (ingresos por servicio/médico/IV-TB) e `Invoice` (cobros y
  * medio de pago). Idempotente por identifier `<slug>-<YYYY-MM>`.
@@ -27,6 +29,24 @@ const SERVICIOS_IV_TB = ['IV_THERAPY', 'TERAPIA_BIOLOGICA'];
 const SPLIT_PROFESIONAL = 0.85; // 85/15
 const DEDUCCION_PCT_DEFAULT = 0.1; // deducciones sobre el bruto de IV+TB
 const MARGEN_PCT_DEFAULT = 0.3; // margen estimado sobre ingresos del mes
+
+// Línea comercial (Anexo D · Fase 0) — espejo de `src/fhir/systems.ts` (LINEAS_COMERCIALES).
+// El corte por línea desbloquea el estado de resultados (≠ servicio físico).
+const EXT_LINEA_COMERCIAL = 'https://bio.medplum.com.ar/fhir/StructureDefinition/linea-comercial';
+const LINEA_LABEL: Record<string, string> = {
+  membresias: 'Membresías',
+  'sueltas-combos': 'Sueltas y combos',
+  paquetes: 'Paquetes',
+  'iv-tb': 'IV + Terapias Biológicas',
+  consultas: 'Consultas',
+  otros: 'Otros',
+};
+/** Líneas derivables del código de servicio cuando no hay marca explícita. */
+const LINEA_POR_SERVICIO: Record<string, string> = {
+  IV_THERAPY: 'iv-tb',
+  TERAPIA_BIOLOGICA: 'iv-tb',
+  CONSULTA: 'consultas',
+};
 
 interface FinanzasInput {
   /** Período a calcular, formato YYYY-MM. Default: mes actual. */
@@ -63,6 +83,14 @@ const servicioDe = (ci: ChargeItem): string => ci.code?.coding?.[0]?.code ?? 'ot
 const medicoDe = (ci: ChargeItem): string =>
   ci.performer?.[0]?.actor?.display ?? ci.performer?.[0]?.actor?.reference ?? 'sin-asignar';
 const fechaDe = (ci: ChargeItem): string => (ci.occurrenceDateTime ?? ci.enteredDate ?? '').slice(0, 10);
+/** Línea comercial del cobro: marca explícita (extensión) o derivada del servicio; default `otros`. */
+const lineaDe = (ci: ChargeItem): string => {
+  const ext = ci.extension?.find((e) => e.url === EXT_LINEA_COMERCIAL)?.valueCode;
+  if (ext && LINEA_LABEL[ext]) {
+    return ext;
+  }
+  return LINEA_POR_SERVICIO[servicioDe(ci)] ?? 'otros';
+};
 const montoInvoice = (inv: Invoice): number => inv.totalNet?.value ?? inv.totalGross?.value ?? 0;
 const medioPagoDe = (inv: Invoice): string =>
   inv.extension?.find((e) => e.url === EXT_MEDIO_PAGO)?.valueString ?? 'otro';
@@ -111,6 +139,7 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
   let ivTbBruto = 0;
   const porServicio = new Map<string, number>();
   const porMedico = new Map<string, number>();
+  const porLinea = new Map<string, number>();
 
   for (const ci of charges) {
     const monto = montoChargeItem(ci);
@@ -125,6 +154,8 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
     porServicio.set(svc, (porServicio.get(svc) ?? 0) + monto);
     const med = medicoDe(ci);
     porMedico.set(med, (porMedico.get(med) ?? 0) + monto);
+    const linea = lineaDe(ci);
+    porLinea.set(linea, (porLinea.get(linea) ?? 0) + monto);
     if (SERVICIOS_IV_TB.includes(svc)) {
       ivTbBruto += monto;
     }
@@ -165,6 +196,10 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
 
   const ordenarDesc = (mapa: Map<string, number>): { code: string; display: string; value: number }[] =>
     [...mapa.entries()].sort((a, b) => b[1] - a[1]).map(([code, value]) => ({ code, display: code, value }));
+  const lineasOrdenadas = (mapa: Map<string, number>): { code: string; display: string; value: number }[] =>
+    [...mapa.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([code, value]) => ({ code, display: LINEA_LABEL[code] ?? code, value }));
 
   const reportes: MeasureReport[] = [
     buildMR('ingresos', p, [
@@ -172,6 +207,7 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
       { code: 'mes', display: 'Mes corriente', value: totalMes },
       { code: 'mes-anterior', display: 'Mes anterior', value: totalMesAnterior },
     ]),
+    buildMR('ingresos-linea', p, [...lineasOrdenadas(porLinea), { code: 'global', display: 'Total', value: totalMes }]),
     buildMR('ingresos-servicio', p, [...ordenarDesc(porServicio), { code: 'global', value: totalMes }]),
     buildMR('ingresos-medico', p, ordenarDesc(porMedico)),
     buildMR('ingresos-iv-tb', p, [

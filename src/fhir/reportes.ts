@@ -43,6 +43,7 @@ const COLS_MONTO: ColumnaReporte[] = [
 
 export interface IngresosData {
   ingresos?: MeasureReport;
+  linea?: MeasureReport;
   cobro?: MeasureReport;
   servicio?: MeasureReport;
   medico?: MeasureReport;
@@ -53,6 +54,7 @@ export interface IngresosData {
 export function hojasIngresos(data: IngresosData, tcUsd: number): HojaReporte[] {
   return [
     { nombre: 'Resumen', columnas: COLS_MONTO, filas: filasDeMedida(data.ingresos, { tcUsd, incluirGlobal: true }) },
+    { nombre: 'Por línea comercial', columnas: COLS_MONTO, filas: filasDeMedida(data.linea, { tcUsd, incluirGlobal: true }) },
     { nombre: 'Por tipo de cobro', columnas: COLS_MONTO, filas: filasDeMedida(data.cobro, { tcUsd }) },
     { nombre: 'Por servicio', columnas: COLS_MONTO, filas: filasDeMedida(data.servicio, { tcUsd }) },
     { nombre: 'Por médico', columnas: COLS_MONTO, filas: filasDeMedida(data.medico, { tcUsd }) },
