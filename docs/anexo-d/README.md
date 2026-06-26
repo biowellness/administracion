@@ -318,6 +318,36 @@ que no está en este repo (brecha de producción).
 generar; si no cuadran, NO exporta y avisa); **suite de CA automatizada** (seed → bot → assert);
 **reconciliación** continua (`Σ ingresos-linea ≠ cobrado → Flag`).
 
+## Relación con las planillas modelo (Punto 10)
+
+Las planillas **no son el producto final, son el patrón a replicar**. El producto = generar las
+vistas con un clic, en vivo, sin carga manual de lo que el sistema sabe. Convención: azul/amarillo
+= inputs, verdes = cálculos.
+
+**Regla de oro del template vivo: nunca escribir una celda de fórmula.** El sistema escribe solo las
+celdas "alimentadas por datos"; las verdes (totales, USD, P&L, %, charts, narrador) recalculan solas;
+las azul/amarillo quedan editables.
+
+**Estrategia recomendada: rellenar los registros crudos, no los agregados.** El sistema repuebla
+**Caja Diaria + Sesiones** + inputs que sabe (TC, Parámetros) → las fórmulas del modelo computan todo
+el dashboard (SUMIFS/COUNTIFS/=ARS÷TC/charts/narrador). Es "lo diario alimenta el dashboard"
+(§175) y protege CA-7 al máximo. Separa: **app live = measures (agregados)** · **export = registros
+crudos + inputs**.
+
+| Pieza del Anexo | En el sistema |
+|---|---|
+| Planilla MENSUAL | export de un clic que rellena el template mensual |
+| Planilla ANUAL | roll-up + acción "Cerrar mes" → template anual |
+| vistas en vivo | dashboards de la app |
+| sin carga manual de lo que sabe | capa auto (bots) llena lo verde/crudo |
+
+**Opciones:** **named-ranges** en la plantilla (apuntar a `INGRESOS_WELLNESS` y no a "B15" →
+sobrevive a reordenamientos del modelo); **round-trip / re-import** de las azul/amarillo → persistir
+inputs en FHIR (camino a "una sola fuente", Punto 2); **pre-llenado** con los inputs del mes anterior.
+
+**Decisiones:** ¿registros crudos (recomendado) o agregados? · ¿named-ranges? (sí) · ¿re-import en
+esta etapa o después?
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
