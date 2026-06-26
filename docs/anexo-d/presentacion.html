@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BioWellness · Tablero de Gestión · Plan</title>
+<style>
+  :root{
+    --teal:#0f766e; --teal2:#14b8a6; --teal50:#f0fdfa; --teal100:#ccfbf1;
+    --ink:#0f172a; --slate:#475569; --slate2:#64748b; --line:#e2e8f0;
+    --green:#0f766e; --amber:#b45309; --red:#b91c1c; --bg:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#e9edf2;color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .slide{position:relative;width:13.33in;height:7.5in;background:var(--bg);margin:18px auto;
+    padding:0.7in 0.85in;overflow:hidden;box-shadow:0 6px 24px rgba(15,23,42,.12);
+    display:flex;flex-direction:column}
+  .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:700}
+  h1{font-size:46px;line-height:1.05;margin:.15em 0 .1em;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:34px;line-height:1.1;margin:.1em 0 .35em;font-weight:800;letter-spacing:-.01em}
+  h3{font-size:19px;margin:0 0 .2em;font-weight:700}
+  p,li{font-size:18px;line-height:1.5;color:var(--slate)}
+  .brand{font-weight:800;color:var(--teal);letter-spacing:-.01em}
+  .accent{color:var(--teal)}
+  .muted{color:var(--slate2)}
+  .foot{position:absolute;left:.85in;right:.85in;bottom:.42in;display:flex;justify-content:space-between;
+    font-size:12px;color:var(--slate2);border-top:1px solid var(--line);padding-top:8px}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .card{border:1px solid var(--line);border-radius:14px;padding:18px 18px;background:#fff}
+  .card.tint{background:var(--teal50);border-color:var(--teal100)}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;
+    background:var(--teal);color:#fff;font-weight:800;font-size:16px;flex:0 0 auto}
+  .chip{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;
+    background:var(--teal100);color:var(--teal)}
+  .chip.s{background:#dcfce7;color:#166534}.chip.m{background:#fef9c3;color:#854d0e}.chip.l{background:#fee2e2;color:#991b1b}
+  ul.clean{list-style:none;margin:0;padding:0}
+  ul.clean li{position:relative;padding-left:30px;margin:10px 0}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:9px;width:9px;height:9px;border-radius:3px;background:var(--teal2)}
+  ul.check li::before{content:"✓";background:none;color:var(--teal);font-weight:900;left:2px;top:0;font-size:18px;width:auto;height:auto}
+  .title-slide{justify-content:center;background:
+    radial-gradient(1200px 500px at 90% -10%, var(--teal100), transparent 60%),
+    linear-gradient(180deg,#fff, #fbfffe)}
+  .title-bar{height:8px;width:120px;background:linear-gradient(90deg,var(--teal),var(--teal2));border-radius:999px;margin:18px 0}
+  table.pl{width:100%;border-collapse:collapse;font-size:16px}
+  table.pl td{padding:8px 10px;border-bottom:1px solid var(--line)}
+  table.pl td.r{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600}
+  table.pl tr.total td{background:var(--teal50);font-weight:800;color:var(--ink);border-bottom:2px solid var(--teal100)}
+  table.pl tr.sub td{color:var(--slate)}
+  .narr{border-left:4px solid var(--teal2);background:var(--teal50);border-radius:0 12px 12px 0;padding:12px 16px;font-size:15px;color:var(--ink)}
+  .narr div{margin:5px 0}
+  .road{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .ph{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;background:#fff}
+  .ph.star{border-color:var(--teal);background:var(--teal50);box-shadow:0 0 0 2px var(--teal100) inset}
+  .ph .pn{font-size:12px;font-weight:800;color:var(--teal)}
+  .ph h4{margin:0;font-size:15px}
+  .ph p{font-size:12.5px;margin:0;line-height:1.35}
+  .lead{font-size:21px;color:var(--ink)}
+  .two{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start;flex:1}
+  .big{font-size:22px;font-weight:800;color:var(--ink)}
+  .deci{display:flex;gap:14px;align-items:flex-start;margin:12px 0}
+  .deci .num{background:var(--amber)}
+  .rec{font-size:14px;color:var(--teal);font-weight:700}
+  @media print{
+    html,body{background:#fff}
+    .slide{margin:0;box-shadow:none;height:7.5in;break-after:page}
+    .slide:last-child{break-after:auto}
+    @page{size:13.33in 7.5in;margin:0}
+  }
+</style>
+</head>
+<body>
+
+<!-- 1 · Portada -->
+<section class="slide title-slide">
+  <div class="kicker">BioWellness · Sistema de Gestión Integral</div>
+  <h1>Tablero de Gestión<br>Reportería Excel</h1>
+  <div class="title-bar"></div>
+  <p class="lead" style="max-width:9in">Plan de implementación del <b class="accent">Anexo D</b>: el estado de
+  resultados mensual y el tablero del negocio, <b>con un clic</b>, en ARS y USD.</p>
+  <p class="muted" style="margin-top:26px">Para: <b style="color:var(--ink)">Andrés Aizenberg</b> · José (Lead Técnico) &nbsp;·&nbsp; Junio 2026</p>
+</section>
+
+<!-- 2 · En 30 segundos -->
+<section class="slide">
+  <div class="kicker">La idea</div>
+  <h2>En 30 segundos</h2>
+  <div class="grid g2" style="flex:1;align-content:start">
+    <div class="card tint"><h3>🖱️ Un clic</h3><p>El <b>estado de resultados del mes</b> (en ARS y USD), listo para mandar a los socios. Y un tablero del negocio en vivo.</p></div>
+    <div class="card"><h3>🤝 Carga híbrida</h3><p>El sistema <b>llena solo lo que sabe</b> (ingresos, sesiones, ocupación). Vos cargás lo que no puede saber: <b>gastos, caja chica y el Bar</b>.</p></div>
+    <div class="card"><h3>📊 La planilla modelo manda</h3><p>Rellenamos <b>esa misma planilla</b> con datos en vivo: mismos colores, tortas y fórmulas. No reinventamos el diseño.</p></div>
+    <div class="card"><h3>🚀 Ya hay mucho hecho</h3><p>La app de Administración y los primeros bots de finanzas ya funcionan. Esto <b>suma una capa</b>, no empieza de cero.</p></div>
+  </div>
+  <div class="foot"><span>BioWellness · Tablero de Gestión</span><span>2 / 9</span></div>
+</section>
+
+<!-- 3 · Lo que ya está -->
+<section class="slide">
+  <div class="kicker">Punto de partida</div>
+  <h2>Lo que ya está funcionando</h2>
+  <div class="two">
+    <ul class="clean check">
+      <li><b>App de Administración</b> (admin.medplum.com.ar): Dashboard, Pipeline, Retención, Segmentos, Campañas, Servicios, Membresías, Ingresos, Financiero, Clínicos, Gestión, Reportes.</li>
+      <li><b>Exportación a Excel</b> de un clic y modo claro/oscuro.</li>
+      <li><b>Bots de datos:</b> ingresos y cobranza (kpis-finanzas) y tipo de cambio automático.</li>
+    </ul>
+    <div class="card tint">
+      <h3>Qué significa para vos</h3>
+      <p>No arrancamos de cero: el tablero de gestión <b>se apoya en lo construido</b>. La inversión de este Anexo va a <b>completar el estado de resultados</b> y a generar las planillas en vivo.</p>
+    </div>
+  </div>
+  <div class="foot"><span>BioWellness · Tablero de Gestión</span><span>3 / 9</span></div>
+</section>
+
+<!-- 4 · Cómo funciona -->
+<section class="slide">
+  <div class="kicker">Cómo funciona</div>
+  <h2>Una sola fuente, dos cargas, un clic</h2>
+  <div class="grid g3" style="flex:1;align-content:center">
+    <div class="card"><h3 class="accent">1 · El sistema sabe</h3><p>Ingresos cobrados por línea, sesiones, ocupación por recurso, formas de pago, MRR de membresías.</p><p class="muted">Automático, desde Medplum.</p></div>
+    <div class="card"><h3 style="color:var(--amber)">2 · Vos cargás</h3><p>Gastos operativos, caja chica del día, resultado neto del Bar y los parámetros (tipo de cambio, %, participaciones).</p><p class="muted">Lo que el sistema no puede saber.</p></div>
+    <div class="card tint"><h3>3 · Sale el tablero</h3><p>Estado de resultados en <b>ARS y USD</b>, KPIs, mix de ingresos, ocupación, distribución por socio y un <b>análisis automático en palabras</b>.</p></div>
+  </div>
+  <p class="muted" style="text-align:center;margin-top:6px">Lo diario alimenta lo mensual, y lo mensual lo anual — <b>sin recalcular a mano</b>.</p>
+  <div class="foot"><span>BioWellness · Tablero de Gestión</span><span>4 / 9</span></div>
+</section>
+
+<!-- 5 · Roadmap -->
+<section class="slide">
+  <div class="kicker">El camino</div>
+  <h2>Lo construimos por etapas <span class="muted" style="font-size:18px;font-weight:600">— cada una te deja algo usable</span></h2>
+  <div class="road" style="flex:1;align-content:center">
+    <div class="ph"><span class="pn">FASE 0</span><h4>Fundaciones</h4><p>Pantalla de Parámetros + ingresos por línea comercial.</p><span class="chip m">Medio</span></div>
+    <div class="ph star"><span class="pn">FASE 1 ★</span><h4>Estado de resultados</h4><p>El informe mensual para socios, de un clic.</p><span class="chip l">Grande</span></div>
+    <div class="ph"><span class="pn">FASE 2</span><h4>Membresías</h4><p>Socios por plan, MRR, combos y formas de pago.</p><span class="chip m">Medio</span></div>
+    <div class="ph"><span class="pn">FASE 3</span><h4>Día y ocupación</h4><p>Cierre de caja diario y utilización por recurso.</p><span class="chip l">Grande</span></div>
+    <div class="ph"><span class="pn">FASE 4</span><h4>Anual</h4><p>Consolidado del año + botón "Cerrar mes".</p><span class="chip m">Medio</span></div>
+    <div class="ph"><span class="pn">FASE 5</span><h4>Consultas + QA</h4><p>Split de consultas y chequeos que evitan informes que no cuadran.</p><span class="chip m">Medio</span></div>
+  </div>
+  <p style="text-align:center;font-size:19px;color:var(--ink);margin-top:4px"><b>Camino corto al mayor valor:</b> Fase 0 → Fase 1 = el estado de resultados mensual para socios.</p>
+  <div class="foot"><span>BioWellness · Tablero de Gestión</span><span>5 / 9</span></div>
+</section>
+
+<!-- 6 · Estado de resultados (la estrella) -->
+<section class="slide">
+  <div class="kicker">Lo que vas a mandar a los socios</div>
+  <h2>Estado de resultados — de un clic</h2>
+  <div class="two">
+    <table class="pl">
+      <tr><td>Membresías</td><td class="r">$ 8.100.000</td><td class="r muted">US$ 5.436</td></tr>
+      <tr><td>Sueltas &amp; Combos</td><td class="r">$ 3.300.000</td><td class="r muted">US$ 2.215</td></tr>
+      <tr><td>Paquetes</td><td class="r">$ 4.200.000</td><td class="r muted">US$ 2.819</td></tr>
+      <tr><td>IV + Terapias Biológicas</td><td class="r">$ 2.400.000</td><td class="r muted">US$ 1.611</td></tr>
+      <tr><td>Otros</td><td class="r">$ 500.000</td><td class="r muted">US$ 336</td></tr>
+      <tr class="total"><td>INGRESOS WELLNESS</td><td class="r">$ 18.500.000</td><td class="r">US$ 12.416</td></tr>
+      <tr class="sub"><td>(–) Gastos operativos</td><td class="r">–$ 11.000.000</td><td class="r muted"></td></tr>
+      <tr class="sub"><td>(–) Caja chica</td><td class="r">–$ 200.000</td><td class="r muted"></td></tr>
+      <tr class="total"><td>RESULTADO WELLNESS · margen 39%</td><td class="r">$ 7.300.000</td><td class="r">US$ 4.899</td></tr>
+      <tr class="sub"><td>(+) Bar (neto)</td><td class="r">$ 450.000</td><td class="r muted"></td></tr>
+      <tr class="total"><td>RESULTADO TOTAL</td><td class="r">$ 7.750.000</td><td class="r">US$ 5.201</td></tr>
+    </table>
+    <div>
+      <h3>Y el análisis, escrito solo</h3>
+      <div class="narr">
+        <div>✓ <b>El mes cerró POSITIVO:</b> +7.750.000 ARS (margen 39%).</div>
+        <div>↑ Ingresos <b>+14%</b> vs. el mes anterior.</div>
+        <div>• <b>MRR:</b> 13.200 USD/mes con 42 socios activos.</div>
+        <div>• Recurso más usado: <b>HBOT</b>; menos usado: Crio.</div>
+        <div>• Forma de pago principal: <b>Tarjeta crédito (46%)</b>.</div>
+      </div>
+      <p class="muted" style="font-size:13px;margin-top:14px">Números de ejemplo ilustrativos. En vivo, todo se calcula con tus datos reales y el TC del período.</p>
+    </div>
+  </div>
+  <div class="foot"><span>BioWellness · Tablero de Gestión</span><span>6 / 9</span></div>
+</section>
+
+<!-- 7 · Decisiones -->
+<section class="slide">
+  <div class="kicker">Lo que necesito de vos</div>
+  <h2>4 definiciones para que los números cierren exactos</h2>
+  <div style="flex:1">
+    <div class="deci"><span class="num">1</span><div><h3>Base de los % de IV + Terapias Biológicas <span class="muted" style="font-weight:600">(con el contador)</span></h3><p>Honorarios 15% e insumos Regenerar 30%: ¿sobre lo facturado, lo cobrado o el neto? <span class="rec">Recomendación: sobre lo cobrado, editable.</span></p></div></div>
+    <div class="deci"><span class="num">2</span><div><h3>Neto de Consultas: ¿dónde impacta?</h3><p>El split (médicas 70/30 · nutrición 50/20/30) ya se calcula; falta definir su lugar en el resultado. <span class="rec">Recomendación: línea propia "Consultas".</span></p></div></div>
+    <div class="deci"><span class="num">3</span><div><h3>Participaciones de los socios</h3><p>7 socios, 100% (Andrés 53 · Diego 24 · Tognetti 9 · Varela 6 · Massetti 5 · Aldazábal 2 · Sívori 1). <span class="rec">Falta el apellido del "Diego" del 24%.</span></p></div></div>
+    <div class="deci"><span class="num">4</span><div><h3>Precios de planes y combos (tarifario)</h3><p>Para el MRR de membresías: ¿lo cargás en Parámetros o ya vive en el sistema? <span class="rec">Recomendación: lo cargás una vez y queda.</span></p></div></div>
+  </div>
+  <div class="foot"><span>BioWellness · Tablero de Gestión</span><span>7 / 9</span></div>
+</section>
+
+<!-- 8 · Garantías -->
+<section class="slide">
+  <div class="kicker">Tus garantías</div>
+  <h2>Que nunca mandes un número que no cierra</h2>
+  <div class="grid g3" style="flex:1;align-content:center">
+    <div class="card tint"><h3>🔒 No exporta si no cuadra</h3><p>Si la distribución no suma 100% o el resultado no cierra, el sistema <b>avisa y no genera</b> el informe.</p></div>
+    <div class="card"><h3>📎 El Excel abre sin errores</h3><p>El sistema rellena los datos y la planilla recalcula sola; una prueba automática verifica cada archivo.</p></div>
+    <div class="card"><h3>🔄 Siempre actualizado</h3><p>Una sola fuente (el sistema). El tablero y el Excel <b>siempre coinciden</b>, sin copiar y pegar.</p></div>
+  </div>
+  <div class="foot"><span>BioWellness · Tablero de Gestión</span><span>8 / 9</span></div>
+</section>
+
+<!-- 9 · Próximo paso -->
+<section class="slide title-slide">
+  <div class="kicker">Próximo paso</div>
+  <h1 style="font-size:40px">Arrancamos por el<br>estado de resultados</h1>
+  <div class="title-bar"></div>
+  <p class="lead" style="max-width:9in">Con tu OK a <b class="accent">Fase 0 + Fase 1</b> y las <b class="accent">4 definiciones</b>,
+  empezamos por lo que más pediste: el informe mensual para socios, de un clic.</p>
+  <p class="muted" style="margin-top:24px">BioWellness · Sistema de Gestión Integral · Anexo D · Confidencial</p>
+</section>
+
+</body>
+</html>
