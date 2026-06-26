@@ -93,6 +93,149 @@ número de cuello de botella); (b) **factor de acople editable** (3 filas del mo
 **template** con los Parámetros manuales del Excel (fiel a híbrido pragmático, pero la app
 live no muestra ocupación exacta). → DECISIÓN PENDIENTE.
 
+## Nivel mensual (Punto 5)
+
+Estado de resultados por **criterio caja** (sin depreciación ni impuesto a ganancias; IIBB e
+ingresos brutos sí). 11 pestañas en cascada; el **Dashboard Mensual** es el destino final.
+
+### Brecha bloqueante: ingresos por LÍNEA COMERCIAL
+
+El P&L corta por **línea comercial** (Membresías / Sueltas&Combos / Paquetes / IV+TB / Otros);
+el bot hoy corta por **servicio físico**. **No existe `ingresos-linea`.** La línea no es 1:1 con
+el servicio (una HBOT puede venderse como membresía/suelta/combo/paquete) → hace falta marca
+explícita en `ChargeItem` (`SD_LINEA_COMERCIAL`) o derivarla del `Coverage`.
+Clasificador por capas: marca explícita → Coverage membresía → IV/TB → paquete → combo → otros.
+Reconciliación: `Flag` si Σ(líneas) ≠ cobrado.
+
+### Estado de Resultados (ARS + USD)
+
+```
+  Membresías + Sueltas&Combos + Paquetes + IV+TB + Otros
+= INGRESOS WELLNESS (cobrado)
+  (–) Gastos operativos del mes        ← Gastos del Mes (17 líneas)
+  (–) Egresos de caja chica            ← Σ Egreso de Caja Diaria
+= RESULTADO WELLNESS (EBITDA)  · Margen = EBITDA/Ingresos (semáforo vs 20%)
+  (+) Bar — resultado neto (manual)
+= RESULTADO TOTAL  → Distribución por socio (Σ% = 100%, Σpartes = Resultado Total)
+```
+
+Gastos = **4 AUTO** (honorarios médicos 15% IV+TB, insumos Regenerar 30% IV+TB, comisiones MP
+1,5%, IIBB 3%) **+ 13 manuales** (Sueldos←Empleados, Honorario Conrado, Alquiler, Estacionamiento,
+Electricidad/Gas, Internet/Software, Seguros, Mantenimiento, Marketing, Insumos médicos,
+Contaduría/Legal, Lavandería, Gastos Varios←hoja).
+
+### Measures nuevos a crear
+
+`kpis-finanzas` (extender):
+
+| Slug | Grupos | Origen |
+|---|---|---|
+| `ingresos-linea` ⭐ | membresias, sueltas-combos, paquetes, iv-tb, otros, total | AUTO (clasificador) |
+| `gastos-operativos` | 17 líneas + total | 4 AUTO + 13 manual |
+| `estado-resultados` | ingresos-wellness, gastos-operativos, caja-chica-egresos, ebitda, margen-operativo, bar-neto, resultado-total, margen-objetivo | CALC |
+| `caja-chica` | saldo-inicial, egresos, saldo-final | manual+CALC |
+| `resumen-diario` ⭐ | un grupo por día (d01…d31): ingresos/egresos/saldo/saldo-acum/saldo-efectivo/usd | AUTO+manual+CALC |
+| `ingresos-cobro-diario` | día × método de pago | AUTO |
+| `membresias-socios-plan` | 11 planes + total | AUTO (count Coverage por class) |
+| `membresias-mrr` | 11 planes + global | CALC (socios × precio) |
+| `combos-vendidos` | 5 combos + total (unidades + ingreso) | AUTO (requiere etiquetar combo) |
+| `consultas-split` | médicas/nutrición + payouts + neto-bw | manual→AUTO (**desconectada del P&L**) |
+
+`kpis-servicios`: `utilizacion-diaria` (día × 13 recursos = sesiones÷capacidad). Hoy
+`agenda-ocupacion` solo da `global`.
+
+Inputs manuales / config (no son measures): **config FHIR versionada por período** (%s editables
+27/15/30/1,5/3, base IV+TB a VALIDAR, gastos fijos, saldo inicial efectivo, capacidades, TC);
+**`SD_LINEA_COMERCIAL`** en ChargeItem; **recurso de inputs del mes** (Basic/QuestionnaireResponse:
+gastos manuales, caja chica, Bar neto); **catálogo canónico** de 11 planes + 5 combos + 7 socios.
+
+### Ya existe vs nuevo
+
+- **Reusar:** `ingresos-cobro` (formas de pago mensual), `ingresos-iv-tb` (pero con 85/15+10%
+  hardcodeado, NO el 15/30 del Anexo), `tipo-cambio`, `MembresiasPage` (lee Coverage, falta agrupar
+  por plan + MRR), `hojasIngresos`/`filasDeMedida` (patrón de export).
+- **Nuevo:** todo el P&L (measure + página; `FinancieroPage` hoy es LTV), gastos, caja chica, Bar,
+  distribución por socio, catálogo de planes/combos, params en config, clasificador de línea.
+
+### Opciones creativas (top)
+
+1. `ingresos-linea` con clasificador por capas — desbloquea todo el P&L.
+2. Catálogo canónico de planes/combos en `systems.ts` (evita el match por nombre frágil).
+3. Etiquetar `ChargeItem` con combo + línea de una vez (mata 2 brechas con un measure).
+4. Params en config versionados por período (externalizar los % hardcodeados).
+5. Pantalla "Día" (cierre de caja in-app) + arqueo de efectivo, reusando el patrón de Ingresos.
+6. Reconciliación automática (Σlíneas ≠ cobrado → Flag).
+
+### Decisiones abiertas (Punto 5)
+
+A validar con Andrés / contador:
+- **Base del 15%/30% sobre IV+TB** (bruto/cobrado/neto) y cómo convive con el 85/15+10% del bot.
+- **Neto BW de Consultas:** ¿en qué línea del P&L impacta? (hoy desconectada). No inventar la conexión.
+- **Participaciones societarias** (7 socios; resolver "Diego" vs Diego Sívori): Andrés 0,53 · Diego
+  0,24 · Tognetti 0,09 · Varela 0,06 · Massetti 0,05 · Aldazábal 0,02 · Sívori 0,01.
+
+De producto/modelado:
+- ¿Precio de plan en FHIR (MRR 100% auto) o tarifario manual? · ¿Cómo se identifica un combo en el
+  ChargeItem? · Regla anti-doble-conteo (sesión dentro de membresía ≠ venta suelta) · TC: ¿Parámetros
+  o Measure `tipo-cambio`? (elegir uno) · ¿`Coverage.class` distingue Standard/Intensivo e
+  Individual/Pareja? · Bar y participaciones: ¿Excel esta etapa o adelantar a config FHIR?
+
+### Dashboard Mensual — layout y gráficos
+
+La hoja maestra (destino final). Tiene **3 gráficos embebidos** (chart1/2/3) + un **narrador
+automático** (§6). Layout:
+
+- **6 tarjetas KPI** (r4-6): Ingresos Wellness (ARS 5.836.500 / USD 3.891) · Resultado Total
+  (−6.187.250) · Margen operativo (−113,7%) · MRR (13.214 USD) · Ocupación promedio (0,15%).
+- **Estado de resultados** (B9:D21, ARS+USD).
+- **Mix de ingresos por línea** (H10:J14, ARS + % del total) → **torta**.
+- **Utilización por recurso** (B28:D40, 13 recursos: sesiones + %) → **barras**.
+- **Distribución por socio** (B44:D51): % × Resultado Total, Σ = 100%.
+- **Comparativo vs mes anterior** (r53-55): variación de ingresos.
+- **Análisis automático** (C57:C61): texto en lenguaje natural (§6).
+- **Formas de pago** (B67:D72, ARS + %) → **torta** + línea "forma de pago principal".
+
+**Win del template vivo:** los 3 gráficos referencian rangos de celdas; al rellenar los datos
+(mix r10-14, utilización r28-40, pagos r67-71) **las tortas/barras se re-renderizan solas**.
+No reprogramamos gráficos — solo escribimos celdas (ExcelJS preserva los charts).
+
+**Mapeo a measures:** 6 KPIs ← `estado-resultados` + `membresias-mrr` + utilización; mix ←
+`ingresos-linea`; utilización ← `utilizacion-diaria` (13 recursos); distribución ←
+`estado-resultados` × participaciones (config 7 socios); formas de pago ← `ingresos-cobro`
+(ya existe); comparativo ← `ingresos-linea` mes vs mes-anterior.
+
+**Narrador (§6) — adelanto:** el modelo ya trae las líneas exactas: signo del resultado + monto,
+tendencia vs mes anterior, MRR + socios activos, recurso más/menos usado, alerta de margen < 20%,
+forma de pago principal. Es la base directa del Punto 6.
+
+**Aclaración de socios:** hay DOS "Diego" — **"Diego"** (0,24, sin apellido) y **"Diego Sívori"**
+(0,01). Son socios distintos; el del 24% sigue sin apellido → confirmar con Andrés.
+
+## Análisis automático (Punto 6)
+
+El dashboard escribe solo una lectura del mes en lenguaje natural. Es una **capa de
+presentación** sobre los measures del Punto 5 — no hay datos nuevos. Frases (spec literal del
+modelo, C57-C61 + r73):
+
+| Línea | Disparador | Measure | Plantilla |
+|---|---|---|---|
+| Resultado | siempre | `estado-resultados` | `✖/✓ El mes cerró NEGATIVO/POSITIVO: {monto} ARS` |
+| Tendencia | si hay mes anterior | `ingresos-linea` (var %) | `↑/↓ Ingresos {±X%} vs mes anterior` |
+| MRR + socios | siempre | `membresias-mrr`/`socios-plan` | `MRR: {X} USD/mes con {N} socios activos` |
+| Recurso más/menos | siempre | `utilizacion-diaria` | `Recurso MÁS usado: {R} ({%}). Menos usado: {R2} ({%})` |
+| Alerta margen | margen < objetivo | `estado-resultados` (margen, margen-objetivo) | `⚠ Margen por debajo del {20%} objetivo` |
+| Pago principal | siempre | `ingresos-cobro` | `Forma de pago principal: {método} ({%})` |
+
+**Dónde vive:** función pura determinista `analisisMensual(measures) → string[]` (no LLM); el bot
+la persiste como measure `analisis-mensual` (una sola fuente) y la app live + el template la leen.
+Reglas, no prosa: el §6 pide hechos concretos y redacción consistente.
+
+**Creativo:** semáforo `✖/⚠/✓/•` → colores en la app; umbrales (margen-objetivo, sub/sobre-utilización
+§8) desde config; cada línea linkea a su detalle (drill-down). LLM = "modo narrativa extendida"
+opcional a futuro.
+
+**Estado:** 100% nuevo, pero trivial una vez que existan los measures del Punto 5 (~función de 40 líneas).
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
