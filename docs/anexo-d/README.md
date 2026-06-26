@@ -236,6 +236,88 @@ opcional a futuro.
 
 **Estado:** 100% nuevo, pero trivial una vez que existan los measures del Punto 5 (~función de 40 líneas).
 
+## Nivel anual (Punto 7)
+
+Dos hojas (`tablero-anual-modelo.xlsx`):
+
+- **Resumen Anual**: grilla **métrica × 12 meses + Total/Prom.** (ingresos por línea → Wellness →
+  (–)gastos → (–)caja chica → Resultado Wellness → (+)Bar → Resultado Total → Margen) +
+  **distribución por socio** (7 socios, mensual+total, % editable col Q) + **formas de pago**
+  (método × mes + total + %).
+- **Dashboard Anual**: 4 KPIs (Ingresos año · Resultado año · Margen · **Mejor mes**) +
+  **evolución mensual** (líneas) + **mix del año** (torta). 2 charts embebidos.
+
+**Insight: el anual es un ROLL-UP, no hay datos nuevos.** Cada columna-mes son los totales del
+mensual. En el modelo se pegan a mano al cerrar el mes; en el sistema se arma **leyendo los 12
+measures mensuales** (`estado-resultados`, `ingresos-linea`, `ingresos-cobro`). **Cero measures
+nuevos** para el roll-up. mensual→anual = acción **"Cerrar mes"** (snapshot que completa la
+columna). Operación arranca **Agosto 2026** (Ene–Jul en cero).
+
+**Mapeo a repo:** sin measures nuevos (pivot de los 12 mensuales; opcional materializar
+`anual-<métrica>` con grupos=meses para snapshot inmutable). Acción "Cerrar mes" nueva. Mismo
+template vivo (2 charts auto). Distribución por socio reusa la config de 7 socios.
+
+**Opciones:** live pivot (siempre actual) + snapshot al cerrar (informe oficial, auditable);
+"Mejor mes" = max/12 → base de un narrador anual.
+
+**Decisiones:** ¿materializado o pivot on-the-fly? · ¿"Cerrar mes" inmutable o recalculable? ·
+participaciones: misma config (pendiente apellido de "Diego" 0,24).
+
+## Parámetros configurables (Punto 8)
+
+Superficie única de config (aplica la decisión **2A: config FHIR**). Catálogo:
+
+- **Período:** mes/año, **TC ARS/USD** (1.500), saldo inicial caja chica/efectivo.
+- **Capacidad:** días operativos (25), horas/día (12), duración (min) × 13 recursos, R-07 (pool).
+- **Cascada TB+IV / fiscal** (⚠️ VALIDAR contador): cargas 27%, honorarios médicos 15% IV+TB,
+  insumos Regenerar 30% IV+TB, **base IV+TB** (bruto/cobrado/neto), comisiones MP ~1,5%, IIBB 3%,
+  honorario Dr. Conrado (fijo).
+- **Participaciones** (7 socios): 0,53/0,24/0,09/0,06/0,05/0,02/0,01.
+- **Umbrales de alerta:** margen objetivo 20%, sub/sobre-utilización.
+- **Tarifario** de planes/combos (USD) para MRR.
+
+**Dónde vive:** un recurso de config FHIR (`Parameters`/`Basic`) **por período**, espejo de la hoja
+Parámetros. Los bots leen los % y capacidades (hoy hardcodeados); la app ofrece una **pantalla
+Parámetros** (Andrés edita ahí → una sola fuente). Versionado por período (TC/aranceles cambian
+mes a mes; el P&L histórico recalcula con lo vigente).
+
+**A externalizar (hoy hardcodeado):** `kpis-finanzas.ts` (`SPLIT_PROFESIONAL=0.85`,
+`DEDUCCION_PCT=0.1`, `MARGEN_PCT=0.3`, `SERVICIOS_IV_TB` — **no coinciden con el Anexo**),
+`ServiciosPage.tsx` (`OCUPACION_ALTA=85`), tarifario/catálogo a `systems.ts`.
+
+**Opciones:** pantalla Parámetros con guardrails (Σ participaciones=100% → CA-6, TC>0); defaults
+sembrados del modelo; **TC sin duplicar** (manda el measure `tipo-cambio`, el config lo referencia).
+
+**Decisiones:** ¿`Parameters` vs `Basic`? ¿uno por período o split global/período? · base IV+TB
+(validar) · confirmar que manda el measure `tipo-cambio`.
+
+## Criterios de aceptación (Punto 9)
+
+Los 11 CA mapeados a la pieza que los cubre (checklist de QA):
+
+| CA | Criterio | Cubierto por | Estado |
+|---|---|---|---|
+| CA-1 | cobro → Caja → día+mes sin intervención | `kpis-finanzas` → ingresos-linea/resumen-diario/ingresos | diseño · test |
+| CA-2 | sesión → utilización recalcula | `kpis-servicios` → utilizacion-diaria | ⚠️ bot no está en el repo |
+| CA-3 | USD = ARS ÷ TC; cambiar TC actualiza | measure tipo-cambio + `usd()` + fórmula template | ✓ ya funciona · test |
+| CA-4 | saldo acum. día N = N-1 + día N | resumen-diario (saldo-acum) | nuevo · test |
+| CA-5 | el P&L cuadra | estado-resultados (identidad) | diseño · **guardrail** |
+| CA-6 | distribución = Resultado Total (Σ%=100) | participaciones × resultado-total + guardrail | guardrail · test |
+| CA-7 | .xlsx abre sin errores de fórmula | template vivo + ExcelJS | ⚠️ **mayor riesgo** |
+| CA-8 | cierre de mes completa el anual | acción "Cerrar mes" → snapshot | nuevo · test |
+| CA-9 | saldo efectivo = inicial + cobros − egresos efectivo | resumen-diario (saldo-efectivo) + caja chica por método | nuevo · test |
+| CA-10 | formas de pago suman 100% (diario/mensual/anual) | ingresos-cobro (mes ✓) + diario + roll-up | parcial · test |
+| CA-11 | narrador refleja los hechos | analisisMensual() (Punto 6) | nuevo · test 1:1 |
+
+**Riesgos:** (1) **CA-7** es el mayor riesgo del template vivo (pisar una fórmula → `#REF!`):
+mitigar con test automático que re-parsee el xlsx generado + mapa estricto de "celdas que el
+sistema escribe" (solo inputs/verdes, nunca fórmulas). (2) **CA-2** depende del bot `kpis-servicios`,
+que no está en este repo (brecha de producción).
+
+**Creativo — CA como garantías:** **invariantes en tiempo de export** (validar CA-5/6/10 antes de
+generar; si no cuadran, NO exporta y avisa); **suite de CA automatizada** (seed → bot → assert);
+**reconciliación** continua (`Σ ingresos-linea ≠ cobrado → Flag`).
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
