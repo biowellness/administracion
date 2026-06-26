@@ -291,6 +291,33 @@ sembrados del modelo; **TC sin duplicar** (manda el measure `tipo-cambio`, el co
 **Decisiones:** ¿`Parameters` vs `Basic`? ¿uno por período o split global/período? · base IV+TB
 (validar) · confirmar que manda el measure `tipo-cambio`.
 
+## Criterios de aceptación (Punto 9)
+
+Los 11 CA mapeados a la pieza que los cubre (checklist de QA):
+
+| CA | Criterio | Cubierto por | Estado |
+|---|---|---|---|
+| CA-1 | cobro → Caja → día+mes sin intervención | `kpis-finanzas` → ingresos-linea/resumen-diario/ingresos | diseño · test |
+| CA-2 | sesión → utilización recalcula | `kpis-servicios` → utilizacion-diaria | ⚠️ bot no está en el repo |
+| CA-3 | USD = ARS ÷ TC; cambiar TC actualiza | measure tipo-cambio + `usd()` + fórmula template | ✓ ya funciona · test |
+| CA-4 | saldo acum. día N = N-1 + día N | resumen-diario (saldo-acum) | nuevo · test |
+| CA-5 | el P&L cuadra | estado-resultados (identidad) | diseño · **guardrail** |
+| CA-6 | distribución = Resultado Total (Σ%=100) | participaciones × resultado-total + guardrail | guardrail · test |
+| CA-7 | .xlsx abre sin errores de fórmula | template vivo + ExcelJS | ⚠️ **mayor riesgo** |
+| CA-8 | cierre de mes completa el anual | acción "Cerrar mes" → snapshot | nuevo · test |
+| CA-9 | saldo efectivo = inicial + cobros − egresos efectivo | resumen-diario (saldo-efectivo) + caja chica por método | nuevo · test |
+| CA-10 | formas de pago suman 100% (diario/mensual/anual) | ingresos-cobro (mes ✓) + diario + roll-up | parcial · test |
+| CA-11 | narrador refleja los hechos | analisisMensual() (Punto 6) | nuevo · test 1:1 |
+
+**Riesgos:** (1) **CA-7** es el mayor riesgo del template vivo (pisar una fórmula → `#REF!`):
+mitigar con test automático que re-parsee el xlsx generado + mapa estricto de "celdas que el
+sistema escribe" (solo inputs/verdes, nunca fórmulas). (2) **CA-2** depende del bot `kpis-servicios`,
+que no está en este repo (brecha de producción).
+
+**Creativo — CA como garantías:** **invariantes en tiempo de export** (validar CA-5/6/10 antes de
+generar; si no cuadran, NO exporta y avisa); **suite de CA automatizada** (seed → bot → assert);
+**reconciliación** continua (`Σ ingresos-linea ≠ cobrado → Flag`).
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
