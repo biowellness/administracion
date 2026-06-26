@@ -263,6 +263,34 @@ template vivo (2 charts auto). Distribución por socio reusa la config de 7 soci
 **Decisiones:** ¿materializado o pivot on-the-fly? · ¿"Cerrar mes" inmutable o recalculable? ·
 participaciones: misma config (pendiente apellido de "Diego" 0,24).
 
+## Parámetros configurables (Punto 8)
+
+Superficie única de config (aplica la decisión **2A: config FHIR**). Catálogo:
+
+- **Período:** mes/año, **TC ARS/USD** (1.500), saldo inicial caja chica/efectivo.
+- **Capacidad:** días operativos (25), horas/día (12), duración (min) × 13 recursos, R-07 (pool).
+- **Cascada TB+IV / fiscal** (⚠️ VALIDAR contador): cargas 27%, honorarios médicos 15% IV+TB,
+  insumos Regenerar 30% IV+TB, **base IV+TB** (bruto/cobrado/neto), comisiones MP ~1,5%, IIBB 3%,
+  honorario Dr. Conrado (fijo).
+- **Participaciones** (7 socios): 0,53/0,24/0,09/0,06/0,05/0,02/0,01.
+- **Umbrales de alerta:** margen objetivo 20%, sub/sobre-utilización.
+- **Tarifario** de planes/combos (USD) para MRR.
+
+**Dónde vive:** un recurso de config FHIR (`Parameters`/`Basic`) **por período**, espejo de la hoja
+Parámetros. Los bots leen los % y capacidades (hoy hardcodeados); la app ofrece una **pantalla
+Parámetros** (Andrés edita ahí → una sola fuente). Versionado por período (TC/aranceles cambian
+mes a mes; el P&L histórico recalcula con lo vigente).
+
+**A externalizar (hoy hardcodeado):** `kpis-finanzas.ts` (`SPLIT_PROFESIONAL=0.85`,
+`DEDUCCION_PCT=0.1`, `MARGEN_PCT=0.3`, `SERVICIOS_IV_TB` — **no coinciden con el Anexo**),
+`ServiciosPage.tsx` (`OCUPACION_ALTA=85`), tarifario/catálogo a `systems.ts`.
+
+**Opciones:** pantalla Parámetros con guardrails (Σ participaciones=100% → CA-6, TC>0); defaults
+sembrados del modelo; **TC sin duplicar** (manda el measure `tipo-cambio`, el config lo referencia).
+
+**Decisiones:** ¿`Parameters` vs `Basic`? ¿uno por período o split global/período? · base IV+TB
+(validar) · confirmar que manda el measure `tipo-cambio`.
+
 ## Pendientes a validar con Andrés / contador
 
 - Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
