@@ -60,9 +60,13 @@ mensual para socios, de un clic). Las demás amplían.
 4. **Tarifario (precios para el MRR):** lo define Andrés **al final**, según mercado → input diferido;
    el MRR usa precios configurables hasta entonces.
 
-**Quedan por confirmar (detalle fino):** el insumo Regenerar (¿% editable o costo real?); la
-composición del 25% y si aplica a más líneas; el reparto entre los dos médicos (por quién atendió o
-partes iguales); si Consultas incluye nutrición (50/20/30) o solo médicas.
+**Detalle fino — confirmado:** Regenerar = **% editable**; el 25% = **impuestos + facturación +
+procesador de pago**; la liquidación médica es **por quién atendió** (`performer`), con **2 columnas
+individuales** (Dra Dos Santos · Dr D'Alessandro) para ver cuánto pagarle a cada uno; Consultas =
+**solo médicas** por ahora.
+
+**Queda por confirmar:** si el 25% aplica también a las otras líneas (o solo IV+TB/Consultas); el
+default del % Regenerar; los números de **nutrición** (diferido).
 
 *(Definiciones técnicas por defecto: la regla **R-07** se modela como **pool de capacidad**; y los
 parámetros viven en el sistema —no sueltos en un Excel— para que el tablero y el `.xlsx` coincidan.)*

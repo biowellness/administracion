@@ -378,19 +378,24 @@ Daniel Tognetti 9 · Evangelina Varela 6 · Julián Massetti 5 · Fernando Aldaz
 **D4 · Tarifario (precios planes/combos para MRR):** lo define Andrés al final, según mercado →
 **input manual diferido**; el MRR usa precios configurables hasta entonces (re-consultar más adelante).
 
-**Implicancias para el modelo:**
-- Nueva **liquidación médica** (Dra Dos Santos, Dr D'Alessandro): agrega payouts de IV+TB (15%) +
-  Consultas (70%) por médico, atribuidos por `performer`.
+**Implicancias para el modelo (confirmadas):**
+- **Insumo Regenerar = % editable** (parámetro en config; default a confirmar, p. ej. el 30% del modelo).
+- **El 25% = impuestos + facturación + procesador de pago** (parámetro). Aplica a las cascadas de
+  IV+TB y Consultas (alcance a otras líneas: ver Pendientes).
+- **Liquidación médica por `performer` (NO 50/50):** el share médico (15% IV+TB · 70% Consultas) se
+  atribuye a **quién atendió** cada sesión/consulta. → **2 columnas individuales**
+  (**Dra Dos Santos** · **Dr D'Alessandro**) con el monto a pagar a cada uno. Measure
+  `liquidacion-medica` con un grupo por médico (reusa la atribución por `performer` que ya hace el bot).
 - Nueva **línea de ingreso "Consultas"** (neto BW 30%) en el estado de resultados.
 - El honorario médico se calcula sobre el **NETO** (no el bruto) → ajustar `kpis-finanzas`
   (hoy 85/15 + 10% hardcodeado, criterio distinto).
-- El **25%** (impuestos + procesador) entra como deducción en IV+TB y Consultas.
+- **Consultas = solo médicas** por ahora (nutrición sin números → diferida).
 
 ## Pendientes a validar con Andrés / contador
 
-- **Insumo "Regenerar":** ¿% editable (¿30%?) o costo real variable por sesión?
-- **El 25%** (impuestos + procesador): ¿composición exacta y aplica solo a IV+TB/Consultas o a más líneas?
-- **Reparto entre los dos médicos** (Dos Santos / D'Alessandro): ¿por quién atendió (`performer`) o partes iguales?
-- **Consultas de nutrición** (modelo: 50/20/30): ¿siguen o Consultas son solo médicas ahora?
-- **Tarifario** de planes/combos: lo define Andrés al final (diferido).
+- **El 25%:** ¿aplica **solo** a IV+TB/Consultas, o también a las demás líneas? (en el modelo,
+  impuestos/comisiones de las otras líneas iban como gastos operativos — definir si se unifican).
+- **Default del % Regenerar** (¿30%?).
+- **Consultas de nutrición** (50/20/30): **pendiente**, sin números aún.
+- **Tarifario** de planes/combos para MRR: lo define Andrés al final (diferido).
 - Inicio de operación: Agosto 2026 (meses previos en cero).
