@@ -19,7 +19,8 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useMedplum } from '@medplum/react';
-import { IconFileSpreadsheet, IconInfoCircle, IconPencil } from '@tabler/icons-react';
+import { IconFileSpreadsheet, IconInfoCircle, IconPencil, IconTable } from '@tabler/icons-react';
+import modeloTableroUrl from '../assets/tablero-mensual-modelo.xlsx?url';
 import { KpiTile } from '../components/KpiTile';
 import {
   distribucionSocios,
@@ -32,8 +33,9 @@ import { guardarInputsMes, inputsDefault, useInputsMes, type InputsMes } from '.
 import { periodoActual, useParametros } from '../fhir/parametros';
 import { useTipoCambio } from '../fhir/reportes';
 import { GASTO_LINEAS, measureFinanzas } from '../fhir/systems';
-import { groupLabel, groups, groupValue, useMeasureReport } from '../hooks/useMeasureReport';
+import { groupCode, groupLabel, groups, groupValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { exportarExcel, type HojaReporte } from '../lib/excel';
+import { descargarBlob, rellenarTablero, type DatosTablero } from '../lib/templateVivo';
 import { fmt, fmt2 } from '../lib/format';
 
 const TONO_COLOR: Record<LineaNarrador['tono'], string> = {
@@ -75,8 +77,10 @@ export function EstadoResultadosPage(): JSX.Element {
 
   const periodo = estado.report?.period?.start?.slice(0, 7) ?? periodoActual();
   const { params } = useParametros(periodo);
+  const { inputs } = useInputsMes(periodo);
   const [drawerAbierto, setDrawerAbierto] = useState(false);
   const [exportando, setExportando] = useState(false);
+  const [generandoPlanilla, setGenerandoPlanilla] = useState(false);
 
   const loading = estado.loading || linea.loading || ingresos.loading || mrr.loading || cobro.loading;
   const mostrarUsd = tcUsd > 0;
@@ -140,6 +144,49 @@ export function EstadoResultadosPage(): JSX.Element {
     }
   };
 
+  // Rellena la planilla modelo (template vivo) con los datos en vivo y la descarga.
+  const exportarPlanilla = async (): Promise<void> => {
+    setGenerandoPlanilla(true);
+    try {
+      const lineas = groups(linea.report)
+        .filter((gr) => groupCode(gr) !== 'global')
+        .map((gr) => ({ codigo: groupCode(gr) ?? '', monto: gr.measureScore?.value ?? 0 }));
+      const metodos = groups(cobro.report)
+        .filter((gr) => groupCode(gr) !== 'global')
+        .map((gr) => ({ codigo: groupCode(gr) ?? '', monto: gr.measureScore?.value ?? 0 }));
+      const datos: DatosTablero = {
+        periodo,
+        tcUsd: tcUsd || 1,
+        dias: params.diasOperativos,
+        horas: params.horasOperativas,
+        saldoCajaChica: inputs.cajaChicaSaldoInicial || params.saldoInicialCajaChica,
+        duraciones: params.recursos.map((r) => r.duracionMin),
+        cargasPct: params.cargasSocialesPct,
+        sueldosBrutos: inputs.sueldosBrutos,
+        conrado: params.honorarioConrado,
+        gastosManual: inputs.gastos as Record<string, number>,
+        gastosVarios: inputs.gastos['gastos-varios'] ?? 0,
+        barNeto: inputs.barNeto,
+        ingresosMesAnterior: groupValue(ingresos.report, 'mes-anterior'),
+        cajaChicaEgresos: inputs.cajaChicaEgresos,
+        lineas,
+        metodos,
+      };
+      const modelo = await fetch(modeloTableroUrl).then((r) => r.arrayBuffer());
+      const blob = await rellenarTablero(modelo, datos);
+      descargarBlob(blob, `biowellness-tablero-mensual-${periodo}.xlsx`);
+      notifications.show({ color: 'teal', message: 'Planilla del tablero generada.' });
+    } catch (e) {
+      notifications.show({
+        color: 'red',
+        title: 'Error',
+        message: e instanceof Error ? e.message : 'No se pudo generar la planilla.',
+      });
+    } finally {
+      setGenerandoPlanilla(false);
+    }
+  };
+
   if (loading) {
     return (
       <Group justify="center" p="xl">
@@ -172,6 +219,14 @@ export function EstadoResultadosPage(): JSX.Element {
             onClick={() => void exportar()}
           >
             Exportar .xlsx
+          </Button>
+          <Button
+            leftSection={<IconTable size={16} />}
+            loading={generandoPlanilla}
+            disabled={!hayEstado}
+            onClick={() => void exportarPlanilla()}
+          >
+            Generar planilla
           </Button>
         </Group>
       </Group>

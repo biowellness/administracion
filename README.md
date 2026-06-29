@@ -186,6 +186,15 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
   manuales** del mes (gastos, Bar, caja chica — lo que el sistema no puede saber) se cargan en el
   cajón lateral y viven en un `Basic` (`identifier = inputs-mes|YYYY-MM`); el bot los lee para el P&L.
   `consultas-split` queda **desconectada del P&L** (decisión pendiente con Andrés, como el modelo).
+  - **Template vivo** (botón "Generar planilla"): rellena la **planilla modelo** (`src/assets/
+    tablero-mensual-modelo.xlsx`) con los datos en vivo y la descarga. El motor (`lib/templateVivo.ts`,
+    `jszip` por dynamic import) escribe **solo las celdas de input** de las hojas de datos (Parámetros,
+    Caja Diaria, Gastos del Mes, Empleados, + Bar y mes anterior del Dashboard) y deja **intactas** las
+    fórmulas y los **3 gráficos** (cirugía de ZIP, reemplazo puro de celdas ya materializadas); fuerza
+    `fullCalcOnLoad` para que Excel recalcule el Dashboard y las tortas/barras se re-dibujen solas.
+    Regla **nunca se escribe una celda de fórmula**. El cobrado por línea se vuelca a Caja Diaria por
+    (línea × método) reconciliando ambos márgenes. Verificado: charts byte a byte, totales y formas de
+    pago reconcilian, `sharedStrings` intacto.
 
 Los Bots que **producen** los Measures financieros y el TC están en `bots/`
 (`kpis-finanzas.ts`, `tipo-cambio.ts`) — ver `bots/README.md` para contrato y deploy.

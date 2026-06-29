@@ -3655,6 +3655,44 @@
           }
         ]
       }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-0000000008d0",
+      "request": {
+        "method": "PUT",
+        "url": "Basic?identifier=https://bio.medplum.com.ar/fhir/sid/inputs-mes|2026-06"
+      },
+      "resource": {
+        "resourceType": "Basic",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/inputs-mes",
+            "value": "2026-06"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/inputs-mes",
+              "code": "inputs-mes"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/inputs-mes-json",
+            "valueString": "{\"periodo\":\"2026-06\",\"sueldosBrutos\":0,\"gastos\":{\"alquiler\":7500000,\"estacionamiento\":1200000,\"electricidad-gas\":2000000,\"internet-software\":30000,\"seguros\":300000,\"mantenimiento\":0,\"marketing\":700000,\"insumos-medicos\":0,\"contaduria-legal\":500000,\"comisiones-mp\":0,\"iibb\":0,\"lavanderia\":0,\"gastos-varios\":0},\"barNeto\":450000,\"cajaChicaSaldoInicial\":0,\"cajaChicaEgresos\":75000}"
+          }
+        ]
+      }
     }
   ]
 }

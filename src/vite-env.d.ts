@@ -10,3 +10,9 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+/** Asset .xlsx importado como URL (el modelo del tablero, para el template vivo). */
+declare module '*.xlsx?url' {
+  const src: string;
+  export default src;
+}
