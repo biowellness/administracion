@@ -174,6 +174,18 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
   y deducciones, gastos, umbrales, capacidad de los 13 recursos con R-07, y participaciones de los
   7 socios). Vive en un `Basic` (`identifier = config-tablero|YYYY-MM`, JSON en extensión);
   guardrail Σ participaciones = 100%. La app, los bots y el template Excel leen de acá.
+- **Estado de Resultados** (pantalla `/estado-resultados`, Anexo D · Fase 1): el informe mensual para
+  socios de un clic, en **ARS + USD** — ingresos por línea → (−)gastos (17 líneas) → (−)caja chica →
+  **EBITDA** → (+)Bar → **resultado total**, con la **distribución por socio** y el **análisis
+  automático** (§Punto 6). Replica el modelo validado `tablero-mensual`. Lee Measures de
+  `kpis-finanzas`: `estado-resultados` (grupos `ingresos-wellness`/`gastos-operativos`/
+  `caja-chica-egresos`/`ebitda`/`bar-neto`/`resultado-total`/`margen-operativo`/`margen-objetivo`),
+  `gastos-operativos` (17 líneas + total), `caja-chica` (saldo-inicial/egresos/saldo-final),
+  `membresias-mrr` (MRR USD + socios). Cascada IV+TB: honorarios médicos (15%) e insumos Regenerar
+  (30%) sobre el IV+TB cobrado (como el modelo); los % salen de `config-tablero`. Los **inputs
+  manuales** del mes (gastos, Bar, caja chica — lo que el sistema no puede saber) se cargan en el
+  cajón lateral y viven en un `Basic` (`identifier = inputs-mes|YYYY-MM`); el bot los lee para el P&L.
+  `consultas-split` queda **desconectada del P&L** (decisión pendiente con Andrés, como el modelo).
 
 Los Bots que **producen** los Measures financieros y el TC están en `bots/`
 (`kpis-finanzas.ts`, `tipo-cambio.ts`) — ver `bots/README.md` para contrato y deploy.

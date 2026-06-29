@@ -80,6 +80,11 @@ export const MEASURE_SLUGS_FINANZAS = [
   'ingresos-cobro',
   'ingresos-iv-tb',
   'cobros',
+  'gastos-operativos',
+  'estado-resultados',
+  'caja-chica',
+  'consultas-split',
+  'membresias-mrr',
   'founding-members',
   'margen',
   'tipo-cambio',
@@ -139,6 +144,65 @@ export const LINEA_COMERCIAL_LABEL: Record<LineaComercial, string> = {
   consultas: 'Consultas',
   otros: 'Otros',
 };
+
+/** Líneas de ingreso del estado de resultados (orden del modelo, sin "consultas"). */
+export const LINEAS_PYL = ['membresias', 'sueltas-combos', 'paquetes', 'iv-tb', 'otros'] as const;
+
+// ---------------------------------------------------------------------------
+// Inputs manuales del mes (Anexo D · Fase 1) — lo que el sistema NO puede saber
+// (gastos manuales, Bar, caja chica). Recurso Basic por período, espejo de las
+// hojas de inputs del modelo ('Gastos del Mes', 'Empleados').
+// ---------------------------------------------------------------------------
+
+/** `identifier.system` del Basic de inputs (value = período `YYYY-MM`). */
+export const SID_INPUTS_MES = `${NS.bio}/sid/inputs-mes`;
+export const CS_INPUTS_MES = `${NS.bio}/CodeSystem/inputs-mes`;
+export const INPUTS_MES_CODE = 'inputs-mes';
+export const SD_INPUTS_MES_JSON = `${NS.bio}/StructureDefinition/inputs-mes-json`;
+
+/**
+ * Las 17 líneas de gastos operativos del mes (espejo de 'Gastos del Mes' del modelo).
+ *  - `auto`   → lo calcula el bot (honorarios 15%·IV+TB, Regenerar 30%·IV+TB).
+ *  - `config` → viene de Parámetros (honorario Dr. Conrado).
+ *  - `sueldos`→ sueldos brutos · (1 + cargas sociales) — input manual especial.
+ *  - `manual` → input directo del mes (InputsMes.gastos[key]).
+ */
+export const GASTO_LINEAS = [
+  { key: 'sueldos', label: 'Sueldos + cargas sociales', tipo: 'sueldos' },
+  { key: 'honorario-conrado', label: 'Honorario Dr. Conrado', tipo: 'config' },
+  { key: 'honorarios-medicos', label: 'Honorarios médicos (IV+TB)', tipo: 'auto' },
+  { key: 'insumos-regenerar', label: 'Insumos Regenerar (IV+TB)', tipo: 'auto' },
+  { key: 'alquiler', label: 'Alquiler local', tipo: 'manual' },
+  { key: 'estacionamiento', label: 'Estacionamiento', tipo: 'manual' },
+  { key: 'electricidad-gas', label: 'Electricidad / Gas', tipo: 'manual' },
+  { key: 'internet-software', label: 'Internet / Software', tipo: 'manual' },
+  { key: 'seguros', label: 'Seguros', tipo: 'manual' },
+  { key: 'mantenimiento', label: 'Mantenimiento', tipo: 'manual' },
+  { key: 'marketing', label: 'Marketing', tipo: 'manual' },
+  { key: 'insumos-medicos', label: 'Insumos médicos (stock)', tipo: 'manual' },
+  { key: 'contaduria-legal', label: 'Contaduría / Legal', tipo: 'manual' },
+  { key: 'comisiones-mp', label: 'Comisiones MercadoPago / POS', tipo: 'manual' },
+  { key: 'iibb', label: 'IIBB', tipo: 'manual' },
+  { key: 'lavanderia', label: 'Lavandería', tipo: 'manual' },
+  { key: 'gastos-varios', label: 'Gastos varios', tipo: 'manual' },
+] as const;
+export type GastoLinea = (typeof GASTO_LINEAS)[number];
+export type GastoKey = GastoLinea['key'];
+
+/** Las claves de gastos que el usuario carga a mano (InputsMes.gastos). */
+export const GASTO_KEYS_MANUALES = GASTO_LINEAS.filter((g) => g.tipo === 'manual').map((g) => g.key);
+
+/** Códigos de grupo del Measure `estado-resultados` (orden del P&L). */
+export const PYL_CODES = [
+  'ingresos-wellness',
+  'gastos-operativos',
+  'caja-chica-egresos',
+  'ebitda',
+  'bar-neto',
+  'resultado-total',
+  'margen-operativo',
+  'margen-objetivo',
+] as const;
 
 // ---------------------------------------------------------------------------
 // Pipeline (kanban) — Task  (namespace bio)

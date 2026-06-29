@@ -30,6 +30,7 @@ import {
 import {
   capacidadMes,
   guardarParametros,
+  opcionesPeriodo,
   parametrosDefault,
   periodoActual,
   slotsDia,
@@ -41,19 +42,6 @@ import {
 } from '../fhir/parametros';
 import { useTipoCambio } from '../fhir/reportes';
 import { fmt, fmt2 } from '../lib/format';
-
-/** Opciones de período: los últimos 12 meses en formato `YYYY-MM`. */
-function opcionesPeriodo(): { value: string; label: string }[] {
-  const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-  const hoy = new Date();
-  const out: { value: string; label: string }[] = [];
-  for (let i = 0; i < 12; i++) {
-    const d = new Date(hoy.getFullYear(), hoy.getMonth() - i, 1);
-    const value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-    out.push({ value, label: `${meses[d.getMonth()]} ${d.getFullYear()}` });
-  }
-  return out;
-}
 
 /**
  * Parámetros (Anexo D · Punto 8) — superficie única de configuración del tablero, por período.

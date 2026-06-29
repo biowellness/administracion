@@ -82,20 +82,24 @@ export interface ParametrosTablero {
   participaciones: Participacion[];
 }
 
-/** Los 13 recursos físicos (§4), con duraciones por defecto editables. */
+/**
+ * Los 13 recursos físicos (§4), con las duraciones del modelo validado (hoja Parámetros
+ * del `tablero-mensual-modelo.xlsx`). Los nombres deben coincidir EXACTO con el modelo:
+ * el template vivo y el bot de servicios matchean sesiones por nombre de recurso.
+ */
 const RECURSOS_DEFAULT: RecursoCapacidad[] = [
   { codigo: 'hbot-monoplaza', nombre: 'HBOT Monoplaza', duracionMin: 60, comparteTumbona: false },
   { codigo: 'hbot-biplaza', nombre: 'HBOT Biplaza', duracionMin: 60, comparteTumbona: false },
   { codigo: 'hbot-multiplaza', nombre: 'HBOT Multiplaza', duracionMin: 60, comparteTumbona: false },
-  { codigo: 'ihht-1', nombre: 'IHHT 1', duracionMin: 45, comparteTumbona: false },
-  { codigo: 'ihht-2', nombre: 'IHHT 2', duracionMin: 45, comparteTumbona: false },
-  { codigo: 'recovery-pro-1', nombre: 'Recovery Pro Gab 1', duracionMin: 30, comparteTumbona: true },
-  { codigo: 'recovery-pro-2', nombre: 'Recovery Pro Gab 2', duracionMin: 30, comparteTumbona: true },
-  { codigo: 'red-light', nombre: 'Red Light', duracionMin: 20, comparteTumbona: true },
+  { codigo: 'ihht-1', nombre: 'IHHT 1', duracionMin: 30, comparteTumbona: false },
+  { codigo: 'ihht-2', nombre: 'IHHT 2', duracionMin: 30, comparteTumbona: false },
+  { codigo: 'recovery-pro-1', nombre: 'Recovery Pro Gab 1', duracionMin: 60, comparteTumbona: true },
+  { codigo: 'recovery-pro-2', nombre: 'Recovery Pro Gab 2', duracionMin: 60, comparteTumbona: true },
+  { codigo: 'red-light', nombre: 'Red Light', duracionMin: 30, comparteTumbona: true },
   { codigo: 'compresion', nombre: 'Compresión (IPC06)', duracionMin: 30, comparteTumbona: false },
-  { codigo: 'crio', nombre: 'Crioterapia (COT03)', duracionMin: 15, comparteTumbona: false },
+  { codigo: 'crio', nombre: 'Crio (COT03)', duracionMin: 30, comparteTumbona: false },
   { codigo: 'camilla-masajes', nombre: 'Camilla masajes', duracionMin: 60, comparteTumbona: false },
-  { codigo: 'consultorio-medico', nombre: 'Consultorio médico', duracionMin: 30, comparteTumbona: false },
+  { codigo: 'consultorio-medico', nombre: 'Consultorio médico', duracionMin: 60, comparteTumbona: false },
   { codigo: 'sala-tb-iv', nombre: 'Sala TB / IV', duracionMin: 60, comparteTumbona: false },
 ];
 
@@ -134,6 +138,19 @@ export function parametrosDefault(periodo: string): ParametrosTablero {
 /** Período actual en formato `YYYY-MM`. */
 export function periodoActual(): string {
   return new Date().toISOString().slice(0, 7);
+}
+
+/** Opciones de período (`YYYY-MM` → etiqueta es-AR) para los últimos `n` meses. */
+export function opcionesPeriodo(n = 12): { value: string; label: string }[] {
+  const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  const hoy = new Date();
+  const out: { value: string; label: string }[] = [];
+  for (let i = 0; i < n; i++) {
+    const d = new Date(hoy.getFullYear(), hoy.getMonth() - i, 1);
+    const value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    out.push({ value, label: `${meses[d.getMonth()]} ${d.getFullYear()}` });
+  }
+  return out;
 }
 
 /** Slots por día de un recurso = (horas × 60) ÷ duración (0 si la duración es inválida). */
