@@ -171,6 +171,15 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
   × precio + `global` + `socios`), `combos-vendidos` (unidades + `ingreso-usd`). Los socios por plan y
   los combos del mes se cargan como **inputs manuales** (`inputs-mes`, mismo cajón que los gastos) y
   alimentan el bot y el template vivo (hoja Membresías & Combos).
+- **Día a día** (pantalla `/dia`, Anexo D · Fase 3): el **cierre de caja diario** (saldo del día,
+  acumulado del mes y arqueo de efectivo) y la **utilización por recurso** del mes, con el **cuello de
+  botella de las tumbonas Red Light** marcado (**regla R-07** = pool de capacidad en minutos:
+  `2 × horas × 60 × días`). Lee `resumen-diario` (kpis-finanzas; grupos por día con `population`
+  ingresos/egresos/saldo/saldo-acum/saldo-efectivo) y `utilizacion-recurso` (bot **`kpis-servicios`**,
+  namespace bw; por recurso `measureScore` = sesiones÷capacidad + `population` sesiones/capacidad, más
+  los grupos `pool-red-light` y `global`). La capacidad sale de `config-tablero`; las sesiones se
+  cuentan de `Appointment` (`status=fulfilled`). El template vivo vuelca las sesiones a la hoja
+  Sesiones (una fila por sesión → el Dashboard recalcula utilización por COUNTIF).
 - **Clínicos** (pantalla `/clinicos`, solo agregados): Measures **asumidos** `clinico-sin-visita`
   (grupos `30`/`60`/`90`), `clinico-baja-utilizacion` (grupo `miembros`), `clinico-consentimientos`
   (grupos `30`/`60`/`90`). Sin valores de Observation (Ley 26.529/25.326).
@@ -204,9 +213,9 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
     (línea × método) reconciliando ambos márgenes. Verificado: charts byte a byte, totales y formas de
     pago reconcilian, `sharedStrings` intacto.
 
-Los Bots que **producen** los Measures financieros y el TC están en `bots/`
-(`kpis-finanzas.ts`, `tipo-cambio.ts`) — ver `bots/README.md` para contrato y deploy.
-Typecheck local: `npm run typecheck:bots`.
+Los Bots que **producen** los Measures financieros, de servicios y el TC están en `bots/`
+(`kpis-finanzas.ts`, `kpis-servicios.ts`, `tipo-cambio.ts`) — ver `bots/README.md` para contrato y
+deploy. Typecheck local: `npm run typecheck:bots`.
 
 ### Cargar el tipo de cambio
 

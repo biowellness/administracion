@@ -32,8 +32,8 @@ import {
 import { guardarInputsMes, inputsDefault, useInputsMes, type InputsMes } from '../fhir/inputs';
 import { periodoActual, useParametros } from '../fhir/parametros';
 import { useTipoCambio } from '../fhir/reportes';
-import { COMBOS, GASTO_LINEAS, PLANES_MEMBRESIA, measureFinanzas } from '../fhir/systems';
-import { groupCode, groupLabel, groups, groupValue, useMeasureReport } from '../hooks/useMeasureReport';
+import { COMBOS, GASTO_LINEAS, PLANES_MEMBRESIA, measureFinanzas, measureServicios } from '../fhir/systems';
+import { groupCode, groupLabel, groups, groupValue, popValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { exportarExcel, type HojaReporte } from '../lib/excel';
 import { descargarBlob, rellenarTablero, type DatosTablero } from '../lib/templateVivo';
 import { fmt, fmt2 } from '../lib/format';
@@ -73,6 +73,7 @@ export function EstadoResultadosPage(): JSX.Element {
   const mrr = useMeasureReport(measureFinanzas('membresias-mrr'));
   const cobro = useMeasureReport(measureFinanzas('ingresos-cobro'));
   const gastos = useMeasureReport(measureFinanzas('gastos-operativos'));
+  const utilizacion = useMeasureReport(measureServicios('utilizacion-recurso'));
   const { tcUsd } = useTipoCambio();
 
   const periodo = estado.report?.period?.start?.slice(0, 7) ?? periodoActual();
@@ -100,10 +101,16 @@ export function EstadoResultadosPage(): JSX.Element {
   const analisis = useMemo(
     () =>
       narrador(
-        { estado: estado.report, ingresos: ingresos.report, mrr: mrr.report, cobro: cobro.report },
+        {
+          estado: estado.report,
+          ingresos: ingresos.report,
+          mrr: mrr.report,
+          cobro: cobro.report,
+          utilizacion: utilizacion.report,
+        },
         margenObjetivo
       ),
-    [estado.report, ingresos.report, mrr.report, cobro.report, margenObjetivo]
+    [estado.report, ingresos.report, mrr.report, cobro.report, utilizacion.report, margenObjetivo]
   );
 
   // Mix de ingresos por línea (con % del total).
@@ -175,6 +182,12 @@ export function EstadoResultadosPage(): JSX.Element {
         preciosPlan: PLANES_MEMBRESIA.map((pl) => pl.precioUsd),
         combosVendidos: COMBOS.map((cb) => inputs.combosVendidos[cb.codigo] ?? 0),
         preciosCombo: COMBOS.map((cb) => cb.precioUsd),
+        sesionesRecurso: groups(utilizacion.report)
+          .filter((gr) => {
+            const c = groupCode(gr);
+            return c !== 'global' && !c?.startsWith('pool');
+          })
+          .map((gr) => ({ nombre: groupLabel(gr), sesiones: popValue(gr, 'sesiones') })),
       };
       const modelo = await fetch(modeloTableroUrl).then((r) => r.arrayBuffer());
       const blob = await rellenarTablero(modelo, datos);

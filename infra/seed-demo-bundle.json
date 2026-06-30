@@ -4086,6 +4086,719 @@
           }
         ]
       }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-f3utilizacio",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|utilizacion-recurso-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://biowellness.ar/fhir/Measure/utilizacion-recurso",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "utilizacion-recurso-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "hbot-monoplaza",
+                  "display": "HBOT Monoplaza"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.006666666666666667
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 2
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 300
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "hbot-biplaza",
+                  "display": "HBOT Biplaza"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 0
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 300
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "hbot-multiplaza",
+                  "display": "HBOT Multiplaza"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.0033333333333333335
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 1
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 300
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ihht-1",
+                  "display": "IHHT 1"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.0016666666666666668
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 1
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 600
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ihht-2",
+                  "display": "IHHT 2"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.0016666666666666668
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 1
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 600
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "recovery-pro-1",
+                  "display": "Recovery Pro Gab 1"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.0033333333333333335
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 1
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 300
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "recovery-pro-2",
+                  "display": "Recovery Pro Gab 2"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 0
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 300
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "red-light",
+                  "display": "Red Light"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.0016666666666666668
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 1
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 600
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "compresion",
+                  "display": "Compresión (IPC06)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 0
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 600
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "crio",
+                  "display": "Crio (COT03)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 0
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 600
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "camilla-masajes",
+                  "display": "Camilla masajes"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 0
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 300
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "consultorio-medico",
+                  "display": "Consultorio médico"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 0
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 300
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "sala-tb-iv",
+                  "display": "Sala TB / IV"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.0033333333333333335
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 1
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad"
+                    }
+                  ]
+                },
+                "count": 300
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "pool-red-light",
+                  "display": "Pool Red Light (R-07)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.0025
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "usado-min"
+                    }
+                  ]
+                },
+                "count": 90
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "capacidad-min"
+                    }
+                  ]
+                },
+                "count": 36000
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global",
+                  "display": "Utilización global"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.0014814814814814814
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "sesiones"
+                    }
+                  ]
+                },
+                "count": 8
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-f3resumen-di",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|resumen-diario-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/resumen-diario",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "resumen-diario-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "d03",
+                  "display": "2026-06-03"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3396000
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "ingresos"
+                    }
+                  ]
+                },
+                "count": 3441000
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "egresos"
+                    }
+                  ]
+                },
+                "count": 45000
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "saldo"
+                    }
+                  ]
+                },
+                "count": 3396000
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "saldo-acum"
+                    }
+                  ]
+                },
+                "count": 3396000
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "saldo-efectivo"
+                    }
+                  ]
+                },
+                "count": 330000
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "d04",
+                  "display": "2026-06-04"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5761500
+            },
+            "population": [
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "ingresos"
+                    }
+                  ]
+                },
+                "count": 2395500
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "egresos"
+                    }
+                  ]
+                },
+                "count": 30000
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "saldo"
+                    }
+                  ]
+                },
+                "count": 2365500
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "saldo-acum"
+                    }
+                  ]
+                },
+                "count": 5761500
+              },
+              {
+                "code": {
+                  "coding": [
+                    {
+                      "code": "saldo-efectivo"
+                    }
+                  ]
+                },
+                "count": 468000
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

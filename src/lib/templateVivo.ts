@@ -46,6 +46,8 @@ export interface DatosTablero {
   combosVendidos: number[];
   /** Precio USD por combo (5, mismo orden). */
   preciosCombo: number[];
+  /** Sesiones por recurso (nombre EXACTO del modelo + cantidad) para la utilización. */
+  sesionesRecurso: { nombre: string; sesiones: number }[];
 }
 
 type CellVal = number | string | null;
@@ -85,6 +87,7 @@ const SHEET = {
   dashboard: 'xl/worksheets/sheet1.xml',
   parametros: 'xl/worksheets/sheet2.xml',
   cajaDiaria: 'xl/worksheets/sheet3.xml',
+  sesiones: 'xl/worksheets/sheet4.xml',
   membresias: 'xl/worksheets/sheet6.xml',
   gastos: 'xl/worksheets/sheet7.xml',
   empleados: 'xl/worksheets/sheet9.xml',
@@ -213,7 +216,28 @@ export function construirUpdates(datos: DatosTablero): Record<string, Map<string
     cajaDiaria.set(`F${row}`, datos.cajaChicaEgresos);
   }
 
-  return { dashboard, parametros, membresias, gastos, empleados, gastosVarios, cajaDiaria };
+  // Sesiones: limpiar A:F (filas 4-903) y volcar una fila por sesión (la utilización del
+  // Dashboard cuenta filas por recurso con COUNTIF). El nombre del recurso debe ser EXACTO.
+  const sesiones = new Map<string, CellVal>();
+  for (let r = 4; r <= 903; r++) {
+    for (const col of ['A', 'B', 'C', 'D', 'E', 'F']) {
+      sesiones.set(`${col}${r}`, null);
+    }
+  }
+  let sRow = 4;
+  for (const rec of datos.sesionesRecurso) {
+    for (let k = 0; k < rec.sesiones && sRow <= 903; k++) {
+      sesiones.set(`A${sRow}`, serial(y, m, ((sRow - 4) % 28) + 1));
+      sesiones.set(`B${sRow}`, rec.nombre);
+      sesiones.set(`C${sRow}`, '—');
+      sesiones.set(`D${sRow}`, 1);
+      sesiones.set(`E${sRow}`, 'No');
+      sesiones.set(`F${sRow}`, '—');
+      sRow++;
+    }
+  }
+
+  return { dashboard, parametros, membresias, gastos, empleados, gastosVarios, cajaDiaria, sesiones };
 }
 
 /**
@@ -240,6 +264,7 @@ export async function rellenarTablero(modelo: ArrayBuffer, datos: DatosTablero):
   await editar(SHEET.empleados, updates.empleados);
   await editar(SHEET.gastosVarios, updates.gastosVarios);
   await editar(SHEET.cajaDiaria, updates.cajaDiaria);
+  await editar(SHEET.sesiones, updates.sesiones);
 
   // Forzar recálculo al abrir (las fórmulas del Dashboard recomputan; las tortas se re-dibujan).
   const wbFile = zip.file('xl/workbook.xml');
