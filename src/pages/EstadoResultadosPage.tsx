@@ -19,9 +19,10 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useMedplum } from '@medplum/react';
-import { IconFileSpreadsheet, IconInfoCircle, IconPencil, IconTable } from '@tabler/icons-react';
+import { IconFileSpreadsheet, IconInfoCircle, IconLock, IconPencil, IconTable } from '@tabler/icons-react';
 import modeloTableroUrl from '../assets/tablero-mensual-modelo.xlsx?url';
 import { KpiTile } from '../components/KpiTile';
+import { cerrarMes, construirCierre } from '../fhir/cierres';
 import {
   distribucionSocios,
   filasPyL,
@@ -82,6 +83,7 @@ export function EstadoResultadosPage(): JSX.Element {
   const [drawerAbierto, setDrawerAbierto] = useState(false);
   const [exportando, setExportando] = useState(false);
   const [generandoPlanilla, setGenerandoPlanilla] = useState(false);
+  const [cerrando, setCerrando] = useState(false);
 
   const loading = estado.loading || linea.loading || ingresos.loading || mrr.loading || cobro.loading;
   const mostrarUsd = tcUsd > 0;
@@ -204,6 +206,24 @@ export function EstadoResultadosPage(): JSX.Element {
     }
   };
 
+  // Cierra el mes: snapshot inmutable de los totales → alimenta el consolidado anual.
+  const cerrarMesActual = async (): Promise<void> => {
+    setCerrando(true);
+    try {
+      const cierre = construirCierre(
+        periodo,
+        { estado: estado.report, linea: linea.report, cobro: cobro.report, mrr: mrr.report },
+        new Date().toISOString().slice(0, 10)
+      );
+      await cerrarMes(medplum, cierre);
+      notifications.show({ color: 'teal', title: 'Mes cerrado', message: `${periodo} quedó en el consolidado anual.` });
+    } catch (e) {
+      notifications.show({ color: 'red', title: 'Error', message: e instanceof Error ? e.message : 'No se pudo cerrar el mes.' });
+    } finally {
+      setCerrando(false);
+    }
+  };
+
   if (loading) {
     return (
       <Group justify="center" p="xl">
@@ -238,12 +258,21 @@ export function EstadoResultadosPage(): JSX.Element {
             Exportar .xlsx
           </Button>
           <Button
+            variant="light"
             leftSection={<IconTable size={16} />}
             loading={generandoPlanilla}
             disabled={!hayEstado}
             onClick={() => void exportarPlanilla()}
           >
             Generar planilla
+          </Button>
+          <Button
+            leftSection={<IconLock size={16} />}
+            loading={cerrando}
+            disabled={!hayEstado}
+            onClick={() => void cerrarMesActual()}
+          >
+            Cerrar mes
           </Button>
         </Group>
       </Group>

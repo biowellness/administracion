@@ -50,7 +50,7 @@ export interface DatosTablero {
   sesionesRecurso: { nombre: string; sesiones: number }[];
 }
 
-type CellVal = number | string | null;
+export type CellVal = number | string | null;
 
 // Códigos del sistema → texto EXACTO que esperan los SUMIFS del modelo.
 const LINEA_TXT: Record<string, string> = {
