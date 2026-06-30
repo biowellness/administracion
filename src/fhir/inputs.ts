@@ -12,9 +12,11 @@ import { useMedplum } from '@medplum/react';
 import type { Basic } from '@medplum/fhirtypes';
 import type { MedplumClient } from '@medplum/core';
 import {
+  COMBOS,
   CS_INPUTS_MES,
   GASTO_KEYS_MANUALES,
   INPUTS_MES_CODE,
+  PLANES_MEMBRESIA,
   SD_INPUTS_MES_JSON,
   SID_INPUTS_MES,
   type GastoKey,
@@ -32,6 +34,10 @@ export interface InputsMes {
   cajaChicaSaldoInicial: number;
   /** Egresos de caja chica del mes (gastos menores en efectivo). */
   cajaChicaEgresos: number;
+  /** Socios activos por plan (clave = código de `PLANES_MEMBRESIA`). */
+  sociosPlan: Record<string, number>;
+  /** Combos vendidos en el mes (clave = código de `COMBOS`). */
+  combosVendidos: Record<string, number>;
 }
 
 /** Inputs vacíos para un período (todo en 0). */
@@ -40,6 +46,14 @@ export function inputsDefault(periodo: string): InputsMes {
   for (const k of GASTO_KEYS_MANUALES) {
     gastos[k] = 0;
   }
+  const sociosPlan: Record<string, number> = {};
+  for (const p of PLANES_MEMBRESIA) {
+    sociosPlan[p.codigo] = 0;
+  }
+  const combosVendidos: Record<string, number> = {};
+  for (const c of COMBOS) {
+    combosVendidos[c.codigo] = 0;
+  }
   return {
     periodo,
     sueldosBrutos: 0,
@@ -47,6 +61,8 @@ export function inputsDefault(periodo: string): InputsMes {
     barNeto: 0,
     cajaChicaSaldoInicial: 0,
     cajaChicaEgresos: 0,
+    sociosPlan,
+    combosVendidos,
   };
 }
 
@@ -58,6 +74,8 @@ function conDefaults(parcial: Partial<InputsMes>, periodo: string): InputsMes {
     ...parcial,
     periodo,
     gastos: { ...base.gastos, ...(parcial.gastos ?? {}) },
+    sociosPlan: { ...base.sociosPlan, ...(parcial.sociosPlan ?? {}) },
+    combosVendidos: { ...base.combosVendidos, ...(parcial.combosVendidos ?? {}) },
   };
 }
 

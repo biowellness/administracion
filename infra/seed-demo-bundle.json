@@ -3506,6 +3506,19 @@
             "code": {
               "coding": [
                 {
+                  "code": "focus-int",
+                  "display": "FOCUS Intensivo"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
                   "code": "prime-std-ind",
                   "display": "PRIME Std Individual"
                 }
@@ -3519,6 +3532,45 @@
             "code": {
               "coding": [
                 {
+                  "code": "prime-int-ind",
+                  "display": "PRIME Int Individual"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "prime-std-par",
+                  "display": "PRIME Std Pareja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "prime-int-par",
+                  "display": "PRIME Int Pareja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
                   "code": "healthspan-std-ind",
                   "display": "HEALTHSPAN Std Individual"
                 }
@@ -3526,6 +3578,45 @@
             },
             "measureScore": {
               "value": 4368
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "healthspan-int-ind",
+                  "display": "HEALTHSPAN Int Individual"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "healthspan-std-par",
+                  "display": "HEALTHSPAN Std Pareja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "healthspan-int-par",
+                  "display": "HEALTHSPAN Int Pareja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
             }
           },
           {
@@ -3689,7 +3780,309 @@
         "extension": [
           {
             "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/inputs-mes-json",
-            "valueString": "{\"periodo\":\"2026-06\",\"sueldosBrutos\":0,\"gastos\":{\"alquiler\":7500000,\"estacionamiento\":1200000,\"electricidad-gas\":2000000,\"internet-software\":30000,\"seguros\":300000,\"mantenimiento\":0,\"marketing\":700000,\"insumos-medicos\":0,\"contaduria-legal\":500000,\"comisiones-mp\":0,\"iibb\":0,\"lavanderia\":0,\"gastos-varios\":0},\"barNeto\":450000,\"cajaChicaSaldoInicial\":0,\"cajaChicaEgresos\":75000}"
+            "valueString": "{\"periodo\":\"2026-06\",\"sueldosBrutos\":0,\"gastos\":{\"alquiler\":7500000,\"estacionamiento\":1200000,\"electricidad-gas\":2000000,\"internet-software\":30000,\"seguros\":300000,\"mantenimiento\":0,\"marketing\":700000,\"insumos-medicos\":0,\"contaduria-legal\":500000,\"comisiones-mp\":0,\"iibb\":0,\"lavanderia\":0,\"gastos-varios\":0},\"barNeto\":450000,\"cajaChicaSaldoInicial\":0,\"cajaChicaEgresos\":75000,\"sociosPlan\":{\"focus-std\":5,\"focus-int\":0,\"prime-std-ind\":3,\"prime-int-ind\":0,\"prime-std-par\":0,\"prime-int-par\":0,\"healthspan-std-ind\":2,\"healthspan-int-ind\":0,\"healthspan-std-par\":0,\"healthspan-int-par\":0},\"combosVendidos\":{\"bio-energy\":8,\"bio-compress\":0,\"bio-cryo\":0,\"bio-recovery-ind\":5,\"bio-longevity-ind\":3}}"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-mem00000001",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|membresias-socios-plan-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/membresias-socios-plan",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "membresias-socios-plan-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "focus-std",
+                  "display": "FOCUS Standard"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "focus-int",
+                  "display": "FOCUS Intensivo"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "prime-std-ind",
+                  "display": "PRIME Std Individual"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "prime-int-ind",
+                  "display": "PRIME Int Individual"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "prime-std-par",
+                  "display": "PRIME Std Pareja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "prime-int-par",
+                  "display": "PRIME Int Pareja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "healthspan-std-ind",
+                  "display": "HEALTHSPAN Std Individual"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "healthspan-int-ind",
+                  "display": "HEALTHSPAN Int Individual"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "healthspan-std-par",
+                  "display": "HEALTHSPAN Std Pareja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "healthspan-int-par",
+                  "display": "HEALTHSPAN Int Pareja"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "total",
+                  "display": "Total socios"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 10
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-mem00000002",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|combos-vendidos-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/combos-vendidos",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "combos-vendidos-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "bio-energy",
+                  "display": "BIO ENERGY"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 8
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "bio-compress",
+                  "display": "BIO COMPRESS"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "bio-cryo",
+                  "display": "BIO CRYO"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "bio-recovery-ind",
+                  "display": "BIO RECOVERY Ind"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "bio-longevity-ind",
+                  "display": "BIO LONGEVITY Ind"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "total",
+                  "display": "Total combos"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 16
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ingreso-usd",
+                  "display": "Ingreso combos (USD)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3448
+            }
           }
         ]
       }

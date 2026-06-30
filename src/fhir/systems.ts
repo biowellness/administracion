@@ -85,6 +85,8 @@ export const MEASURE_SLUGS_FINANZAS = [
   'caja-chica',
   'consultas-split',
   'membresias-mrr',
+  'membresias-socios-plan',
+  'combos-vendidos',
   'founding-members',
   'margen',
   'tipo-cambio',
@@ -203,6 +205,49 @@ export const PYL_CODES = [
   'margen-operativo',
   'margen-objetivo',
 ] as const;
+
+// ---------------------------------------------------------------------------
+// Catálogo canónico de planes y combos (Anexo D · Fase 2) — espejo de la hoja
+// 'Membresías & Combos' del modelo. Evita el match por nombre frágil. Los precios
+// son el TARIFARIO (en USD); Andrés lo define al final → editable.
+// ---------------------------------------------------------------------------
+
+export interface PlanMembresia {
+  codigo: string;
+  nombre: string;
+  /** Precio USD/mes (tarifario; base para el MRR). */
+  precioUsd: number;
+}
+
+/** Los 10 planes de membresía (orden del modelo, filas C6:C15). */
+export const PLANES_MEMBRESIA: PlanMembresia[] = [
+  { codigo: 'focus-std', nombre: 'FOCUS Standard', precioUsd: 718 },
+  { codigo: 'focus-int', nombre: 'FOCUS Intensivo', precioUsd: 1008 },
+  { codigo: 'prime-std-ind', nombre: 'PRIME Std Individual', precioUsd: 1752 },
+  { codigo: 'prime-int-ind', nombre: 'PRIME Int Individual', precioUsd: 2453 },
+  { codigo: 'prime-std-par', nombre: 'PRIME Std Pareja', precioUsd: 1920 },
+  { codigo: 'prime-int-par', nombre: 'PRIME Int Pareja', precioUsd: 2688 },
+  { codigo: 'healthspan-std-ind', nombre: 'HEALTHSPAN Std Individual', precioUsd: 2184 },
+  { codigo: 'healthspan-int-ind', nombre: 'HEALTHSPAN Int Individual', precioUsd: 3058 },
+  { codigo: 'healthspan-std-par', nombre: 'HEALTHSPAN Std Pareja', precioUsd: 2784 },
+  { codigo: 'healthspan-int-par', nombre: 'HEALTHSPAN Int Pareja', precioUsd: 3898 },
+];
+
+export interface ComboCatalogo {
+  codigo: string;
+  nombre: string;
+  /** Precio USD por unidad. */
+  precioUsd: number;
+}
+
+/** Los 5 combos (orden del modelo, filas C21:C25). */
+export const COMBOS: ComboCatalogo[] = [
+  { codigo: 'bio-energy', nombre: 'BIO ENERGY', precioUsd: 112 },
+  { codigo: 'bio-compress', nombre: 'BIO COMPRESS', precioUsd: 88 },
+  { codigo: 'bio-cryo', nombre: 'BIO CRYO', precioUsd: 120 },
+  { codigo: 'bio-recovery-ind', nombre: 'BIO RECOVERY Ind', precioUsd: 292 },
+  { codigo: 'bio-longevity-ind', nombre: 'BIO LONGEVITY Ind', precioUsd: 364 },
+];
 
 // ---------------------------------------------------------------------------
 // Pipeline (kanban) — Task  (namespace bio)

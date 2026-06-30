@@ -163,6 +163,14 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
   vienen de Measures **asumidos** `cobros` (grupos `cobrado`/`pendiente`/`fallido`) y
   `founding-members` (grupos `cupos-usados`/`cupos-totales`/`descuento-promedio`/`ltv-promedio`),
   más `churn` y `membresias-utilizacion`.
+- **Membresías y MRR** (pantalla `/membresias`, Anexo D · Fase 2): además del detalle por socio
+  (Coverage), un panel de **socios por plan + MRR** y **combos vendidos**. Catálogo canónico de
+  **10 planes + 5 combos** con su tarifario USD en `systems.ts` (`PLANES_MEMBRESIA`/`COMBOS`) — evita
+  el match por nombre frágil; el tarifario lo define Andrés al final (editable). Measures de
+  `kpis-finanzas`: `membresias-socios-plan` (socios por plan + total), `membresias-mrr` (MRR por plan
+  × precio + `global` + `socios`), `combos-vendidos` (unidades + `ingreso-usd`). Los socios por plan y
+  los combos del mes se cargan como **inputs manuales** (`inputs-mes`, mismo cajón que los gastos) y
+  alimentan el bot y el template vivo (hoja Membresías & Combos).
 - **Clínicos** (pantalla `/clinicos`, solo agregados): Measures **asumidos** `clinico-sin-visita`
   (grupos `30`/`60`/`90`), `clinico-baja-utilizacion` (grupo `miembros`), `clinico-consentimientos`
   (grupos `30`/`60`/`90`). Sin valores de Observation (Ley 26.529/25.326).
