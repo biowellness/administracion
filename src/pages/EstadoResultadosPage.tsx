@@ -32,7 +32,7 @@ import {
 import { guardarInputsMes, inputsDefault, useInputsMes, type InputsMes } from '../fhir/inputs';
 import { periodoActual, useParametros } from '../fhir/parametros';
 import { useTipoCambio } from '../fhir/reportes';
-import { GASTO_LINEAS, measureFinanzas } from '../fhir/systems';
+import { COMBOS, GASTO_LINEAS, PLANES_MEMBRESIA, measureFinanzas } from '../fhir/systems';
 import { groupCode, groupLabel, groups, groupValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { exportarExcel, type HojaReporte } from '../lib/excel';
 import { descargarBlob, rellenarTablero, type DatosTablero } from '../lib/templateVivo';
@@ -171,6 +171,10 @@ export function EstadoResultadosPage(): JSX.Element {
         cajaChicaEgresos: inputs.cajaChicaEgresos,
         lineas,
         metodos,
+        sociosPlan: PLANES_MEMBRESIA.map((pl) => inputs.sociosPlan[pl.codigo] ?? 0),
+        preciosPlan: PLANES_MEMBRESIA.map((pl) => pl.precioUsd),
+        combosVendidos: COMBOS.map((cb) => inputs.combosVendidos[cb.codigo] ?? 0),
+        preciosCombo: COMBOS.map((cb) => cb.precioUsd),
       };
       const modelo = await fetch(modeloTableroUrl).then((r) => r.arrayBuffer());
       const blob = await rellenarTablero(modelo, datos);
@@ -209,7 +213,7 @@ export function EstadoResultadosPage(): JSX.Element {
         </Group>
         <Group gap="xs">
           <Button variant="light" leftSection={<IconPencil size={16} />} onClick={() => setDrawerAbierto(true)}>
-            Cargar gastos
+            Cargar datos del mes
           </Button>
           <Button
             variant="light"
@@ -465,6 +469,10 @@ function InputsDrawer({ abierto, onCerrar, periodo, onGuardado, medplum }: Drawe
 
   const setGasto = (key: string, v: number): void =>
     setForm((p) => ({ ...p, gastos: { ...p.gastos, [key]: v } }));
+  const setSocios = (key: string, v: number): void =>
+    setForm((p) => ({ ...p, sociosPlan: { ...p.sociosPlan, [key]: v } }));
+  const setCombo = (key: string, v: number): void =>
+    setForm((p) => ({ ...p, combosVendidos: { ...p.combosVendidos, [key]: v } }));
 
   const guardar = async (): Promise<void> => {
     setGuardando(true);
@@ -502,7 +510,7 @@ function InputsDrawer({ abierto, onCerrar, periodo, onGuardado, medplum }: Drawe
   const manuales = GASTO_LINEAS.filter((g) => g.tipo === 'manual');
 
   return (
-    <Drawer opened={abierto} onClose={onCerrar} position="right" size="md" title={`Cargar gastos · ${periodo}`}>
+    <Drawer opened={abierto} onClose={onCerrar} position="right" size="md" title={`Cargar datos del mes · ${periodo}`}>
       <ScrollArea h="calc(100vh - 120px)">
         <Stack gap="md" pr="sm">
           <Alert color="blue" variant="light" icon={<IconInfoCircle size={16} />}>
@@ -534,6 +542,36 @@ function InputsDrawer({ abierto, onCerrar, periodo, onGuardado, medplum }: Drawe
           {num('Caja chica — egresos del mes (ARS)', form.cajaChicaEgresos, (v) =>
             setForm((p) => ({ ...p, cajaChicaEgresos: v }))
           )}
+
+          <Divider />
+          <Text fw={500} size="sm">
+            Socios activos por plan
+          </Text>
+          {PLANES_MEMBRESIA.map((pl) => (
+            <NumberInput
+              key={pl.codigo}
+              label={pl.nombre}
+              description={`US$ ${fmt(pl.precioUsd)}/mes`}
+              value={form.sociosPlan[pl.codigo] ?? 0}
+              onChange={(v) => setSocios(pl.codigo, Number(v) || 0)}
+              min={0}
+            />
+          ))}
+
+          <Divider />
+          <Text fw={500} size="sm">
+            Combos vendidos
+          </Text>
+          {COMBOS.map((cb) => (
+            <NumberInput
+              key={cb.codigo}
+              label={cb.nombre}
+              description={`US$ ${fmt(cb.precioUsd)} c/u`}
+              value={form.combosVendidos[cb.codigo] ?? 0}
+              onChange={(v) => setCombo(cb.codigo, Number(v) || 0)}
+              min={0}
+            />
+          ))}
 
           <Button loading={guardando} disabled={loading} onClick={() => void guardar()} mt="sm">
             Guardar inputs

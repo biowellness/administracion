@@ -38,6 +38,14 @@ export interface DatosTablero {
   lineas: LineaMonto[];
   /** Cobros por método de pago. */
   metodos: LineaMonto[];
+  /** Socios activos por plan (10, en el orden de PLANES_MEMBRESIA). */
+  sociosPlan: number[];
+  /** Precio USD/mes por plan (10, mismo orden). */
+  preciosPlan: number[];
+  /** Combos vendidos (5, en el orden de COMBOS). */
+  combosVendidos: number[];
+  /** Precio USD por combo (5, mismo orden). */
+  preciosCombo: number[];
 }
 
 type CellVal = number | string | null;
@@ -77,6 +85,7 @@ const SHEET = {
   dashboard: 'xl/worksheets/sheet1.xml',
   parametros: 'xl/worksheets/sheet2.xml',
   cajaDiaria: 'xl/worksheets/sheet3.xml',
+  membresias: 'xl/worksheets/sheet6.xml',
   gastos: 'xl/worksheets/sheet7.xml',
   empleados: 'xl/worksheets/sheet9.xml',
   gastosVarios: 'xl/worksheets/sheet10.xml',
@@ -157,6 +166,13 @@ export function construirUpdates(datos: DatosTablero): Record<string, Map<string
     ['C54', datos.ingresosMesAnterior],
   ]);
 
+  // Membresías & Combos: socios por plan (C6:C15) + precios (D6:D15); combos (C21:C25) + precios.
+  const membresias = new Map<string, CellVal>();
+  datos.sociosPlan.slice(0, 10).forEach((s, i) => membresias.set(`C${6 + i}`, s));
+  datos.preciosPlan.slice(0, 10).forEach((p, i) => membresias.set(`D${6 + i}`, p));
+  datos.combosVendidos.slice(0, 5).forEach((c, i) => membresias.set(`C${21 + i}`, c));
+  datos.preciosCombo.slice(0, 5).forEach((p, i) => membresias.set(`D${21 + i}`, p));
+
   // Caja Diaria: limpiar A:F de todas las filas y volcar el cobrado por (línea × método).
   const cajaDiaria = new Map<string, CellVal>();
   for (let r = 4; r <= 403; r++) {
@@ -197,7 +213,7 @@ export function construirUpdates(datos: DatosTablero): Record<string, Map<string
     cajaDiaria.set(`F${row}`, datos.cajaChicaEgresos);
   }
 
-  return { dashboard, parametros, gastos, empleados, gastosVarios, cajaDiaria };
+  return { dashboard, parametros, membresias, gastos, empleados, gastosVarios, cajaDiaria };
 }
 
 /**
@@ -219,6 +235,7 @@ export async function rellenarTablero(modelo: ArrayBuffer, datos: DatosTablero):
 
   await editar(SHEET.dashboard, updates.dashboard);
   await editar(SHEET.parametros, updates.parametros);
+  await editar(SHEET.membresias, updates.membresias);
   await editar(SHEET.gastos, updates.gastos);
   await editar(SHEET.empleados, updates.empleados);
   await editar(SHEET.gastosVarios, updates.gastosVarios);

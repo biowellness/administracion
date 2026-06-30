@@ -5,10 +5,11 @@ import { ChargeItem, Invoice, MeasureReport } from '@medplum/fhirtypes';
  * Bot `kpis-finanzas` — calcula y publica los MeasureReport financieros del mes que la
  * app de administración lee (sección 6.8): `ingresos`, `ingresos-linea`,
  * `ingresos-servicio`, `ingresos-medico`, `ingresos-iv-tb`, `ingresos-cobro`, `cobros`,
- * `margen`, y el estado de resultados (Anexo D · Fase 1): `gastos-operativos`,
- * `caja-chica`, `estado-resultados`. `ingresos-linea` es el corte por línea comercial
- * que desbloquea el P&L; la cascada y los gastos manuales salen de la config FHIR
- * (`config-tablero`) y los inputs del mes (`inputs-mes`).
+ * `margen`, el estado de resultados (Anexo D · Fase 1): `gastos-operativos`,
+ * `caja-chica`, `estado-resultados`, y membresías (Fase 2): `membresias-socios-plan`,
+ * `membresias-mrr`, `combos-vendidos`. `ingresos-linea` es el corte por línea comercial
+ * que desbloquea el P&L; la cascada, los gastos manuales, los socios por plan y los combos
+ * salen de la config FHIR (`config-tablero`) y los inputs del mes (`inputs-mes`).
  *
  * Fuentes: `ChargeItem` (ingresos por servicio/médico/IV-TB) e `Invoice` (cobros y
  * medio de pago). Idempotente por identifier `<slug>-<YYYY-MM>`.
@@ -79,6 +80,8 @@ interface InputsMes {
   barNeto: number;
   cajaChicaSaldoInicial: number;
   cajaChicaEgresos: number;
+  sociosPlan: Record<string, number>;
+  combosVendidos: Record<string, number>;
 }
 const INPUTS_DEFAULT: InputsMes = {
   sueldosBrutos: 0,
@@ -86,7 +89,30 @@ const INPUTS_DEFAULT: InputsMes = {
   barNeto: 0,
   cajaChicaSaldoInicial: 0,
   cajaChicaEgresos: 0,
+  sociosPlan: {},
+  combosVendidos: {},
 };
+
+/** Catálogo de planes y combos (espejo de `src/fhir/systems.ts`). Precio en USD. */
+const PLANES_MEMBRESIA: { codigo: string; nombre: string; precioUsd: number }[] = [
+  { codigo: 'focus-std', nombre: 'FOCUS Standard', precioUsd: 718 },
+  { codigo: 'focus-int', nombre: 'FOCUS Intensivo', precioUsd: 1008 },
+  { codigo: 'prime-std-ind', nombre: 'PRIME Std Individual', precioUsd: 1752 },
+  { codigo: 'prime-int-ind', nombre: 'PRIME Int Individual', precioUsd: 2453 },
+  { codigo: 'prime-std-par', nombre: 'PRIME Std Pareja', precioUsd: 1920 },
+  { codigo: 'prime-int-par', nombre: 'PRIME Int Pareja', precioUsd: 2688 },
+  { codigo: 'healthspan-std-ind', nombre: 'HEALTHSPAN Std Individual', precioUsd: 2184 },
+  { codigo: 'healthspan-int-ind', nombre: 'HEALTHSPAN Int Individual', precioUsd: 3058 },
+  { codigo: 'healthspan-std-par', nombre: 'HEALTHSPAN Std Pareja', precioUsd: 2784 },
+  { codigo: 'healthspan-int-par', nombre: 'HEALTHSPAN Int Pareja', precioUsd: 3898 },
+];
+const COMBOS: { codigo: string; nombre: string; precioUsd: number }[] = [
+  { codigo: 'bio-energy', nombre: 'BIO ENERGY', precioUsd: 112 },
+  { codigo: 'bio-compress', nombre: 'BIO COMPRESS', precioUsd: 88 },
+  { codigo: 'bio-cryo', nombre: 'BIO CRYO', precioUsd: 120 },
+  { codigo: 'bio-recovery-ind', nombre: 'BIO RECOVERY Ind', precioUsd: 292 },
+  { codigo: 'bio-longevity-ind', nombre: 'BIO LONGEVITY Ind', precioUsd: 364 },
+];
 
 /** Las 17 líneas de gastos (espejo de GASTO_LINEAS): key, label, tipo. */
 const GASTO_LINEAS: { key: string; label: string; tipo: 'sueldos' | 'config' | 'auto' | 'manual' }[] = [
@@ -304,6 +330,17 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
   const resultadoTotal = ebitda + barNeto;
   const margenOperativo = ingresosWellness > 0 ? ebitda / ingresosWellness : 0;
 
+  // ===== Membresías y combos (Anexo D · Fase 2) =====
+  const sociosPlan = inputs.sociosPlan ?? {};
+  const combosVendidos = inputs.combosVendidos ?? {};
+  const gruposSociosPlan = PLANES_MEMBRESIA.map((pl) => ({ code: pl.codigo, display: pl.nombre, value: sociosPlan[pl.codigo] ?? 0 }));
+  const totalSocios = gruposSociosPlan.reduce((s, g) => s + g.value, 0);
+  const gruposMrr = PLANES_MEMBRESIA.map((pl) => ({ code: pl.codigo, display: pl.nombre, value: (sociosPlan[pl.codigo] ?? 0) * pl.precioUsd }));
+  const mrrTotal = gruposMrr.reduce((s, g) => s + g.value, 0);
+  const gruposCombos = COMBOS.map((cb) => ({ code: cb.codigo, display: cb.nombre, value: combosVendidos[cb.codigo] ?? 0 }));
+  const totalCombos = gruposCombos.reduce((s, g) => s + g.value, 0);
+  const ingresoCombosUsd = COMBOS.reduce((s, cb) => s + (combosVendidos[cb.codigo] ?? 0) * cb.precioUsd, 0);
+
   const ordenarDesc = (mapa: Map<string, number>): { code: string; display: string; value: number }[] =>
     [...mapa.entries()].sort((a, b) => b[1] - a[1]).map(([code, value]) => ({ code, display: code, value }));
   const lineasOrdenadas = (mapa: Map<string, number>): { code: string; display: string; value: number }[] =>
@@ -348,6 +385,17 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
       { code: 'resultado-total', display: 'Resultado total del negocio', value: resultadoTotal },
       { code: 'margen-operativo', display: 'Margen operativo', value: margenOperativo },
       { code: 'margen-objetivo', display: 'Margen objetivo', value: cfg.margenObjetivoPct / 100 },
+    ]),
+    buildMR('membresias-socios-plan', p, [...gruposSociosPlan, { code: 'total', display: 'Total socios', value: totalSocios }]),
+    buildMR('membresias-mrr', p, [
+      ...gruposMrr,
+      { code: 'global', display: 'MRR total (USD)', value: mrrTotal },
+      { code: 'socios', display: 'Socios activos', value: totalSocios },
+    ]),
+    buildMR('combos-vendidos', p, [
+      ...gruposCombos,
+      { code: 'total', display: 'Total combos', value: totalCombos },
+      { code: 'ingreso-usd', display: 'Ingreso combos (USD)', value: ingresoCombosUsd },
     ]),
   ];
 

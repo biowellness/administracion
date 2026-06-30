@@ -24,7 +24,15 @@ import { KpiTile } from '../components/KpiTile';
 import { TablaMontos } from '../components/TablaMontos';
 import { idDeRef } from '../fhir/refs';
 import { filasDeMedida, useTipoCambio } from '../fhir/reportes';
-import { SD_SESIONES_MES, SD_SESIONES_USADAS, measureCrm, measureFinanzas, measureServicios } from '../fhir/systems';
+import {
+  COMBOS,
+  PLANES_MEMBRESIA,
+  SD_SESIONES_MES,
+  SD_SESIONES_USADAS,
+  measureCrm,
+  measureFinanzas,
+  measureServicios,
+} from '../fhir/systems';
 import { groupValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { exportarExcel } from '../lib/excel';
 import type { HojaReporte } from '../lib/excel';
@@ -66,6 +74,9 @@ export function MembresiasPage(): JSX.Element {
   const founding = useMeasureReport(measureFinanzas('founding-members'));
   const churn = useMeasureReport(measureCrm('churn'));
   const util = useMeasureReport(measureServicios('membresias-utilizacion'));
+  const mrr = useMeasureReport(measureFinanzas('membresias-mrr'));
+  const sociosPlan = useMeasureReport(measureFinanzas('membresias-socios-plan'));
+  const combos = useMeasureReport(measureFinanzas('combos-vendidos'));
   const { tcUsd } = useTipoCambio();
 
   const [membresias, setMembresias] = useState<Membresia[]>([]);
@@ -107,7 +118,15 @@ export function MembresiasPage(): JSX.Element {
     cargar();
   }, [cargar]);
 
-  const loading = loadingCob || cobros.loading || founding.loading || churn.loading || util.loading;
+  const loading =
+    loadingCob ||
+    cobros.loading ||
+    founding.loading ||
+    churn.loading ||
+    util.loading ||
+    mrr.loading ||
+    sociosPlan.loading ||
+    combos.loading;
 
   if (loading) {
     return (
@@ -136,6 +155,21 @@ export function MembresiasPage(): JSX.Element {
   const cuposTotales = groupValue(founding.report, 'cupos-totales');
   const descuento = groupValue(founding.report, 'descuento-promedio');
   const ltvFounding = groupValue(founding.report, 'ltv-promedio');
+
+  // Socios por plan + MRR (Fase 2): socios del measure × tarifario del catálogo.
+  const planRows = PLANES_MEMBRESIA.map((pl) => {
+    const socios = groupValue(sociosPlan.report, pl.codigo);
+    return { nombre: pl.nombre, socios, precioUsd: pl.precioUsd, mrrUsd: socios * pl.precioUsd };
+  });
+  const totalSocios = planRows.reduce((s, r) => s + r.socios, 0);
+  const mrrTotalUsd = groupValue(mrr.report, 'global') || planRows.reduce((s, r) => s + r.mrrUsd, 0);
+
+  const comboRows = COMBOS.map((cb) => {
+    const vendidos = groupValue(combos.report, cb.codigo);
+    return { nombre: cb.nombre, vendidos, precioUsd: cb.precioUsd, ingresoUsd: vendidos * cb.precioUsd };
+  });
+  const combosTotal = comboRows.reduce((s, r) => s + r.vendidos, 0);
+  const ingresoCombosUsd = comboRows.reduce((s, r) => s + r.ingresoUsd, 0);
 
   const exportar = async (): Promise<void> => {
     setExportando(true);
@@ -182,6 +216,26 @@ export function MembresiasPage(): JSX.Element {
             { concepto: 'LTV promedio (ARS)', valor: ltvFounding },
           ],
         },
+        {
+          nombre: 'Socios por plan y MRR',
+          columnas: [
+            { key: 'nombre', titulo: 'Plan', ancho: 28 },
+            { key: 'socios', titulo: 'Socios', formato: 'num' },
+            { key: 'precioUsd', titulo: 'Precio USD', formato: 'num' },
+            { key: 'mrrUsd', titulo: 'MRR USD', formato: 'usd' },
+          ],
+          filas: planRows.map((r) => ({ ...r })),
+        },
+        {
+          nombre: 'Combos vendidos',
+          columnas: [
+            { key: 'nombre', titulo: 'Combo', ancho: 24 },
+            { key: 'vendidos', titulo: 'Vendidos', formato: 'num' },
+            { key: 'precioUsd', titulo: 'Precio USD', formato: 'num' },
+            { key: 'ingresoUsd', titulo: 'Ingreso USD', formato: 'usd' },
+          ],
+          filas: comboRows.map((r) => ({ ...r })),
+        },
       ];
       await exportarExcel(`biowellness-membresias-${new Date().toISOString().slice(0, 10)}.xlsx`, hojas);
       notifications.show({ color: 'teal', message: 'Membresías exportadas.' });
@@ -216,11 +270,96 @@ export function MembresiasPage(): JSX.Element {
         </Group>
       </Group>
 
-      <SimpleGrid cols={{ base: 2, sm: 4 }} spacing="sm">
+      <SimpleGrid cols={{ base: 2, sm: 3, lg: 5 }} spacing="sm">
+        <KpiTile label="MRR membresías" value={`US$ ${fmt(mrrTotalUsd)}`} color="teal" sub={`${fmt(totalSocios)} socios activos`} />
         <KpiTile label="Membresías activas" value={fmt(membresias.length)} />
         <KpiTile label="Utilización global" value={`${fmt(utilGlobal)}%`} />
         <KpiTile label="Cobrado (mes)" value={`$${fmt(cobrado)}`} color="teal" sub={mostrarUsd ? `US$ ${fmt(cobrado / tcUsd)}` : undefined} />
         <KpiTile label="Churn (alto)" value={fmt(churnAlto)} color={churnAlto > 0 ? 'orange' : undefined} />
+      </SimpleGrid>
+
+      <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+        <Card withBorder radius="md" padding="lg">
+          <Group justify="space-between" mb="sm">
+            <Text fw={500}>Socios por plan y MRR</Text>
+            <Badge variant="light" color="teal">
+              US$ {fmt(mrrTotalUsd)}/mes
+            </Badge>
+          </Group>
+          <Table.ScrollContainer minWidth={420}>
+            <Table verticalSpacing="xs" horizontalSpacing="md" highlightOnHover>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Plan</Table.Th>
+                  <Table.Th ta="right">Socios</Table.Th>
+                  <Table.Th ta="right">Precio USD</Table.Th>
+                  <Table.Th ta="right">MRR USD</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {planRows.map((r) => (
+                  <Table.Tr key={r.nombre}>
+                    <Table.Td>{r.nombre}</Table.Td>
+                    <Table.Td ta="right">{fmt(r.socios)}</Table.Td>
+                    <Table.Td ta="right">{fmt(r.precioUsd)}</Table.Td>
+                    <Table.Td ta="right">{r.mrrUsd > 0 ? `US$ ${fmt(r.mrrUsd)}` : '—'}</Table.Td>
+                  </Table.Tr>
+                ))}
+                <Table.Tr>
+                  <Table.Td fw={600}>TOTAL</Table.Td>
+                  <Table.Td ta="right" fw={600}>
+                    {fmt(totalSocios)}
+                  </Table.Td>
+                  <Table.Td />
+                  <Table.Td ta="right" fw={600}>
+                    US$ {fmt(mrrTotalUsd)}
+                  </Table.Td>
+                </Table.Tr>
+              </Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
+        </Card>
+
+        <Card withBorder radius="md" padding="lg">
+          <Group justify="space-between" mb="sm">
+            <Text fw={500}>Combos vendidos</Text>
+            <Badge variant="light" color="gray">
+              US$ {fmt(ingresoCombosUsd)}
+            </Badge>
+          </Group>
+          <Table.ScrollContainer minWidth={420}>
+            <Table verticalSpacing="xs" horizontalSpacing="md" highlightOnHover>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>Combo</Table.Th>
+                  <Table.Th ta="right">Vendidos</Table.Th>
+                  <Table.Th ta="right">Precio USD</Table.Th>
+                  <Table.Th ta="right">Ingreso USD</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {comboRows.map((r) => (
+                  <Table.Tr key={r.nombre}>
+                    <Table.Td>{r.nombre}</Table.Td>
+                    <Table.Td ta="right">{fmt(r.vendidos)}</Table.Td>
+                    <Table.Td ta="right">{fmt(r.precioUsd)}</Table.Td>
+                    <Table.Td ta="right">{r.ingresoUsd > 0 ? `US$ ${fmt(r.ingresoUsd)}` : '—'}</Table.Td>
+                  </Table.Tr>
+                ))}
+                <Table.Tr>
+                  <Table.Td fw={600}>TOTAL</Table.Td>
+                  <Table.Td ta="right" fw={600}>
+                    {fmt(combosTotal)}
+                  </Table.Td>
+                  <Table.Td />
+                  <Table.Td ta="right" fw={600}>
+                    US$ {fmt(ingresoCombosUsd)}
+                  </Table.Td>
+                </Table.Tr>
+              </Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
+        </Card>
       </SimpleGrid>
 
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
