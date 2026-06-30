@@ -145,7 +145,10 @@ export function narrador(d: DatosNarrador, margenObjetivoPct: number): LineaNarr
 
   // 4 · Recurso más/menos usado (solo si hay utilización — Fase 3).
   if (d.utilizacion) {
-    const recursos = groups(d.utilizacion).filter((g) => groupCode(g) !== 'global');
+    const recursos = groups(d.utilizacion).filter((g) => {
+      const c = groupCode(g);
+      return c !== 'global' && !c?.startsWith('pool');
+    });
     if (recursos.length) {
       const orden = [...recursos].sort((a, b) => (b.measureScore?.value ?? 0) - (a.measureScore?.value ?? 0));
       const max = orden[0];

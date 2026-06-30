@@ -74,3 +74,8 @@ export function groupCode(g: MeasureReportGroup): string | undefined {
 export function groupLabel(g: MeasureReportGroup): string {
   return g.code?.coding?.[0]?.display ?? g.code?.text ?? g.code?.coding?.[0]?.code ?? '—';
 }
+
+/** `count` de la población del grupo cuyo `code.coding[0].code` coincide; 0 si no existe. */
+export function popValue(g: MeasureReportGroup, code: string): number {
+  return g.population?.find((p) => p.code?.coding?.[0]?.code === code)?.count ?? 0;
+}

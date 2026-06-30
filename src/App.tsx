@@ -5,6 +5,7 @@ import { AdminLayout } from './components/AdminLayout';
 import { CampanasPage } from './pages/CampanasPage';
 import { ClinicosPage } from './pages/ClinicosPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { DiaPage } from './pages/DiaPage';
 import { EstadoResultadosPage } from './pages/EstadoResultadosPage';
 import { FinancieroPage } from './pages/FinancieroPage';
 import { GestionPage } from './pages/GestionPage';
@@ -46,6 +47,7 @@ export function App(): JSX.Element {
         <Route path="segmentos" element={<SegmentosPage />} />
         <Route path="campanas" element={<CampanasPage />} />
         <Route path="servicios" element={<ServiciosPage />} />
+        <Route path="dia" element={<DiaPage />} />
         <Route path="membresias" element={<MembresiasPage />} />
         <Route path="ingresos" element={<IngresosPage />} />
         <Route path="estado-resultados" element={<EstadoResultadosPage />} />

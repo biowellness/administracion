@@ -6,8 +6,9 @@ import { ChargeItem, Invoice, MeasureReport } from '@medplum/fhirtypes';
  * app de administración lee (sección 6.8): `ingresos`, `ingresos-linea`,
  * `ingresos-servicio`, `ingresos-medico`, `ingresos-iv-tb`, `ingresos-cobro`, `cobros`,
  * `margen`, el estado de resultados (Anexo D · Fase 1): `gastos-operativos`,
- * `caja-chica`, `estado-resultados`, y membresías (Fase 2): `membresias-socios-plan`,
- * `membresias-mrr`, `combos-vendidos`. `ingresos-linea` es el corte por línea comercial
+ * `caja-chica`, `estado-resultados`, membresías (Fase 2): `membresias-socios-plan`,
+ * `membresias-mrr`, `combos-vendidos`, y el cierre de caja diario (Fase 3):
+ * `resumen-diario`. `ingresos-linea` es el corte por línea comercial
  * que desbloquea el P&L; la cascada, los gastos manuales, los socios por plan y los combos
  * salen de la config FHIR (`config-tablero`) y los inputs del mes (`inputs-mes`).
  *
@@ -194,6 +195,8 @@ const lineaDe = (ci: ChargeItem): string => {
 const montoInvoice = (inv: Invoice): number => inv.totalNet?.value ?? inv.totalGross?.value ?? 0;
 const medioPagoDe = (inv: Invoice): string =>
   inv.extension?.find((e) => e.url === EXT_MEDIO_PAGO)?.valueString ?? 'otro';
+const fechaInvoice = (inv: Invoice): string => (inv.date ?? '').slice(0, 10);
+const esEfectivo = (mp: string): boolean => mp.toLowerCase().includes('efectivo');
 
 function buildMR(slug: string, p: Periodo, grupos: { code: string; display?: string; value: number }[]): MeasureReport {
   return {
@@ -279,12 +282,21 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
   let pendiente = 0;
   let fallido = 0;
   const porCobro = new Map<string, number>();
+  const ingresoDia = new Map<string, number>();
+  const efectivoDia = new Map<string, number>();
   for (const inv of invoices) {
     const monto = montoInvoice(inv);
     if (inv.status === 'balanced') {
       cobrado += monto;
       const mp = medioPagoDe(inv);
       porCobro.set(mp, (porCobro.get(mp) ?? 0) + monto);
+      const dia = fechaInvoice(inv);
+      if (dia) {
+        ingresoDia.set(dia, (ingresoDia.get(dia) ?? 0) + monto);
+        if (esEfectivo(mp)) {
+          efectivoDia.set(dia, (efectivoDia.get(dia) ?? 0) + monto);
+        }
+      }
     } else if (inv.status === 'issued') {
       pendiente += monto;
     } else if (inv.status === 'cancelled') {
@@ -340,6 +352,45 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
   const gruposCombos = COMBOS.map((cb) => ({ code: cb.codigo, display: cb.nombre, value: combosVendidos[cb.codigo] ?? 0 }));
   const totalCombos = gruposCombos.reduce((s, g) => s + g.value, 0);
   const ingresoCombosUsd = COMBOS.reduce((s, cb) => s + (combosVendidos[cb.codigo] ?? 0) * cb.precioUsd, 0);
+
+  // ===== Resumen diario (Anexo D · Fase 3) — cierre de caja por día =====
+  // Egresos por día: 0 por ahora (sin fuente granular de egresos de caja chica). El saldo
+  // efectivo arranca del saldo inicial y acumula los ingresos en efectivo del día.
+  const [yy, mm] = p.ym.split('-').map(Number);
+  const ultimoDia = new Date(Date.UTC(yy, mm, 0)).getUTCDate();
+  const saldoInicialEfectivo = inputs.cajaChicaSaldoInicial || cfg.saldoInicialCajaChica || 0;
+  let acum = 0;
+  let efectivoAcum = saldoInicialEfectivo;
+  const gruposDia = [];
+  for (let d = 1; d <= ultimoDia; d++) {
+    const fecha = `${p.ym}-${String(d).padStart(2, '0')}`;
+    const ing = ingresoDia.get(fecha) ?? 0;
+    const egr = 0;
+    const saldo = ing - egr;
+    acum += saldo;
+    efectivoAcum += (efectivoDia.get(fecha) ?? 0) - egr;
+    gruposDia.push({
+      code: { coding: [{ code: `d${String(d).padStart(2, '0')}`, display: fecha }] },
+      measureScore: { value: acum },
+      population: [
+        { code: { coding: [{ code: 'ingresos' }] }, count: ing },
+        { code: { coding: [{ code: 'egresos' }] }, count: egr },
+        { code: { coding: [{ code: 'saldo' }] }, count: saldo },
+        { code: { coding: [{ code: 'saldo-acum' }] }, count: acum },
+        { code: { coding: [{ code: 'saldo-efectivo' }] }, count: efectivoAcum },
+      ],
+    });
+  }
+  const resumenDiarioMR: MeasureReport = {
+    resourceType: 'MeasureReport',
+    status: 'complete',
+    type: 'summary',
+    measure: `${MEASURE_BASE}/resumen-diario`,
+    date: hoy,
+    period: { start: p.start, end: p.end },
+    identifier: [{ system: SID, value: `resumen-diario-${p.ym}` }],
+    group: gruposDia,
+  };
 
   const ordenarDesc = (mapa: Map<string, number>): { code: string; display: string; value: number }[] =>
     [...mapa.entries()].sort((a, b) => b[1] - a[1]).map(([code, value]) => ({ code, display: code, value }));
@@ -397,6 +448,7 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
       { code: 'total', display: 'Total combos', value: totalCombos },
       { code: 'ingreso-usd', display: 'Ingreso combos (USD)', value: ingresoCombosUsd },
     ]),
+    resumenDiarioMR,
   ];
 
   for (const mr of reportes) {

@@ -58,8 +58,18 @@ export const GRUPOS_CRM = {
 export const MEASURE_SERVICIOS = `${NS.bw}/Measure`;
 
 /** Slugs de Measure que produce `kpis-servicios`. */
-export const MEASURE_SLUGS_SERVICIOS = ['servicios-turnos', 'agenda-ocupacion', 'membresias-utilizacion'] as const;
+export const MEASURE_SLUGS_SERVICIOS = [
+  'servicios-turnos',
+  'agenda-ocupacion',
+  'membresias-utilizacion',
+  'utilizacion-recurso',
+] as const;
 export type MeasureSlugServicios = (typeof MEASURE_SLUGS_SERVICIOS)[number];
+
+/** Tumbonas físicas del pool Red Light (regla R-07). */
+export const TUMBONAS_RED_LIGHT = 2;
+/** `code` del grupo de pool en `utilizacion-recurso`. */
+export const POOL_RED_LIGHT_CODE = 'pool-red-light';
 
 /** Canónico de un Measure de servicios para usar en `MeasureReport?measure=...`. */
 export function measureServicios(slug: MeasureSlugServicios): string {
@@ -83,6 +93,7 @@ export const MEASURE_SLUGS_FINANZAS = [
   'gastos-operativos',
   'estado-resultados',
   'caja-chica',
+  'resumen-diario',
   'consultas-split',
   'membresias-mrr',
   'membresias-socios-plan',

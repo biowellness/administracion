@@ -16,6 +16,7 @@ import type { TablerIcon } from '@tabler/icons-react';
 import {
   IconAdjustments,
   IconCalendarStats,
+  IconCalendarTime,
   IconCash,
   IconChartBar,
   IconFileSpreadsheet,
@@ -49,6 +50,7 @@ const NAV: NavItem[] = [
   { label: 'Segmentos', to: '/segmentos', icon: IconUsersGroup },
   { label: 'Campañas', to: '/campanas', icon: IconSpeakerphone },
   { label: 'Servicios', to: '/servicios', icon: IconCalendarStats },
+  { label: 'Día a día', to: '/dia', icon: IconCalendarTime },
   { label: 'Membresías', to: '/membresias', icon: IconId },
   { label: 'Ingresos', to: '/ingresos', icon: IconCash },
   { label: 'Estado de Resultados', to: '/estado-resultados', icon: IconReportAnalytics },
