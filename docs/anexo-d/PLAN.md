@@ -47,33 +47,29 @@ mensual para socios, de un clic). Las demás amplían.
 
 ---
 
-## ✅ Decisiones que necesito de vos (Andrés / contador)
+## ✅ Decisiones — confirmadas por Andrés
 
-Son pocas, pero **definen que los números sean exactos**. Cada una tiene mi recomendación por defecto.
+1. **IV + Terapias Biológicas:** de lo cobrado se descuenta el insumo **Regenerar** + **25%**
+   (impuestos + procesador de pago); del neto, **15% médicos** (Dra Dos Santos · Dr D'Alessandro) y
+   **85% BioWellness**. → aparece una **columna de liquidación médica**.
+2. **Consultas:** de lo cobrado se descuenta **25%** (impuestos + procesador); del neto, **70% médicos**
+   (Dra Dos Santos · Dr D'Alessandro) y **30% BioWellness**. El 30% entra como **línea de ingreso
+   "Consultas"** en el estado de resultados.
+3. **Participaciones (7 socios = 100%):** Andrés Aizenberg 53 · **Diego Aizenberg 24** · Daniel
+   Tognetti 9 · Evangelina Varela 6 · Julián Massetti 5 · Fernando Aldazábal 2 · Diego Sívori 1.
+4. **Tarifario (precios para el MRR):** lo define Andrés **al final**, según mercado → input diferido;
+   el MRR usa precios configurables hasta entonces.
 
-1. **Base de los porcentajes de IV + Terapias Biológicas** (con el contador).
-   El modelo calcula **honorarios médicos 15%** y **costo insumos Regenerar 30%** sobre IV+TB, pero
-   marca *"VALIDAR base"*. ¿El % se aplica sobre el **bruto facturado**, lo **efectivamente cobrado**,
-   o el **neto**? → *Recomendación: sobre lo cobrado; lo dejamos como parámetro editable para cambiarlo
-   sin tocar código.*
+**Detalle fino — confirmado:** Regenerar = **% editable**; el 25% = **impuestos + facturación +
+procesador de pago**; la liquidación médica es **por quién atendió** (`performer`), con **2 columnas
+individuales** (Dra Dos Santos · Dr D'Alessandro) para ver cuánto pagarle a cada uno; Consultas =
+**solo médicas** por ahora.
 
-2. **Neto de Consultas (médicas y nutrición): ¿dónde impacta?**
-   El split (médicas 70/30 · nutrición 50/20/30) ya se calcula, pero el modelo dejó **pendiente** en
-   qué línea del estado de resultados entra el "neto para BioWellness". → *Recomendación: línea propia
-   "Consultas" en ingresos + el pago a profesionales como gasto; confirmás y lo enchufamos.*
+**Queda por confirmar:** si el 25% aplica también a las otras líneas (o solo IV+TB/Consultas); el
+default del % Regenerar; los números de **nutrición** (diferido).
 
-3. **Participaciones de los socios.**
-   Tenemos 7 socios sumando 100% (Andrés 53% · **Diego 24%** · Tognetti 9% · Varela 6% · Massetti 5%
-   · Aldazábal 2% · Sívori 1%). **Falta el apellido del "Diego" del 24%** (distinto de Diego Sívori).
-   ¿Confirmás los % y ese nombre?
-
-4. **Precios de planes y combos (tarifario).**
-   Para el **MRR** (ingreso recurrente de membresías) necesitamos el precio de cada plan. ¿Lo cargás
-   vos en la pantalla de Parámetros, o ya vive en el sistema y lo tomamos de ahí?
-
-*(Dos definiciones técnicas que tomamos por defecto y podés confirmar: la regla **R-07** de las
-tumbonas compartidas se modela como un **pool de capacidad**; y los parámetros viven en el sistema —no
-sueltos en un Excel— para que el tablero y el `.xlsx` siempre coincidan.)*
+*(Definiciones técnicas por defecto: la regla **R-07** se modela como **pool de capacidad**; y los
+parámetros viven en el sistema —no sueltos en un Excel— para que el tablero y el `.xlsx` coincidan.)*
 
 ---
 

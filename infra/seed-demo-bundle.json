@@ -1903,7 +1903,7 @@
               ]
             },
             "measureScore": {
-              "value": 850000
+              "value": 543000
             }
           },
           {
@@ -1916,7 +1916,7 @@
               ]
             },
             "measureScore": {
-              "value": 18500000
+              "value": 5836500
             }
           },
           {
@@ -1929,7 +1929,7 @@
               ]
             },
             "measureScore": {
-              "value": 16200000
+              "value": 0
             }
           }
         ]
@@ -1970,13 +1970,39 @@
             "code": {
               "coding": [
                 {
+                  "code": "tarjeta-credito",
+                  "display": "Tarjeta crédito"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2665500
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "mercadopago",
+                  "display": "MercadoPago"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2628000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
                   "code": "efectivo",
                   "display": "Efectivo"
                 }
               ]
             },
             "measureScore": {
-              "value": 4200000
+              "value": 543000
             }
           },
           {
@@ -1989,20 +2015,7 @@
               ]
             },
             "measureScore": {
-              "value": 3100000
-            }
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "code": "tarjeta-credito",
-                  "display": "Tarjeta crédito"
-                }
-              ]
-            },
-            "measureScore": {
-              "value": 6800000
+              "value": 0
             }
           },
           {
@@ -2015,32 +2028,132 @@
               ]
             },
             "measureScore": {
-              "value": 3000000
+              "value": 0
             }
           },
           {
             "code": {
               "coding": [
                 {
-                  "code": "mercadopago",
-                  "display": "Mercado Pago"
+                  "code": "global",
+                  "display": "Total"
                 }
               ]
             },
             "measureScore": {
-              "value": 1400000
+              "value": 5836500
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-00000000071a",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|ingresos-linea-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/ingresos-linea",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "ingresos-linea-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "membresias",
+                  "display": "Membresías"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2628000
             }
           },
           {
             "code": {
               "coding": [
                 {
-                  "code": "global"
+                  "code": "paquetes",
+                  "display": "Paquetes"
                 }
               ]
             },
             "measureScore": {
-              "value": 18500000
+              "value": 2227500
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "sueltas-combos",
+                  "display": "Sueltas y combos"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 606000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "iv-tb",
+                  "display": "IV + Terapias Biológicas"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 375000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "otros",
+                  "display": "Otros"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global",
+                  "display": "Total"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5836500
             }
           }
         ]
@@ -2087,7 +2200,7 @@
               ]
             },
             "measureScore": {
-              "value": 6100000
+              "value": 2200000
             }
           },
           {
@@ -2100,33 +2213,20 @@
               ]
             },
             "measureScore": {
-              "value": 5200000
+              "value": 1300000
             }
           },
           {
             "code": {
               "coding": [
                 {
-                  "code": "IV_THERAPY",
-                  "display": "Terapia IV / Sueros"
+                  "code": "CONSULTA",
+                  "display": "Consulta"
                 }
               ]
             },
             "measureScore": {
-              "value": 3000000
-            }
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "code": "MASAJE_OSTEOPATIA",
-                  "display": "Osteopatía / Masaje"
-                }
-              ]
-            },
-            "measureScore": {
-              "value": 2400000
+              "value": 900000
             }
           },
           {
@@ -2139,19 +2239,46 @@
               ]
             },
             "measureScore": {
-              "value": 1800000
+              "value": 600000
             }
           },
           {
             "code": {
               "coding": [
                 {
-                  "code": "global"
+                  "code": "MASAJE_OSTEOPATIA",
+                  "display": "Osteopatía / Masaje"
                 }
               ]
             },
             "measureScore": {
-              "value": 18500000
+              "value": 461500
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "IV_THERAPY",
+                  "display": "Terapia IV / Sueros"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 375000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global",
+                  "display": "Total"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5836500
             }
           }
         ]
@@ -2192,39 +2319,26 @@
             "code": {
               "coding": [
                 {
-                  "code": "med-1",
-                  "display": "Dra. Lucía Fernández"
+                  "code": "dra-dos-santos",
+                  "display": "Dra. Dos Santos"
                 }
               ]
             },
             "measureScore": {
-              "value": 4800000
+              "value": 200000
             }
           },
           {
             "code": {
               "coding": [
                 {
-                  "code": "med-2",
-                  "display": "Dr. Pablo Ruiz"
+                  "code": "dr-dalessandro",
+                  "display": "Dr. D'Alessandro"
                 }
               ]
             },
             "measureScore": {
-              "value": 3600000
-            }
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "code": "med-3",
-                  "display": "Lic. Ana Méndez"
-                }
-              ]
-            },
-            "measureScore": {
-              "value": 2100000
+              "value": 175000
             }
           }
         ]
@@ -2266,12 +2380,12 @@
               "coding": [
                 {
                   "code": "bruto",
-                  "display": "Bruto"
+                  "display": "Bruto (cobrado)"
                 }
               ]
             },
             "measureScore": {
-              "value": 3000000
+              "value": 375000
             }
           },
           {
@@ -2284,7 +2398,7 @@
               ]
             },
             "measureScore": {
-              "value": 300000
+              "value": 37500
             }
           },
           {
@@ -2297,7 +2411,7 @@
               ]
             },
             "measureScore": {
-              "value": 2295000
+              "value": 286875
             }
           },
           {
@@ -2310,7 +2424,7 @@
               ]
             },
             "measureScore": {
-              "value": 405000
+              "value": 50625
             }
           }
         ]
@@ -2352,12 +2466,12 @@
               "coding": [
                 {
                   "code": "estimado",
-                  "display": "Margen estimado"
+                  "display": "Resultado wellness (EBITDA)"
                 }
               ]
             },
             "measureScore": {
-              "value": 5550000
+              "value": -6637250
             }
           }
         ]
@@ -2404,7 +2518,7 @@
               ]
             },
             "measureScore": {
-              "value": 15800000
+              "value": 5836500
             }
           },
           {
@@ -2417,7 +2531,7 @@
               ]
             },
             "measureScore": {
-              "value": 2100000
+              "value": 0
             }
           },
           {
@@ -2430,7 +2544,7 @@
               ]
             },
             "measureScore": {
-              "value": 600000
+              "value": 0
             }
           }
         ]
@@ -2823,6 +2937,759 @@
             "measureScore": {
               "value": 5550000
             }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-0000000008c0",
+      "request": {
+        "method": "PUT",
+        "url": "Basic?identifier=https://bio.medplum.com.ar/fhir/sid/config-tablero|2026-06"
+      },
+      "resource": {
+        "resourceType": "Basic",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/config-tablero",
+            "value": "2026-06"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/config-tablero",
+              "code": "tablero-config"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/config-tablero-json",
+            "valueString": "{\"periodo\":\"2026-06\",\"diasOperativos\":25,\"horasOperativas\":12,\"saldoInicialCajaChica\":0,\"saldoInicialEfectivo\":0,\"regenerarPct\":30,\"honorariosIvtbPct\":15,\"consultasMedicosPct\":70,\"deduccion25Pct\":25,\"cargasSocialesPct\":27,\"honorarioConrado\":0,\"margenObjetivoPct\":20,\"ocupacionAltaPct\":85,\"recursos\":[{\"codigo\":\"hbot-monoplaza\",\"nombre\":\"HBOT Monoplaza\",\"duracionMin\":60,\"comparteTumbona\":false},{\"codigo\":\"hbot-biplaza\",\"nombre\":\"HBOT Biplaza\",\"duracionMin\":60,\"comparteTumbona\":false},{\"codigo\":\"hbot-multiplaza\",\"nombre\":\"HBOT Multiplaza\",\"duracionMin\":60,\"comparteTumbona\":false},{\"codigo\":\"ihht-1\",\"nombre\":\"IHHT 1\",\"duracionMin\":45,\"comparteTumbona\":false},{\"codigo\":\"ihht-2\",\"nombre\":\"IHHT 2\",\"duracionMin\":45,\"comparteTumbona\":false},{\"codigo\":\"recovery-pro-1\",\"nombre\":\"Recovery Pro Gab 1\",\"duracionMin\":30,\"comparteTumbona\":true},{\"codigo\":\"recovery-pro-2\",\"nombre\":\"Recovery Pro Gab 2\",\"duracionMin\":30,\"comparteTumbona\":true},{\"codigo\":\"red-light\",\"nombre\":\"Red Light\",\"duracionMin\":20,\"comparteTumbona\":true},{\"codigo\":\"compresion\",\"nombre\":\"Compresión (IPC06)\",\"duracionMin\":30,\"comparteTumbona\":false},{\"codigo\":\"crio\",\"nombre\":\"Crioterapia (COT03)\",\"duracionMin\":15,\"comparteTumbona\":false},{\"codigo\":\"camilla-masajes\",\"nombre\":\"Camilla masajes\",\"duracionMin\":60,\"comparteTumbona\":false},{\"codigo\":\"consultorio-medico\",\"nombre\":\"Consultorio médico\",\"duracionMin\":30,\"comparteTumbona\":false},{\"codigo\":\"sala-tb-iv\",\"nombre\":\"Sala TB / IV\",\"duracionMin\":60,\"comparteTumbona\":false}],\"participaciones\":[{\"nombre\":\"Andrés Aizenberg\",\"pct\":53},{\"nombre\":\"Diego Aizenberg\",\"pct\":24},{\"nombre\":\"Daniel Tognetti\",\"pct\":9},{\"nombre\":\"Evangelina Varela\",\"pct\":6},{\"nombre\":\"Julián Massetti\",\"pct\":5},{\"nombre\":\"Fernando Aldazábal\",\"pct\":2},{\"nombre\":\"Diego Sívori\",\"pct\":1}]}"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-fin00000001",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|gastos-operativos-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/gastos-operativos",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "gastos-operativos-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "sueldos",
+                  "display": "Sueldos + cargas sociales"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "honorario-conrado",
+                  "display": "Honorario Dr. Conrado"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "honorarios-medicos",
+                  "display": "Honorarios médicos (IV+TB)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 56250
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "insumos-regenerar",
+                  "display": "Insumos Regenerar (IV+TB)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 112500
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "alquiler",
+                  "display": "Alquiler local"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 7500000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "estacionamiento",
+                  "display": "Estacionamiento"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 1200000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "electricidad-gas",
+                  "display": "Electricidad / Gas"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "internet-software",
+                  "display": "Internet / Software"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 30000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "seguros",
+                  "display": "Seguros"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 300000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "mantenimiento",
+                  "display": "Mantenimiento"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "marketing",
+                  "display": "Marketing"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 700000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "insumos-medicos",
+                  "display": "Insumos médicos (stock)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "contaduria-legal",
+                  "display": "Contaduría / Legal"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 500000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "comisiones-mp",
+                  "display": "Comisiones MercadoPago / POS"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "iibb",
+                  "display": "IIBB"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "lavanderia",
+                  "display": "Lavandería"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "gastos-varios",
+                  "display": "Gastos varios"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "total",
+                  "display": "TOTAL GASTOS OPERATIVOS"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 12398750
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-fin00000002",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|caja-chica-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/caja-chica",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "caja-chica-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "saldo-inicial",
+                  "display": "Saldo inicial"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "egresos",
+                  "display": "Egresos del mes"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 75000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "saldo-final",
+                  "display": "Saldo final"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": -75000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-fin00000003",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|estado-resultados-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/estado-resultados",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "estado-resultados-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ingresos-wellness",
+                  "display": "Ingresos wellness (cobrado)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5836500
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "gastos-operativos",
+                  "display": "Gastos operativos"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 12398750
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "caja-chica-egresos",
+                  "display": "Egresos de caja chica"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 75000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "ebitda",
+                  "display": "Resultado wellness (EBITDA)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": -6637250
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "bar-neto",
+                  "display": "Bar — resultado neto"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 450000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "resultado-total",
+                  "display": "Resultado total del negocio"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": -6187250
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "margen-operativo",
+                  "display": "Margen operativo"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": -1.137
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "margen-objetivo",
+                  "display": "Margen objetivo"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0.2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-fin00000004",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|membresias-mrr-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/membresias-mrr",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "membresias-mrr-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "focus-std",
+                  "display": "FOCUS Standard"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 3590
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "prime-std-ind",
+                  "display": "PRIME Std Individual"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 5256
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "healthspan-std-ind",
+                  "display": "HEALTHSPAN Std Individual"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 4368
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "global",
+                  "display": "MRR total (USD)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 13214
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "socios",
+                  "display": "Socios activos"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 10
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-fin00000005",
+      "request": {
+        "method": "PUT",
+        "url": "MeasureReport?identifier=https://bio.medplum.com.ar/fhir/sid/measurereport|consultas-split-2026-06"
+      },
+      "resource": {
+        "resourceType": "MeasureReport",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "status": "complete",
+        "type": "summary",
+        "measure": "https://bio.medplum.com.ar/fhir/Measure/consultas-split",
+        "date": "2026-06-24",
+        "period": {
+          "start": "2026-06-24",
+          "end": "2026-06-26"
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/measurereport",
+            "value": "consultas-split-2026-06"
+          }
+        ],
+        "group": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "medicas-bruto",
+                  "display": "Consultas médicas — bruto"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 2000000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "medicas-payout",
+                  "display": "Payout médicos (70%)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 1400000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "medicas-bw",
+                  "display": "BW (30%)"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 600000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "nutricion-bruto",
+                  "display": "Consultas nutrición — bruto"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 0
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "neto-bw-total",
+                  "display": "Neto BW total consultas"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 600000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-0000000008d0",
+      "request": {
+        "method": "PUT",
+        "url": "Basic?identifier=https://bio.medplum.com.ar/fhir/sid/inputs-mes|2026-06"
+      },
+      "resource": {
+        "resourceType": "Basic",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/inputs-mes",
+            "value": "2026-06"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/inputs-mes",
+              "code": "inputs-mes"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/inputs-mes-json",
+            "valueString": "{\"periodo\":\"2026-06\",\"sueldosBrutos\":0,\"gastos\":{\"alquiler\":7500000,\"estacionamiento\":1200000,\"electricidad-gas\":2000000,\"internet-software\":30000,\"seguros\":300000,\"mantenimiento\":0,\"marketing\":700000,\"insumos-medicos\":0,\"contaduria-legal\":500000,\"comisiones-mp\":0,\"iibb\":0,\"lavanderia\":0,\"gastos-varios\":0},\"barNeto\":450000,\"cajaChicaSaldoInicial\":0,\"cajaChicaEgresos\":75000}"
           }
         ]
       }

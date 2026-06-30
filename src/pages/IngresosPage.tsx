@@ -18,6 +18,7 @@ import { fmt, fmt2 } from '../lib/format';
  */
 export function IngresosPage(): JSX.Element {
   const ingresos = useMeasureReport(measureFinanzas('ingresos'));
+  const linea = useMeasureReport(measureFinanzas('ingresos-linea'));
   const cobro = useMeasureReport(measureFinanzas('ingresos-cobro'));
   const servicio = useMeasureReport(measureFinanzas('ingresos-servicio'));
   const medico = useMeasureReport(measureFinanzas('ingresos-medico'));
@@ -27,7 +28,13 @@ export function IngresosPage(): JSX.Element {
   const [exportando, setExportando] = useState(false);
 
   const loading =
-    ingresos.loading || cobro.loading || servicio.loading || medico.loading || ivtb.loading || margen.loading;
+    ingresos.loading ||
+    linea.loading ||
+    cobro.loading ||
+    servicio.loading ||
+    medico.loading ||
+    ivtb.loading ||
+    margen.loading;
 
   if (loading) {
     return (
@@ -53,6 +60,7 @@ export function IngresosPage(): JSX.Element {
       const hojas = hojasIngresos(
         {
           ingresos: ingresos.report,
+          linea: linea.report,
           cobro: cobro.report,
           servicio: servicio.report,
           medico: medico.report,
@@ -111,6 +119,21 @@ export function IngresosPage(): JSX.Element {
           muestran solo en ARS.
         </Alert>
       )}
+
+      <Card withBorder radius="md" padding="lg">
+        <Text fw={500} mb={4}>
+          Por línea comercial
+        </Text>
+        <Text size="xs" c="dimmed" mb="sm">
+          El corte que arma el estado de resultados (Membresías · Sueltas y combos · Paquetes · IV+TB ·
+          Consultas · Otros).
+        </Text>
+        <TablaMontos
+          filas={filasDeMedida(linea.report, { tcUsd, incluirGlobal: true })}
+          mostrarUsd={mostrarUsd}
+          conceptoLabel="Línea comercial"
+        />
+      </Card>
 
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
         <Card withBorder radius="md" padding="lg">

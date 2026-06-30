@@ -348,9 +348,54 @@ inputs en FHIR (camino a "una sola fuente", Punto 2); **pre-llenado** con los in
 **Decisiones:** ¿registros crudos (recomendado) o agregados? · ¿named-ranges? (sí) · ¿re-import en
 esta etapa o después?
 
+## Decisiones de Andrés (confirmadas · jun 2026)
+
+**D1 · Cascada IV + Terapias Biológicas** (reemplaza el "15%/30% sobre bruto" del modelo):
+
+```
+Cobrado IV+TB
+ (–) Insumo "Regenerar"
+ (–) 25% del total   (impuestos + procesador de pago + etc.)
+ = NETO IV+TB
+ → 15% Médicos (Dra Dos Santos · Dr D'Alessandro)   ← payout (columna por médico)
+ → 85% BioWellness                                   ← contribución BW
+```
+
+**D2 · Consultas — el neto BW impacta como línea de ingreso propia "Consultas":**
+
+```
+Cobrado Consultas
+ (–) 25% del total   (impuestos + procesador de pago + etc.)
+ = NETO Consultas
+ → 70% Médicos (Dra Dos Santos · Dr D'Alessandro)   ← payout
+ → 30% BioWellness                                   ← línea "Consultas" en el P&L
+```
+
+**D3 · Participaciones (7 socios = 100%):** Andrés Aizenberg 53 · **Diego Aizenberg 24** ·
+Daniel Tognetti 9 · Evangelina Varela 6 · Julián Massetti 5 · Fernando Aldazábal 2 · Diego Sívori 1.
+(El "Diego" del 24% = **Diego Aizenberg**, distinto de Diego Sívori.)
+
+**D4 · Tarifario (precios planes/combos para MRR):** lo define Andrés al final, según mercado →
+**input manual diferido**; el MRR usa precios configurables hasta entonces (re-consultar más adelante).
+
+**Implicancias para el modelo (confirmadas):**
+- **Insumo Regenerar = % editable** (parámetro en config; default a confirmar, p. ej. el 30% del modelo).
+- **El 25% = impuestos + facturación + procesador de pago** (parámetro). Aplica a las cascadas de
+  IV+TB y Consultas (alcance a otras líneas: ver Pendientes).
+- **Liquidación médica por `performer` (NO 50/50):** el share médico (15% IV+TB · 70% Consultas) se
+  atribuye a **quién atendió** cada sesión/consulta. → **2 columnas individuales**
+  (**Dra Dos Santos** · **Dr D'Alessandro**) con el monto a pagar a cada uno. Measure
+  `liquidacion-medica` con un grupo por médico (reusa la atribución por `performer` que ya hace el bot).
+- Nueva **línea de ingreso "Consultas"** (neto BW 30%) en el estado de resultados.
+- El honorario médico se calcula sobre el **NETO** (no el bruto) → ajustar `kpis-finanzas`
+  (hoy 85/15 + 10% hardcodeado, criterio distinto).
+- **Consultas = solo médicas** por ahora (nutrición sin números → diferida).
+
 ## Pendientes a validar con Andrés / contador
 
-- Base exacta de los %: honorarios médicos 15% y Regenerar 30% sobre IV+TB (§5.9).
-- Línea del estado de resultados donde impacta el "Neto BW de consultas" (§5.10).
-- Cascada de pricing TB+IV y alícuotas fiscales (§8).
+- **El 25%:** ¿aplica **solo** a IV+TB/Consultas, o también a las demás líneas? (en el modelo,
+  impuestos/comisiones de las otras líneas iban como gastos operativos — definir si se unifican).
+- **Default del % Regenerar** (¿30%?).
+- **Consultas de nutrición** (50/20/30): **pendiente**, sin números aún.
+- **Tarifario** de planes/combos para MRR: lo define Andrés al final (diferido).
 - Inicio de operación: Agosto 2026 (meses previos en cero).
