@@ -246,9 +246,15 @@ de Pipeline, Flags de Retención, un Group de Segmentos, Communications de Campa
 turno operativo Red Light en la tumbona R-07). Incluye los `MeasureReport` ya calculados,
 así los dashboards se ven sin esperar a `kpis-*`. La ventana de período es 2026-06-24→26.
 
-> Los `MeasureReport` se cargan con **conditional update por identifier** (idempotente):
-> re-aplicar el seed **actualiza** cada métrica en vez de duplicarla (evita que la app
-> muestre un valor viejo por tener dos reportes del mismo período).
+> **El seed es idempotente.** Los `MeasureReport` y los `Basic` (config/inputs/cierres) usan
+> **conditional update por identifier** (`PUT …?identifier=…`): re-aplicar el seed **actualiza**
+> la métrica en vez de duplicarla. El resto (Patients, Tasks, Coverage, Provenance, etc.) usa
+> **conditional create** (`POST` + `ifNoneExist=_tag=…/seed-id|<uuid>`): si ya existe, no crea
+> otra copia. Así podés re-subir el bundle cuantas veces quieras sin acumular duplicados.
+>
+> ⚠️ La idempotencia arranca desde un estado limpio: si ya cargaste el seed **antes** de este
+> cambio (sin el tag `seed-id`), corré primero la limpieza (`cleanup-demo.sh` o
+> `cleanup-demo-bundle.json`) y después subí el seed nuevo — de ahí en más, re-subir no duplica.
 
 Aplicar:
 

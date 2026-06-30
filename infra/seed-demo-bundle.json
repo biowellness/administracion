@@ -6,7 +6,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000001",
       "request": {
         "method": "POST",
-        "url": "Organization"
+        "url": "Organization",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000001"
       },
       "resource": {
         "resourceType": "Organization",
@@ -15,6 +16,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000001"
             }
           ]
         },
@@ -25,7 +30,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000002",
       "request": {
         "method": "POST",
-        "url": "Practitioner"
+        "url": "Practitioner",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000002"
       },
       "resource": {
         "resourceType": "Practitioner",
@@ -34,6 +40,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000002"
             }
           ]
         },
@@ -51,7 +61,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000003",
       "request": {
         "method": "POST",
-        "url": "Location"
+        "url": "Location",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000003"
       },
       "resource": {
         "resourceType": "Location",
@@ -60,6 +71,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000003"
             }
           ]
         },
@@ -71,7 +86,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000004",
       "request": {
         "method": "POST",
-        "url": "ActivityDefinition"
+        "url": "ActivityDefinition",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000004"
       },
       "resource": {
         "resourceType": "ActivityDefinition",
@@ -80,6 +96,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000004"
             }
           ]
         },
@@ -103,7 +123,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000005",
       "request": {
         "method": "POST",
-        "url": "Schedule"
+        "url": "Schedule",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000005"
       },
       "resource": {
         "resourceType": "Schedule",
@@ -112,6 +133,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000005"
             }
           ]
         },
@@ -132,7 +157,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000006",
       "request": {
         "method": "POST",
-        "url": "Slot"
+        "url": "Slot",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000006"
       },
       "resource": {
         "resourceType": "Slot",
@@ -141,6 +167,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000006"
             }
           ]
         },
@@ -156,7 +186,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000007",
       "request": {
         "method": "POST",
-        "url": "Appointment"
+        "url": "Appointment",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000007"
       },
       "resource": {
         "resourceType": "Appointment",
@@ -165,6 +196,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000007"
             }
           ]
         },
@@ -202,7 +237,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000008",
       "request": {
         "method": "POST",
-        "url": "Coverage"
+        "url": "Coverage",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000008"
       },
       "resource": {
         "resourceType": "Coverage",
@@ -211,6 +247,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000008"
             }
           ]
         },
@@ -259,7 +299,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000009",
       "request": {
         "method": "POST",
-        "url": "Coverage"
+        "url": "Coverage",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000009"
       },
       "resource": {
         "resourceType": "Coverage",
@@ -268,6 +309,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000009"
             }
           ]
         },
@@ -316,7 +361,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000101",
       "request": {
         "method": "POST",
-        "url": "Patient"
+        "url": "Patient",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000101"
       },
       "resource": {
         "resourceType": "Patient",
@@ -329,6 +375,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
               "code": "lead"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000101"
             }
           ]
         },
@@ -352,7 +402,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000102",
       "request": {
         "method": "POST",
-        "url": "Patient"
+        "url": "Patient",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000102"
       },
       "resource": {
         "resourceType": "Patient",
@@ -365,6 +416,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
               "code": "lead"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000102"
             }
           ]
         },
@@ -388,7 +443,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000103",
       "request": {
         "method": "POST",
-        "url": "Patient"
+        "url": "Patient",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000103"
       },
       "resource": {
         "resourceType": "Patient",
@@ -401,6 +457,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
               "code": "lead"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000103"
             }
           ]
         },
@@ -424,7 +484,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000104",
       "request": {
         "method": "POST",
-        "url": "Patient"
+        "url": "Patient",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000104"
       },
       "resource": {
         "resourceType": "Patient",
@@ -437,6 +498,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
               "code": "activo"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000104"
             }
           ]
         },
@@ -460,7 +525,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000105",
       "request": {
         "method": "POST",
-        "url": "Patient"
+        "url": "Patient",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000105"
       },
       "resource": {
         "resourceType": "Patient",
@@ -473,6 +539,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
               "code": "activo"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000105"
             }
           ]
         },
@@ -496,7 +566,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000106",
       "request": {
         "method": "POST",
-        "url": "Patient"
+        "url": "Patient",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000106"
       },
       "resource": {
         "resourceType": "Patient",
@@ -509,6 +580,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/ciclo-vida-cliente",
               "code": "activo"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000106"
             }
           ]
         },
@@ -532,7 +607,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000201",
       "request": {
         "method": "POST",
-        "url": "Task"
+        "url": "Task",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000201"
       },
       "resource": {
         "resourceType": "Task",
@@ -541,6 +617,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000201"
             }
           ]
         },
@@ -576,7 +656,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000202",
       "request": {
         "method": "POST",
-        "url": "Task"
+        "url": "Task",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000202"
       },
       "resource": {
         "resourceType": "Task",
@@ -585,6 +666,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000202"
             }
           ]
         },
@@ -620,7 +705,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000203",
       "request": {
         "method": "POST",
-        "url": "Task"
+        "url": "Task",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000203"
       },
       "resource": {
         "resourceType": "Task",
@@ -629,6 +715,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000203"
             }
           ]
         },
@@ -664,7 +754,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000204",
       "request": {
         "method": "POST",
-        "url": "Task"
+        "url": "Task",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000204"
       },
       "resource": {
         "resourceType": "Task",
@@ -673,6 +764,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000204"
             }
           ]
         },
@@ -708,7 +803,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000205",
       "request": {
         "method": "POST",
-        "url": "Task"
+        "url": "Task",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000205"
       },
       "resource": {
         "resourceType": "Task",
@@ -717,6 +813,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000205"
             }
           ]
         },
@@ -743,7 +843,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000301",
       "request": {
         "method": "POST",
-        "url": "Flag"
+        "url": "Flag",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000301"
       },
       "resource": {
         "resourceType": "Flag",
@@ -752,6 +853,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000301"
             }
           ]
         },
@@ -785,7 +890,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000302",
       "request": {
         "method": "POST",
-        "url": "Flag"
+        "url": "Flag",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000302"
       },
       "resource": {
         "resourceType": "Flag",
@@ -794,6 +900,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000302"
             }
           ]
         },
@@ -827,7 +937,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000401",
       "request": {
         "method": "POST",
-        "url": "Provenance"
+        "url": "Provenance",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000401"
       },
       "resource": {
         "resourceType": "Provenance",
@@ -836,6 +947,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000401"
             }
           ]
         },
@@ -877,7 +992,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000402",
       "request": {
         "method": "POST",
-        "url": "Provenance"
+        "url": "Provenance",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000402"
       },
       "resource": {
         "resourceType": "Provenance",
@@ -886,6 +1002,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000402"
             }
           ]
         },
@@ -923,7 +1043,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000403",
       "request": {
         "method": "POST",
-        "url": "Provenance"
+        "url": "Provenance",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000403"
       },
       "resource": {
         "resourceType": "Provenance",
@@ -932,6 +1053,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000403"
             }
           ]
         },
@@ -969,7 +1094,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000404",
       "request": {
         "method": "POST",
-        "url": "Provenance"
+        "url": "Provenance",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000404"
       },
       "resource": {
         "resourceType": "Provenance",
@@ -978,6 +1104,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000404"
             }
           ]
         },
@@ -1015,7 +1145,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000501",
       "request": {
         "method": "POST",
-        "url": "Group"
+        "url": "Group",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000501"
       },
       "resource": {
         "resourceType": "Group",
@@ -1024,6 +1155,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000501"
             }
           ]
         },
@@ -1087,7 +1222,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000601",
       "request": {
         "method": "POST",
-        "url": "Communication"
+        "url": "Communication",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000601"
       },
       "resource": {
         "resourceType": "Communication",
@@ -1096,6 +1232,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000601"
             }
           ]
         },
@@ -1126,7 +1266,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000602",
       "request": {
         "method": "POST",
-        "url": "Communication"
+        "url": "Communication",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000602"
       },
       "resource": {
         "resourceType": "Communication",
@@ -1135,6 +1276,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000602"
             }
           ]
         },
@@ -1166,7 +1311,8 @@
       "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-000000000603",
       "request": {
         "method": "POST",
-        "url": "Communication"
+        "url": "Communication",
+        "ifNoneExist": "_tag=https://bio.medplum.com.ar/fhir/CodeSystem/seed-id|1a2b3c4d-0000-4000-8000-000000000603"
       },
       "resource": {
         "resourceType": "Communication",
@@ -1175,6 +1321,10 @@
             {
               "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
               "code": "seed-48h"
+            },
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/seed-id",
+              "code": "1a2b3c4d-0000-4000-8000-000000000603"
             }
           ]
         },
