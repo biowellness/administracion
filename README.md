@@ -180,6 +180,15 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
   los grupos `pool-red-light` y `global`). La capacidad sale de `config-tablero`; las sesiones se
   cuentan de `Appointment` (`status=fulfilled`). El template vivo vuelca las sesiones a la hoja
   Sesiones (una fila por sesión → el Dashboard recalcula utilización por COUNTIF).
+- **Anual** (pantalla `/anual`, Anexo D · Fase 4): el **consolidado del año** — los 12 meses, evolución,
+  **mejor mes**, mix de ingresos y **distribución por socio** del año. El botón **"Cerrar mes"** (en
+  Estado de Resultados) toma un **snapshot inmutable** del mes (`construirCierre` desde los Measures) y
+  lo guarda en un `Basic` (`identifier = cierre-mes|YYYY-MM`, ver `src/fhir/cierres.ts`); el consolidado
+  lee los cierres del año (`consolidarAnio`) y replica el modelo `tablero-anual`. El botón **"Generar
+  planilla anual"** rellena el modelo anual (`src/lib/templateAnual.ts`, reusa `applyCells`): escribe
+  los totales de cada mes en su columna de la hoja Resumen Anual + las participaciones, deja intactos
+  el Dashboard Anual y sus 2 gráficos, y fuerza el recálculo. Verificado: columnas por mes correctas,
+  charts byte a byte, totales reconcilian.
 - **Clínicos** (pantalla `/clinicos`, solo agregados): Measures **asumidos** `clinico-sin-visita`
   (grupos `30`/`60`/`90`), `clinico-baja-utilizacion` (grupo `miembros`), `clinico-consentimientos`
   (grupos `30`/`60`/`90`). Sin valores de Observation (Ley 26.529/25.326).

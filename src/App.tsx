@@ -2,6 +2,7 @@ import { Center, Loader } from '@mantine/core';
 import { useMedplum, useMedplumProfile } from '@medplum/react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AdminLayout } from './components/AdminLayout';
+import { AnualPage } from './pages/AnualPage';
 import { CampanasPage } from './pages/CampanasPage';
 import { ClinicosPage } from './pages/ClinicosPage';
 import { DashboardPage } from './pages/DashboardPage';
@@ -51,6 +52,7 @@ export function App(): JSX.Element {
         <Route path="membresias" element={<MembresiasPage />} />
         <Route path="ingresos" element={<IngresosPage />} />
         <Route path="estado-resultados" element={<EstadoResultadosPage />} />
+        <Route path="anual" element={<AnualPage />} />
         <Route path="financiero" element={<FinancieroPage />} />
         <Route path="clinicos" element={<ClinicosPage />} />
         <Route path="gestion" element={<GestionPage />} />

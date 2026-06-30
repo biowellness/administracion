@@ -4799,6 +4799,120 @@
           }
         ]
       }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-cierre01",
+      "request": {
+        "method": "PUT",
+        "url": "Basic?identifier=https://bio.medplum.com.ar/fhir/sid/cierre-mes|2026-04"
+      },
+      "resource": {
+        "resourceType": "Basic",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/cierre-mes",
+            "value": "2026-04"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/cierre-mes",
+              "code": "cierre-mes"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/cierre-mes-json",
+            "valueString": "{\"periodo\":\"2026-04\",\"ingresosWellness\":4000000,\"lineas\":[{\"codigo\":\"membresias\",\"label\":\"Membresías\",\"monto\":1800000},{\"codigo\":\"sueltas-combos\",\"label\":\"Sueltas y combos\",\"monto\":600000},{\"codigo\":\"paquetes\",\"label\":\"Paquetes\",\"monto\":1000000},{\"codigo\":\"iv-tb\",\"label\":\"IV + Terapias Biológicas\",\"monto\":400000},{\"codigo\":\"otros\",\"label\":\"Otros\",\"monto\":200000}],\"gastosOperativos\":3200000,\"cajaChicaEgresos\":50000,\"barNeto\":200000,\"resultadoTotal\":950000,\"margen\":0.1875,\"mrrUsd\":9000,\"socios\":7,\"formasPago\":[{\"codigo\":\"efectivo\",\"label\":\"Efectivo\",\"monto\":800000},{\"codigo\":\"tarjeta-credito\",\"label\":\"Tarjeta crédito\",\"monto\":1800000},{\"codigo\":\"mercadopago\",\"label\":\"MercadoPago\",\"monto\":1400000}],\"cerradoEn\":\"2026-05-02\"}"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-cierre02",
+      "request": {
+        "method": "PUT",
+        "url": "Basic?identifier=https://bio.medplum.com.ar/fhir/sid/cierre-mes|2026-05"
+      },
+      "resource": {
+        "resourceType": "Basic",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/cierre-mes",
+            "value": "2026-05"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/cierre-mes",
+              "code": "cierre-mes"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/cierre-mes-json",
+            "valueString": "{\"periodo\":\"2026-05\",\"ingresosWellness\":5000000,\"lineas\":[{\"codigo\":\"membresias\",\"label\":\"Membresías\",\"monto\":2300000},{\"codigo\":\"sueltas-combos\",\"label\":\"Sueltas y combos\",\"monto\":500000},{\"codigo\":\"paquetes\",\"label\":\"Paquetes\",\"monto\":1400000},{\"codigo\":\"iv-tb\",\"label\":\"IV + Terapias Biológicas\",\"monto\":500000},{\"codigo\":\"otros\",\"label\":\"Otros\",\"monto\":300000}],\"gastosOperativos\":3800000,\"cajaChicaEgresos\":60000,\"barNeto\":300000,\"resultadoTotal\":1440000,\"margen\":0.228,\"mrrUsd\":11000,\"socios\":9,\"formasPago\":[{\"codigo\":\"efectivo\",\"label\":\"Efectivo\",\"monto\":600000},{\"codigo\":\"tarjeta-credito\",\"label\":\"Tarjeta crédito\",\"monto\":2400000},{\"codigo\":\"mercadopago\",\"label\":\"MercadoPago\",\"monto\":2000000}],\"cerradoEn\":\"2026-06-02\"}"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a2b3c4d-0000-4000-8000-cierre03",
+      "request": {
+        "method": "PUT",
+        "url": "Basic?identifier=https://bio.medplum.com.ar/fhir/sid/cierre-mes|2026-06"
+      },
+      "resource": {
+        "resourceType": "Basic",
+        "meta": {
+          "tag": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo",
+              "code": "seed-48h"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://bio.medplum.com.ar/fhir/sid/cierre-mes",
+            "value": "2026-06"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "https://bio.medplum.com.ar/fhir/CodeSystem/cierre-mes",
+              "code": "cierre-mes"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/cierre-mes-json",
+            "valueString": "{\"periodo\":\"2026-06\",\"ingresosWellness\":5836500,\"lineas\":[{\"codigo\":\"membresias\",\"label\":\"Membresías\",\"monto\":2628000},{\"codigo\":\"sueltas-combos\",\"label\":\"Sueltas y combos\",\"monto\":606000},{\"codigo\":\"paquetes\",\"label\":\"Paquetes\",\"monto\":2227500},{\"codigo\":\"iv-tb\",\"label\":\"IV + Terapias Biológicas\",\"monto\":375000},{\"codigo\":\"otros\",\"label\":\"Otros\",\"monto\":0}],\"gastosOperativos\":12398750,\"cajaChicaEgresos\":75000,\"barNeto\":450000,\"resultadoTotal\":-6187250,\"margen\":-1.1371969502270196,\"mrrUsd\":13214,\"socios\":10,\"formasPago\":[{\"codigo\":\"efectivo\",\"label\":\"Efectivo\",\"monto\":543000},{\"codigo\":\"tarjeta-credito\",\"label\":\"Tarjeta crédito\",\"monto\":2665500},{\"codigo\":\"mercadopago\",\"label\":\"MercadoPago\",\"monto\":2628000}],\"cerradoEn\":\"2026-06-28\"}"
+          }
+        ]
+      }
     }
   ]
 }

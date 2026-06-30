@@ -138,6 +138,17 @@ export const CONFIG_TABLERO_CODE = 'tablero-config';
 export const SD_CONFIG_TABLERO_JSON = `${NS.bio}/StructureDefinition/config-tablero-json`;
 
 // ---------------------------------------------------------------------------
+// Cierre de mes (Anexo D · Fase 4) — snapshot inmutable/auditable del mes que
+// alimenta el consolidado anual. Recurso Basic por período.
+// ---------------------------------------------------------------------------
+
+/** `identifier.system` del Basic de cierre (value = período `YYYY-MM`). */
+export const SID_CIERRE_MES = `${NS.bio}/sid/cierre-mes`;
+export const CS_CIERRE_MES = `${NS.bio}/CodeSystem/cierre-mes`;
+export const CIERRE_MES_CODE = 'cierre-mes';
+export const SD_CIERRE_MES_JSON = `${NS.bio}/StructureDefinition/cierre-mes-json`;
+
+// ---------------------------------------------------------------------------
 // Línea comercial (Anexo D · Fase 0) — corte de ingresos por línea de negocio.
 // Es la marca que desbloquea el estado de resultados (≠ servicio físico).
 // ---------------------------------------------------------------------------
