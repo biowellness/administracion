@@ -277,6 +277,28 @@ curl -X POST https://api.medplum.com.ar/fhir/R4 \
 > No es un TTL real (FHIR no expira recursos solo): el tag es para limpiar a mano/script.
 > Si tu Medplum no borra múltiples por conditional-delete, usá el script (opción 1).
 
+### Error "conditional PUT matched multiple resources"
+
+Pasa al sembrar cuando el servidor ya tiene **duplicados** de un recurso con el mismo
+`identifier` (de una corrida vieja, o del `tipo-cambio` cargado aparte con
+`measure-tipo-cambio.json`, que antes no llevaba `meta.tag` y la limpieza por tag no alcanzaba).
+El PUT condicional no puede elegir cuál actualizar y falla. Para resolverlo:
+
+```bash
+# A) Borrar las copias duplicadas del measure (one-shot, conditional-delete):
+curl -X POST https://api.medplum.com.ar/fhir/R4 \
+  -H "Authorization: Bearer $MEDPLUM_TOKEN" \
+  -H "Content-Type: application/fhir+json" \
+  --data-binary @infra/fix-duplicados.json
+
+# B) o limpiar todo el demo (ya dedupea el tipo-cambio suelto) y volver a sembrar:
+MEDPLUM_TOKEN=xxxxx bash infra/cleanup-demo.sh
+```
+
+Después **re-subí** `infra/seed-demo-bundle.json` (recrea una sola copia). Si tu Medplum no borra
+múltiples por conditional-delete, usá el script (B) o borrá las copias a mano desde la app
+(`MeasureReport`, buscá `tipo-cambio`, borralas todas → el seed recrea una).
+
 ## ¿No ves datos? (diagnóstico)
 
 Los dashboards (Resumen, Servicios) leen `MeasureReport`. Si aparecen en cero / «Sin

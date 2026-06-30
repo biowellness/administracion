@@ -1,5 +1,6 @@
 {
   "resourceType": "MeasureReport",
+  "meta": { "tag": [{ "system": "https://bio.medplum.com.ar/fhir/CodeSystem/demo", "code": "seed-48h" }] },
   "status": "complete",
   "type": "summary",
   "measure": "https://bio.medplum.com.ar/fhir/Measure/tipo-cambio",

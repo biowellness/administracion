@@ -1,0 +1,12 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "request": {
+        "method": "DELETE",
+        "url": "MeasureReport?measure=https://bio.medplum.com.ar/fhir/Measure/tipo-cambio"
+      }
+    }
+  ]
+}

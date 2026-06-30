@@ -42,4 +42,27 @@ for T in "${TYPES[@]}"; do
   echo "$T: borrados $n"
 done
 
+# 2) Duplicados SUELTOS de MeasureReport sin meta.tag (p.ej. el tipo-cambio cargado
+#    aparte con measure-tipo-cambio.json). El borrado por _tag no los alcanza, y dejan
+#    el "conditional PUT matched multiple resources" al re-sembrar. Se borran por id
+#    buscando por el Measure canónico (borra TODAS las copias del período/measure).
+MEASURES_SUELTOS=(
+  "https://bio.medplum.com.ar/fhir/Measure/tipo-cambio"
+)
+for M in "${MEASURES_SUELTOS[@]}"; do
+  ids=$(curl -sS -G "$BASE/fhir/R4/MeasureReport" \
+    --data-urlencode "measure=$M" \
+    --data-urlencode "_count=1000" \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Accept: application/fhir+json" \
+    | jq -r '.entry[]?.resource.id // empty')
+  n=0
+  for id in $ids; do
+    curl -sS -o /dev/null -X DELETE "$BASE/fhir/R4/MeasureReport/$id" \
+      -H "Authorization: Bearer $TOKEN"
+    n=$((n + 1))
+  done
+  echo "MeasureReport sueltos ($M): borrados $n"
+done
+
 echo "Limpieza de demo completa."
