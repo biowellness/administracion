@@ -23,6 +23,7 @@ import { useParametros } from '../fhir/parametros';
 import { useTipoCambio } from '../fhir/reportes';
 import { descargarBlob } from '../lib/templateVivo';
 import { rellenarTableroAnual } from '../lib/templateAnual';
+import { validarAnual } from '../lib/invariantes';
 import { fmt, fmt2 } from '../lib/format';
 
 function aniosOpciones(): { value: string; label: string }[] {
@@ -50,6 +51,15 @@ export function AnualPage(): JSX.Element {
   const mixTotal = con.mixAnual.reduce((s, x) => s + x.monto, 0) || con.ingresosAnio;
 
   const generar = async (): Promise<void> => {
+    const val = validarAnual(con, params.participaciones);
+    if (!val.ok) {
+      notifications.show({
+        color: 'red',
+        title: 'El anual no cuadra — no se exporta',
+        message: val.problemas.filter((p) => p.severidad === 'error').map((p) => `${p.ca}: ${p.mensaje}`).join(' · '),
+      });
+      return;
+    }
     setGenerando(true);
     try {
       const modelo = await fetch(modeloAnualUrl).then((r) => r.arrayBuffer());

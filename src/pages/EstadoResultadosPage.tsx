@@ -19,7 +19,7 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useMedplum } from '@medplum/react';
-import { IconFileSpreadsheet, IconInfoCircle, IconLock, IconPencil, IconTable } from '@tabler/icons-react';
+import { IconAlertTriangle, IconFileSpreadsheet, IconInfoCircle, IconLock, IconPencil, IconTable } from '@tabler/icons-react';
 import modeloTableroUrl from '../assets/tablero-mensual-modelo.xlsx?url';
 import { KpiTile } from '../components/KpiTile';
 import { cerrarMes, construirCierre } from '../fhir/cierres';
@@ -37,6 +37,7 @@ import { COMBOS, GASTO_LINEAS, PLANES_MEMBRESIA, measureFinanzas, measureServici
 import { groupCode, groupLabel, groups, groupValue, popValue, useMeasureReport } from '../hooks/useMeasureReport';
 import { exportarExcel, type HojaReporte } from '../lib/excel';
 import { descargarBlob, rellenarTablero, type DatosTablero } from '../lib/templateVivo';
+import { validarMensual } from '../lib/invariantes';
 import { fmt, fmt2 } from '../lib/format';
 
 const TONO_COLOR: Record<LineaNarrador['tono'], string> = {
@@ -74,6 +75,7 @@ export function EstadoResultadosPage(): JSX.Element {
   const mrr = useMeasureReport(measureFinanzas('membresias-mrr'));
   const cobro = useMeasureReport(measureFinanzas('ingresos-cobro'));
   const gastos = useMeasureReport(measureFinanzas('gastos-operativos'));
+  const consultas = useMeasureReport(measureFinanzas('consultas-split'));
   const utilizacion = useMeasureReport(measureServicios('utilizacion-recurso'));
   const { tcUsd } = useTipoCambio();
 
@@ -114,6 +116,10 @@ export function EstadoResultadosPage(): JSX.Element {
       ),
     [estado.report, ingresos.report, mrr.report, cobro.report, utilizacion.report, margenObjetivo]
   );
+  const validacion = useMemo(
+    () => validarMensual({ estado: estado.report, linea: linea.report, cobro: cobro.report, params, tcUsd }),
+    [estado.report, linea.report, cobro.report, params, tcUsd]
+  );
 
   // Mix de ingresos por línea (con % del total).
   const mix = groups(linea.report)
@@ -124,6 +130,9 @@ export function EstadoResultadosPage(): JSX.Element {
   const margenColor = margen < 0 ? 'red' : margen < margenObjetivo ? 'orange' : 'teal';
 
   const exportar = async (): Promise<void> => {
+    if (bloqueadoPorValidacion()) {
+      return;
+    }
     setExportando(true);
     try {
       const colsPyL: HojaReporte['columnas'] = [
@@ -153,8 +162,25 @@ export function EstadoResultadosPage(): JSX.Element {
     }
   };
 
+  // Bloquea la exportación si el informe no cuadra (CA-5/6/10).
+  const bloqueadoPorValidacion = (): boolean => {
+    if (validacion.ok) {
+      return false;
+    }
+    const errores = validacion.problemas.filter((p) => p.severidad === 'error');
+    notifications.show({
+      color: 'red',
+      title: 'El informe no cuadra — no se exporta',
+      message: errores.map((p) => `${p.ca}: ${p.mensaje}`).join(' · '),
+    });
+    return true;
+  };
+
   // Rellena la planilla modelo (template vivo) con los datos en vivo y la descarga.
   const exportarPlanilla = async (): Promise<void> => {
+    if (bloqueadoPorValidacion()) {
+      return;
+    }
     setGenerandoPlanilla(true);
     try {
       const lineas = groups(linea.report)
@@ -252,7 +278,7 @@ export function EstadoResultadosPage(): JSX.Element {
             variant="light"
             leftSection={<IconFileSpreadsheet size={16} />}
             loading={exportando}
-            disabled={!hayEstado}
+            disabled={!hayEstado || !validacion.ok}
             onClick={() => void exportar()}
           >
             Exportar .xlsx
@@ -261,7 +287,7 @@ export function EstadoResultadosPage(): JSX.Element {
             variant="light"
             leftSection={<IconTable size={16} />}
             loading={generandoPlanilla}
-            disabled={!hayEstado}
+            disabled={!hayEstado || !validacion.ok}
             onClick={() => void exportarPlanilla()}
           >
             Generar planilla
@@ -281,6 +307,23 @@ export function EstadoResultadosPage(): JSX.Element {
         <Alert color="blue" variant="light" icon={<IconInfoCircle size={16} />}>
           Todavía no hay un estado de resultados calculado. Cargá los gastos del mes y corré el cierre
           (bot <Text span fw={500}>kpis-finanzas</Text>) para generarlo.
+        </Alert>
+      )}
+
+      {hayEstado && !validacion.ok && (
+        <Alert color="red" variant="light" icon={<IconAlertTriangle size={16} />} title="El informe no cuadra — no se puede exportar">
+          <Stack gap={2}>
+            {validacion.problemas
+              .filter((p) => p.severidad === 'error')
+              .map((p, i) => (
+                <Text key={i} size="sm">
+                  <Text span fw={600}>
+                    {p.ca}
+                  </Text>{' '}
+                  · {p.mensaje}
+                </Text>
+              ))}
+          </Stack>
         </Alert>
       )}
 
@@ -477,6 +520,57 @@ export function EstadoResultadosPage(): JSX.Element {
         </Card>
       </SimpleGrid>
 
+      {consultas.report && groupValue(consultas.report, 'medicas-bruto') + groupValue(consultas.report, 'nutricion-bruto') > 0 && (
+        <Card withBorder radius="md" padding="lg">
+          <Group justify="space-between" mb={4}>
+            <Text fw={500}>Consultas — split</Text>
+            <Badge variant="light" color="orange">
+              Neto BW ${fmt(groupValue(consultas.report, 'neto-bw-total'))} · desconectada del P&amp;L
+            </Badge>
+          </Group>
+          <Text size="xs" c="dimmed" mb="sm">
+            Médicas 70% médicos / 30% BW · Nutrición 50% nutri / 20% Sívori / 30% BW. El neto BW aún no
+            impacta una línea del estado de resultados (pendiente de definición de Andrés).
+          </Text>
+          <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+            <Table verticalSpacing="xs" horizontalSpacing="md">
+              <Table.Tbody>
+                <Table.Tr>
+                  <Table.Td>Médicas — bruto</Table.Td>
+                  <Table.Td ta="right">${fmt(groupValue(consultas.report, 'medicas-bruto'))}</Table.Td>
+                </Table.Tr>
+                <Table.Tr>
+                  <Table.Td c="dimmed">Payout médicos (70%)</Table.Td>
+                  <Table.Td ta="right">${fmt(groupValue(consultas.report, 'medicas-payout'))}</Table.Td>
+                </Table.Tr>
+                <Table.Tr>
+                  <Table.Td c="dimmed">BW (30%)</Table.Td>
+                  <Table.Td ta="right">${fmt(groupValue(consultas.report, 'medicas-bw'))}</Table.Td>
+                </Table.Tr>
+              </Table.Tbody>
+            </Table>
+            <Table verticalSpacing="xs" horizontalSpacing="md">
+              <Table.Tbody>
+                <Table.Tr>
+                  <Table.Td>Nutrición — bruto</Table.Td>
+                  <Table.Td ta="right">${fmt(groupValue(consultas.report, 'nutricion-bruto'))}</Table.Td>
+                </Table.Tr>
+                <Table.Tr>
+                  <Table.Td c="dimmed">Nutricionista (50%)</Table.Td>
+                  <Table.Td ta="right">${fmt(groupValue(consultas.report, 'nutricion-nutri'))}</Table.Td>
+                </Table.Tr>
+                <Table.Tr>
+                  <Table.Td c="dimmed">Diego Sívori (20%) · BW (30%)</Table.Td>
+                  <Table.Td ta="right">
+                    ${fmt(groupValue(consultas.report, 'nutricion-sivori'))} · ${fmt(groupValue(consultas.report, 'nutricion-bw'))}
+                  </Table.Td>
+                </Table.Tr>
+              </Table.Tbody>
+            </Table>
+          </SimpleGrid>
+        </Card>
+      )}
+
       <InputsDrawer
         abierto={drawerAbierto}
         onCerrar={() => setDrawerAbierto(false)}
@@ -614,6 +708,15 @@ function InputsDrawer({ abierto, onCerrar, periodo, onGuardado, medplum }: Drawe
               min={0}
             />
           ))}
+
+          <Divider />
+          <Text fw={500} size="sm">
+            Consultas (split, desconectado del P&amp;L)
+          </Text>
+          {num('Consultas médicas — cantidad', form.consultasMedicasCant, (v) => setForm((p) => ({ ...p, consultasMedicasCant: v })))}
+          {num('Consultas médicas — precio (ARS)', form.consultasMedicasPrecio, (v) => setForm((p) => ({ ...p, consultasMedicasPrecio: v })))}
+          {num('Consultas nutrición — cantidad', form.consultasNutricionCant, (v) => setForm((p) => ({ ...p, consultasNutricionCant: v })))}
+          {num('Consultas nutrición — precio (ARS)', form.consultasNutricionPrecio, (v) => setForm((p) => ({ ...p, consultasNutricionPrecio: v })))}
 
           <Button loading={guardando} disabled={loading} onClick={() => void guardar()} mt="sm">
             Guardar inputs
