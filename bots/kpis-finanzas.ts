@@ -7,8 +7,10 @@ import { ChargeItem, Invoice, MeasureReport } from '@medplum/fhirtypes';
  * `ingresos-servicio`, `ingresos-medico`, `ingresos-iv-tb`, `ingresos-cobro`, `cobros`,
  * `margen`, el estado de resultados (Anexo D · Fase 1): `gastos-operativos`,
  * `caja-chica`, `estado-resultados`, membresías (Fase 2): `membresias-socios-plan`,
- * `membresias-mrr`, `combos-vendidos`, y el cierre de caja diario (Fase 3):
- * `resumen-diario`. `ingresos-linea` es el corte por línea comercial
+ * `membresias-mrr`, `combos-vendidos`, el cierre de caja diario (Fase 3):
+ * `resumen-diario`, y el split de consultas (Fase 5): `consultas-split` (médicas
+ * 70/30, nutrición 50/20/30; desconectada del P&L hasta definición de Andrés).
+ * `ingresos-linea` es el corte por línea comercial
  * que desbloquea el P&L; la cascada, los gastos manuales, los socios por plan y los combos
  * salen de la config FHIR (`config-tablero`) y los inputs del mes (`inputs-mes`).
  *
@@ -61,6 +63,7 @@ const SD_INPUTS_JSON = 'https://bio.medplum.com.ar/fhir/StructureDefinition/inpu
 interface ConfigTablero {
   regenerarPct: number;
   honorariosIvtbPct: number;
+  consultasMedicosPct: number;
   cargasSocialesPct: number;
   honorarioConrado: number;
   margenObjetivoPct: number;
@@ -69,6 +72,7 @@ interface ConfigTablero {
 const CONFIG_DEFAULT: ConfigTablero = {
   regenerarPct: 30,
   honorariosIvtbPct: 15,
+  consultasMedicosPct: 70,
   cargasSocialesPct: 27,
   honorarioConrado: 0,
   margenObjetivoPct: 20,
@@ -83,6 +87,10 @@ interface InputsMes {
   cajaChicaEgresos: number;
   sociosPlan: Record<string, number>;
   combosVendidos: Record<string, number>;
+  consultasMedicasCant: number;
+  consultasMedicasPrecio: number;
+  consultasNutricionCant: number;
+  consultasNutricionPrecio: number;
 }
 const INPUTS_DEFAULT: InputsMes = {
   sueldosBrutos: 0,
@@ -92,6 +100,10 @@ const INPUTS_DEFAULT: InputsMes = {
   cajaChicaEgresos: 0,
   sociosPlan: {},
   combosVendidos: {},
+  consultasMedicasCant: 0,
+  consultasMedicasPrecio: 0,
+  consultasNutricionCant: 0,
+  consultasNutricionPrecio: 0,
 };
 
 /** Catálogo de planes y combos (espejo de `src/fhir/systems.ts`). Precio en USD. */
@@ -353,6 +365,20 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
   const totalCombos = gruposCombos.reduce((s, g) => s + g.value, 0);
   const ingresoCombosUsd = COMBOS.reduce((s, cb) => s + (combosVendidos[cb.codigo] ?? 0) * cb.precioUsd, 0);
 
+  // ===== Consultas split (Anexo D · Fase 5) — médicas 70/30, nutrición 50/20/30 =====
+  // DESCONECTADA del P&L: el neto BW de consultas no impacta una línea del estado de
+  // resultados hasta que Andrés defina en cuál (pendiente). Acá se calcula y se reporta.
+  const NUTRI_PCT = 50;
+  const NUTRI_SIVORI_PCT = 20;
+  const medicasBruto = (inputs.consultasMedicasCant || 0) * (inputs.consultasMedicasPrecio || 0);
+  const medicasPayout = Math.round((cfg.consultasMedicosPct / 100) * medicasBruto);
+  const medicasBw = medicasBruto - medicasPayout;
+  const nutricionBruto = (inputs.consultasNutricionCant || 0) * (inputs.consultasNutricionPrecio || 0);
+  const nutricionNutri = Math.round((NUTRI_PCT / 100) * nutricionBruto);
+  const nutricionSivori = Math.round((NUTRI_SIVORI_PCT / 100) * nutricionBruto);
+  const nutricionBw = nutricionBruto - nutricionNutri - nutricionSivori;
+  const netoBwConsultas = medicasBw + nutricionBw;
+
   // ===== Resumen diario (Anexo D · Fase 3) — cierre de caja por día =====
   // Egresos por día: 0 por ahora (sin fuente granular de egresos de caja chica). El saldo
   // efectivo arranca del saldo inicial y acumula los ingresos en efectivo del día.
@@ -447,6 +473,16 @@ export async function handler(medplum: MedplumClient, event: BotEvent<FinanzasIn
       ...gruposCombos,
       { code: 'total', display: 'Total combos', value: totalCombos },
       { code: 'ingreso-usd', display: 'Ingreso combos (USD)', value: ingresoCombosUsd },
+    ]),
+    buildMR('consultas-split', p, [
+      { code: 'medicas-bruto', display: 'Consultas médicas — bruto', value: medicasBruto },
+      { code: 'medicas-payout', display: 'Payout médicos', value: medicasPayout },
+      { code: 'medicas-bw', display: 'BW médicas', value: medicasBw },
+      { code: 'nutricion-bruto', display: 'Consultas nutrición — bruto', value: nutricionBruto },
+      { code: 'nutricion-nutri', display: 'Payout nutricionista', value: nutricionNutri },
+      { code: 'nutricion-sivori', display: 'Payout Diego Sívori', value: nutricionSivori },
+      { code: 'nutricion-bw', display: 'BW nutrición', value: nutricionBw },
+      { code: 'neto-bw-total', display: 'Neto BW total consultas', value: netoBwConsultas },
     ]),
     resumenDiarioMR,
   ];

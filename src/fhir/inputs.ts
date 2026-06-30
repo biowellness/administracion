@@ -38,6 +38,12 @@ export interface InputsMes {
   sociosPlan: Record<string, number>;
   /** Combos vendidos en el mes (clave = código de `COMBOS`). */
   combosVendidos: Record<string, number>;
+  /** Consultas médicas del mes (cantidad y precio ARS) — split 70/30. */
+  consultasMedicasCant: number;
+  consultasMedicasPrecio: number;
+  /** Consultas de nutrición del mes (cantidad y precio ARS) — split 50/20/30. */
+  consultasNutricionCant: number;
+  consultasNutricionPrecio: number;
 }
 
 /** Inputs vacíos para un período (todo en 0). */
@@ -63,6 +69,10 @@ export function inputsDefault(periodo: string): InputsMes {
     cajaChicaEgresos: 0,
     sociosPlan,
     combosVendidos,
+    consultasMedicasCant: 0,
+    consultasMedicasPrecio: 0,
+    consultasNutricionCant: 0,
+    consultasNutricionPrecio: 0,
   };
 }
 

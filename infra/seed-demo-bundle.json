@@ -3847,7 +3847,7 @@
               "coding": [
                 {
                   "code": "medicas-payout",
-                  "display": "Payout médicos (70%)"
+                  "display": "Payout médicos"
                 }
               ]
             },
@@ -3860,7 +3860,7 @@
               "coding": [
                 {
                   "code": "medicas-bw",
-                  "display": "BW (30%)"
+                  "display": "BW médicas"
                 }
               ]
             },
@@ -3878,7 +3878,46 @@
               ]
             },
             "measureScore": {
-              "value": 0
+              "value": 600000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "nutricion-nutri",
+                  "display": "Payout nutricionista"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 300000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "nutricion-sivori",
+                  "display": "Payout Diego Sívori"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 120000
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "nutricion-bw",
+                  "display": "BW nutrición"
+                }
+              ]
+            },
+            "measureScore": {
+              "value": 180000
             }
           },
           {
@@ -3891,7 +3930,7 @@
               ]
             },
             "measureScore": {
-              "value": 600000
+              "value": 780000
             }
           }
         ]
@@ -3930,7 +3969,7 @@
         "extension": [
           {
             "url": "https://bio.medplum.com.ar/fhir/StructureDefinition/inputs-mes-json",
-            "valueString": "{\"periodo\":\"2026-06\",\"sueldosBrutos\":0,\"gastos\":{\"alquiler\":7500000,\"estacionamiento\":1200000,\"electricidad-gas\":2000000,\"internet-software\":30000,\"seguros\":300000,\"mantenimiento\":0,\"marketing\":700000,\"insumos-medicos\":0,\"contaduria-legal\":500000,\"comisiones-mp\":0,\"iibb\":0,\"lavanderia\":0,\"gastos-varios\":0},\"barNeto\":450000,\"cajaChicaSaldoInicial\":0,\"cajaChicaEgresos\":75000,\"sociosPlan\":{\"focus-std\":5,\"focus-int\":0,\"prime-std-ind\":3,\"prime-int-ind\":0,\"prime-std-par\":0,\"prime-int-par\":0,\"healthspan-std-ind\":2,\"healthspan-int-ind\":0,\"healthspan-std-par\":0,\"healthspan-int-par\":0},\"combosVendidos\":{\"bio-energy\":8,\"bio-compress\":0,\"bio-cryo\":0,\"bio-recovery-ind\":5,\"bio-longevity-ind\":3}}"
+            "valueString": "{\"periodo\":\"2026-06\",\"sueldosBrutos\":0,\"gastos\":{\"alquiler\":7500000,\"estacionamiento\":1200000,\"electricidad-gas\":2000000,\"internet-software\":30000,\"seguros\":300000,\"mantenimiento\":0,\"marketing\":700000,\"insumos-medicos\":0,\"contaduria-legal\":500000,\"comisiones-mp\":0,\"iibb\":0,\"lavanderia\":0,\"gastos-varios\":0},\"barNeto\":450000,\"cajaChicaSaldoInicial\":0,\"cajaChicaEgresos\":75000,\"sociosPlan\":{\"focus-std\":5,\"focus-int\":0,\"prime-std-ind\":3,\"prime-int-ind\":0,\"prime-std-par\":0,\"prime-int-par\":0,\"healthspan-std-ind\":2,\"healthspan-int-ind\":0,\"healthspan-std-par\":0,\"healthspan-int-par\":0},\"combosVendidos\":{\"bio-energy\":8,\"bio-compress\":0,\"bio-cryo\":0,\"bio-recovery-ind\":5,\"bio-longevity-ind\":3},\"consultasMedicasCant\":40,\"consultasMedicasPrecio\":50000,\"consultasNutricionCant\":20,\"consultasNutricionPrecio\":30000}"
           }
         ]
       }

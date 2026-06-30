@@ -189,6 +189,15 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
   los totales de cada mes en su columna de la hoja Resumen Anual + las participaciones, deja intactos
   el Dashboard Anual y sus 2 gráficos, y fuerza el recálculo. Verificado: columnas por mes correctas,
   charts byte a byte, totales reconcilian.
+- **Consultas y robustez** (Anexo D · Fase 5): el measure `consultas-split` (médicas 70/30, nutrición
+  50/20/30) se calcula desde los inputs del mes y se muestra en Estado de Resultados, pero queda
+  **desconectado del P&L** hasta que Andrés defina en qué línea impacta el neto BW (pendiente). Las
+  **invariantes de exportación** (`src/lib/invariantes.ts`) corren antes de generar cualquier planilla:
+  si el informe no cuadra (**CA-5** el P&L no cierra, **CA-6** Σ participaciones ≠ 100% / distribución ≠
+  resultado, **CA-10** las formas de pago no suman, reconciliación Σ líneas ≠ ingresos) **no se exporta**
+  y se avisa qué falla. La **suite CA-1..11** (`src/lib/__tests__/ca.test.ts`, `npm test` con vitest)
+  cubre reconciliación, identidades del P&L, saldo acumulado/efectivo, distribución, narrador, cierre→anual
+  y la regla "el template nunca escribe una celda de fórmula".
 - **Clínicos** (pantalla `/clinicos`, solo agregados): Measures **asumidos** `clinico-sin-visita`
   (grupos `30`/`60`/`90`), `clinico-baja-utilizacion` (grupo `miembros`), `clinico-consentimientos`
   (grupos `30`/`60`/`90`). Sin valores de Observation (Ley 26.529/25.326).
@@ -225,6 +234,10 @@ Fuentes (todo vía `MeasureReport`, leído como el resto de la app):
 Los Bots que **producen** los Measures financieros, de servicios y el TC están en `bots/`
 (`kpis-finanzas.ts`, `kpis-servicios.ts`, `tipo-cambio.ts`) — ver `bots/README.md` para contrato y
 deploy. Typecheck local: `npm run typecheck:bots`.
+
+**Calidad / criterios de aceptación:** `npm test` corre la suite CA-1..11 (vitest) sobre la lógica
+pura del tablero (invariantes, consolidación anual, narrador, template). Las invariantes además
+corren en tiempo de export (no se genera una planilla que no cuadre).
 
 ### Cargar el tipo de cambio
 
